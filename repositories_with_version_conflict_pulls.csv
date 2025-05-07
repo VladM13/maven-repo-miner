@@ -1,0 +1,286 @@
+repository,pr_title,pr_url
+hortonworks/streamline,STREAMLINE-521 Fix version conflict for Jersey in Storm runtime,https://github.com/hortonworks/streamline/pull/338
+hortonworks/streamline,PR on top of STREAMLINE-489 and satish registry api changes PR,https://github.com/hortonworks/streamline/pull/308
+google/caliper,Moe Sync,https://github.com/google/caliper/pull/421
+vaadin/flow,chore: Upgrade webdrivermanager and delete node modules properly,https://github.com/vaadin/flow/pull/17379
+vaadin/flow,refactor: Use dnd from npm instead of as a webjar,https://github.com/vaadin/flow/pull/16477
+sepinf-inc/iped,#1029 upgrade to Tika 2,https://github.com/sepinf-inc/IPED/pull/1116
+spring-cloud/spring-cloud-stream,Remove kafka scala dependency management,https://github.com/spring-cloud/spring-cloud-stream/pull/2489
+linagora/james-project,"Revert ""JAMES-2855 Upgrade junit 5 dependencies""",https://github.com/linagora/james-project/pull/2612
+matsim-org/matsim-libs,Contrib dependency management,https://github.com/matsim-org/matsim-libs/pull/1291
+spring-cloud/spring-cloud-dataflow,Fix restdocs generation,https://github.com/spring-cloud/spring-cloud-dataflow/pull/3422
+games647/fastlogin,Added latest Guava and SLF4J compatibility,https://github.com/TuxCoding/FastLogin/pull/659
+apache/shardingsphere-elasticjob,Resolve component version conflict,https://github.com/apache/shardingsphere-elasticjob/pull/707
+jenkinsci/git-changelog-plugin,"Test with Java 21, simplify dependencies",https://github.com/jenkinsci/git-changelog-plugin/pull/86
+skuzzle/restrict-imports-enforcer-rule,Bump guava library to get the fix for java.lang.NoSuchMethodError,https://github.com/skuzzle/restrict-imports-enforcer-rule/pull/37
+lucko/bungeeguard,Support new BungeeCord API,https://github.com/lucko/BungeeGuard/pull/75
+opentracing-contrib/java-specialagent,Do not instrument NoPluggabilityServletContext,https://github.com/opentracing-contrib/java-specialagent/pull/47
+jenkinsci/aws-secrets-manager-credentials-provider-plugin,Bump bom-2.222.x to 16 and aws-java-sdk to 1.11.854,https://github.com/jenkinsci/aws-secrets-manager-credentials-provider-plugin/pull/56
+apache/dubbo-samples,Bump dubbo-samples-springcloud to jdk17 and springboot3.2.3,https://github.com/apache/dubbo-samples/pull/1130
+vanroy/spring-data-jest,Upgrade to latest Jest version 5.3.3,https://github.com/VanRoy/spring-data-jest/pull/56
+wesjd/anvilgui,Fix NoSuchMethodError on latest Spigot builds for Minecraft 1.21,https://github.com/WesJD/AnvilGUI/pull/343
+wesjd/anvilgui,Fix: NoSuchMethodError on 1.19.1,https://github.com/WesJD/AnvilGUI/pull/222
+uscdatascience/sparkler,Felix version conflicts fixed AND option to disable plugins,https://github.com/USCDataScience/sparkler/pull/77
+yegor256/eo,fix(#2668): fix test with child parameters,https://github.com/objectionary/eo/pull/2677
+interestinglab/waterdrop,[hotfix][flink-1.13] fix flink example NPE & NoSuchMethodError,https://github.com/apache/seatunnel/pull/2589
+interestinglab/waterdrop,Feature: add spark sink hbase plugin,https://github.com/apache/seatunnel/pull/592
+weiye-jing/datax-web,fix: servlet conflict with tomcat,https://github.com/WeiYe-Jing/datax-web/pull/287
+seata/seata-samples,fix: fix seata-spring-boot-starter conflict in pom.xml,https://github.com/apache/incubator-seata-samples/pull/680
+seata/seata-samples, fix java.lang.NoSuchMethodError: org.springframework.http.MediaType,https://github.com/apache/incubator-seata-samples/pull/173
+seata/seata-samples, fix java.lang.NoSuchMethodError: org.springframework.http.MediaType,https://github.com/apache/incubator-seata-samples/pull/171
+googlecloudplatform/cloud-spanner-r2dbc,Revert spring-data-r2dbc to 1.4.4 (reverts #539),https://github.com/GoogleCloudPlatform/cloud-spanner-r2dbc/pull/541
+openmessaging/openmessaging-benchmark,Issue 391: Update Pravega library versions and deployment script,https://github.com/openmessaging/benchmark/pull/392
+openmessaging/openmessaging-benchmark,[ISSUE #265]Fix com/fasterxml/jackson/annotation/JsonKey: NoClassDefoundError,https://github.com/openmessaging/benchmark/pull/266
+openidentityplatform/opendj,[#426] ADD maven.compiler.release=8 for cross compile compatibility,https://github.com/OpenIdentityPlatform/OpenDJ/pull/430
+jenkinsci/bitbucket-branch-source-plugin,Fix binary compatibility for PullRequestSCMRevision.getPull,https://github.com/jenkinsci/bitbucket-branch-source-plugin/pull/817
+pgbulkinsert/pgbulkinsert,Remove explicit dependency on checkerframework.,https://github.com/PgBulkInsert/PgBulkInsert/pull/126
+googlecloudplatform/pubsub,Update Kafka version number to avoid NoSuchMethodError when running c…,https://github.com/GoogleCloudPlatform/pubsub/pull/42
+powsybl/powsybl-core,Add logback-core explicit dependency in dependencyManagement,https://github.com/powsybl/powsybl-core/pull/1471
+streamnative/mop,Add jackson dependency to avoid compile issue.,https://github.com/streamnative/mop/pull/1406
+sofastack/sofa-jraft,bugfix: hessian version conflict caused an issue where the serializer could not be customized,https://github.com/sofastack/sofa-jraft/pull/1073
+googlecloudplatform/spring-cloud-gcp,fix: noSuchMethodError in BigQuerySampleApplicationIntegrationTests #3140,https://github.com/GoogleCloudPlatform/spring-cloud-gcp/pull/3146
+microsoft/mssql-jdbc,Java 9 Updates for JDBC4.3 branch only,https://github.com/microsoft/mssql-jdbc/pull/566
+eclipse-ee4j/jersey,Prevent NoSuchMethodError when used MP Rest Client 1.4 API & CDI,https://github.com/eclipse-ee4j/jersey/pull/4835
+census-instrumentation/opencensus-java,Example: Update dependency versions.,https://github.com/census-instrumentation/opencensus-java/pull/1527
+eclipse/hawkbit,use vaadin-version placeholder in case of hard-coded vaadin version,https://github.com/eclipse-hawkbit/hawkbit/pull/158
+inception-project/inception,#1828 - Error in importing projects,https://github.com/inception-project/inception/pull/1835
+oracle/oci-java-sdk,Release version 2.82.0,https://github.com/oracle/oci-java-sdk/pull/672
+openzipkin/zipkin-gcp,Packages new guava in the module as it is later than spring boot,https://github.com/openzipkin/zipkin-gcp/pull/72
+nosqlbench/nosqlbench,Update and align dependencies,https://github.com/nosqlbench/nosqlbench/pull/2082
+nosqlbench/nosqlbench,Update NBS4J version to 4.0.1 ,https://github.com/nosqlbench/nosqlbench/pull/1353
+nosqlbench/nosqlbench,"Revert ""[Snyk] Upgrade org.apache.pulsar:pulsar-client from 2.10.4 to 2.11.1""",https://github.com/nosqlbench/nosqlbench/pull/1284
+nosqlbench/nosqlbench,"Multiple enhancements and minor fixes for NB Pulsar, NB Kafka (S4K), and NB S4J adapters",https://github.com/nosqlbench/nosqlbench/pull/1271
+wavefronthq/wavefront-proxy,Clean up version conflicts and redundant dependencies,https://github.com/wavefrontHQ/wavefront-proxy/pull/75
+jenkinsci/github-checks-plugin,Add support for GitSCM sources,https://github.com/jenkinsci/github-checks-plugin/pull/26
+apache/camel-k-runtime,"Revert ""build(deps): bump logstash-logback-encoder from 7.3 to 7.4""",https://github.com/apache/camel-k-runtime/pull/1053
+googleapis/java-firestore,"fix: revert ""Feat: Record serialization/deserialization""",https://github.com/googleapis/java-firestore/pull/1833
+googleapis/java-bigtable,deps: fix UpperBoundsDep check for checker-qual,https://github.com/googleapis/java-bigtable/pull/941
+googleapis/java-bigtable,chore: ensure that transitive deps have the latest version selected,https://github.com/googleapis/java-bigtable/pull/203
+googleapis/java-bigtable,Add section about gRPC version conflicts to README,https://github.com/googleapis/java-bigtable/pull/53
+finos/legend-engine,Fix snakeyaml version,https://github.com/finos/legend-engine/pull/30
+line/armeria,Test the compatibility with hbase-shaded-client,https://github.com/line/armeria/pull/304
+apache/servicecomb-java-chassis,[SCB-2502]fix jdk version conflict in profile,https://github.com/apache/servicecomb-java-chassis/pull/2870
+openidentityplatform/openam,FIX cargo-maven3-plugin uberwar: java.lang.NoSuchMethodError: void org.codehaus.plexus.util.xml.Xpp3Dom.<init>,https://github.com/OpenIdentityPlatform/OpenAM/pull/633
+elastic/apm-agent-java,Prevent NoSuchMethodErrors on pre Servlet-api 3.0 versions in spring instrumentation.,https://github.com/elastic/apm-agent-java/pull/3172
+elastic/apm-agent-java,Fix NoSuchMethodError in external-plugin-test,https://github.com/elastic/apm-agent-java/pull/1312
+elastic/apm-agent-java,Attachment without tools.jar,https://github.com/elastic/apm-agent-java/pull/791
+consensys/tessera,Bugfix bouncycastle version conflict,https://github.com/Consensys/tessera/pull/736
+apollographql/federation-jvm,"**/pom.xml: Add Maven Enforcer and Dependency plugins, and tidy up build system",https://github.com/apollographql/federation-jvm/pull/123
+azuread/microsoft-authentication-library-for-java,API fixes,https://github.com/AzureAD/microsoft-authentication-library-for-java/pull/828
+microsoft/botbuilder-java,Updated dependencies and resolved most version conflicts,https://github.com/microsoft/botbuilder-java/pull/1018
+powernukkit/powernukkit,Backward compatibility fix with AntiXRay PowerNukkit port.,https://github.com/PowerNukkit/PowerNukkit/pull/1344
+eclipse/sw360,fix(licenseinfo): Exclude old commons-lang3 dependencies,https://github.com/eclipse-sw360/sw360/pull/459
+prebid/prebid-server-java,Fix httpclient dependency,https://github.com/prebid/prebid-server-java/pull/1476
+prebid/prebid-server-java,Fix Jackson dependency in bundle submodule,https://github.com/prebid/prebid-server-java/pull/1459
+citrusframework/yaks,fix[ENTESB-12609]: Spring major version conflicts,https://github.com/citrusframework/yaks/pull/39
+wso2/carbon-identity-framework,Fix version conflicts in secret mgt feature,https://github.com/wso2/carbon-identity-framework/pull/3665
+wso2/carbon-identity-framework,Update framework version,https://github.com/wso2/carbon-identity-framework/pull/1489
+googleapis/java-spanner,fix: use grpc 1.27.2 to prevent version conflicts,https://github.com/googleapis/java-spanner/pull/105
+apache/skywalking,Add an agent plugin to support elasticsearch7 ,https://github.com/apache/skywalking/pull/6759
+thingsboard/thingsboard,[3.3.1] Mqtt transport handler test with cleanup old netty versions,https://github.com/thingsboard/thingsboard/pull/5027
+alibaba/nacos,"[ISSUE #7698] refactor: remove httpasyncclient version dependency management,  avoid version conflicts",https://github.com/alibaba/nacos/pull/10170
+alibaba/nacos,Upgrade to 1.3.2,https://github.com/alibaba/nacos/pull/3519
+janusgraph/janusgraph,Fix snakeyaml NoSuchMethodError in remote console,https://github.com/JanusGraph/janusgraph/pull/3764
+apache/incubator-dolphinscheduler,[Fix-14512][BOM] kubernetes-client version conflict,https://github.com/apache/dolphinscheduler/pull/14561
+openapitools/openapi-generator,[online] Fix for version conflicts with springfox/boot,https://github.com/OpenAPITools/openapi-generator/pull/7102
+openapitools/openapi-generator,java-springcloud: No dependency management if parent overridden,https://github.com/OpenAPITools/openapi-generator/pull/3301
+openapitools/openapi-generator,[CLI] Fix help command,https://github.com/OpenAPITools/openapi-generator/pull/1279
+openapitools/openapi-generator,[Java][RESTEasy] Fix version incompatibility,https://github.com/OpenAPITools/openapi-generator/pull/594
+apache/pulsar,[fix] Upgrade Vertx to match BK's version (otherwise BK does not work),https://github.com/apache/pulsar/pull/20070
+apache/pulsar,[branch-2.7] Upgrade the BookKeeper version to 4.12.1,https://github.com/apache/pulsar/pull/16775
+apache/pulsar,"Revert ""Upgrade Rocksdb to 6.29.4.1 (#14886)""",https://github.com/apache/pulsar/pull/14962
+apache/pulsar,Fix java.lang.NoSuchMethodError: java.nio.ByteBuffer.position(I)Ljava/nio/ByteBuffer when enabling topic metadata compression,https://github.com/apache/pulsar/pull/11594
+apache/pulsar,[Build] Specify release in maven-compiler-plugin configuration on JDK11,https://github.com/apache/pulsar/pull/10343
+apache/pulsar,Include pulsar-client-admin-api in the shaded version of pulsar-client-admin,https://github.com/apache/pulsar/pull/9689
+apache/pulsar,Update gson version to 2.8.6,https://github.com/apache/pulsar/pull/8601
+apache/pulsar,Update ZooKeeper to 3.6.2 and Curator to 5.1.0,https://github.com/apache/pulsar/pull/8590
+apache/pulsar,Rollback protobuf version to 3.5.1,https://github.com/apache/pulsar/pull/8014
+apache/pulsar,fix #6834:  add pulsar-client-messagecrypto-bc into pulsar-client dependency to avoid method not found,https://github.com/apache/pulsar/pull/7447
+apache/pulsar,fix dependency issue with pulsar-io-common,https://github.com/apache/pulsar/pull/4398
+apache/pulsar,[client] Make dependency from client side auth plugins to pulsar-client-original optional,https://github.com/apache/pulsar/pull/3957
+apache/pulsar,moving pulsar storm tests under tests,https://github.com/apache/pulsar/pull/3000
+apache/pulsar,Broke Pulsar-IO::HDFS into 3.x and 2.x versions,https://github.com/apache/pulsar/pull/2966
+apache/pulsar,[tiered storage] Pulsar standalone hangs when s3 offloader is enabled,https://github.com/apache/pulsar/pull/2374
+apache/pulsar,[tiered storage] move offloader implementation to a separate module,https://github.com/apache/pulsar/pull/2371
+apache/pulsar,Fix grpc version conflicts in pulsar binary distribution,https://github.com/apache/pulsar/pull/1846
+apache/pulsar,Fix: split-package conflict while server startup,https://github.com/apache/pulsar/pull/122
+apache/iotdb,[IOTDB-5772] spark-iotdb-connnector: support scala 2.11 & 2.12 and resolve the Thrift version conflict with Spark's,https://github.com/apache/iotdb/pull/9788
+apache/iotdb,[IOTDB-336]declare that the release version of JDK is 8,https://github.com/apache/iotdb/pull/617
+googlecloudplatform/getting-started-java,fix(deps): update dependency org.jetbrains.kotlin:kotlin-stdlib to v1.6.0 [security],https://github.com/GoogleCloudPlatform/getting-started-java/pull/1200
+googlecloudplatform/getting-started-java,fix(deps): update dependency org.springframework.boot:spring-boot-starter-web to v2.6.5,https://github.com/GoogleCloudPlatform/getting-started-java/pull/1156
+googlecloudplatform/getting-started-java,chore(deps): update kotlin packages to v1.5.10,https://github.com/GoogleCloudPlatform/getting-started-java/pull/968
+googlecloudplatform/getting-started-java,chore(deps): update kotlin packages to v1.4.30,https://github.com/GoogleCloudPlatform/getting-started-java/pull/882
+googlecloudplatform/getting-started-java,Update dependency org.springframework.boot:spring-boot-starter-web to v2.3.1.RELEASE,https://github.com/GoogleCloudPlatform/getting-started-java/pull/684
+googlecloudplatform/getting-started-java,Update Kotlin packages to v1.3.71,https://github.com/GoogleCloudPlatform/getting-started-java/pull/625
+googlecloudplatform/getting-started-java,Update spring boot to v2.2.4.RELEASE,https://github.com/GoogleCloudPlatform/getting-started-java/pull/556
+googlecloudplatform/getting-started-java,Update dependency org.jetbrains.kotlin:kotlin-stdlib-jdk8 to v1.3.60,https://github.com/GoogleCloudPlatform/getting-started-java/pull/494
+googlecloudplatform/getting-started-java,Update dependency org.jetbrains.kotlin:kotlin-stdlib to v1.3.60,https://github.com/GoogleCloudPlatform/getting-started-java/pull/493
+googlecloudplatform/getting-started-java,Update dependency org.jetbrains.kotlin:kotlin-reflect to v1.3.60,https://github.com/GoogleCloudPlatform/getting-started-java/pull/492
+googlecloudplatform/getting-started-java,Update dependency org.jetbrains.kotlin:kotlin-stdlib-jdk8 to v1.3.50,https://github.com/GoogleCloudPlatform/getting-started-java/pull/471
+googlecloudplatform/getting-started-java,Update dependency org.jetbrains.kotlin:kotlin-stdlib to v1.3.50,https://github.com/GoogleCloudPlatform/getting-started-java/pull/470
+googlecloudplatform/getting-started-java,Update dependency org.jetbrains.kotlin:kotlin-reflect to v1.3.50,https://github.com/GoogleCloudPlatform/getting-started-java/pull/469
+syndesisio/syndesis,fix: revert `google-api-services-gmail` upgrade,https://github.com/syndesisio/syndesis/pull/7282
+sap/cloud-security-xsuaa-integration,Update json troubleshooting,https://github.com/SAP/cloud-security-services-integration-library/pull/302
+streamnative/kop,Exclude grpc package from pulsar-broker,https://github.com/streamnative/kop/pull/1253
+streamnative/kop,upgrade pulsar dependency to 2.8.0-rc-202105251229,https://github.com/streamnative/kop/pull/528
+hotelsdotcom/circus-train,"Guava version conflicts, managed dependencies for Google Cloud",https://github.com/ExpediaGroup/circus-train/pull/39
+alfresco/alfresco-community-repo,"Revert ""Bump dependency.log4j.version from 2.23.1 to 2.24.2""",https://github.com/Alfresco/alfresco-community-repo/pull/3063
+geysermc/geyser,Relocate Google Common,https://github.com/GeyserMC/Geyser/pull/1242
+googlecloudplatform/dataflowtemplates,Fix a few dependency conflicts,https://github.com/GoogleCloudPlatform/DataflowTemplates/pull/1838
+googlecloudplatform/dataflowtemplates,updated proto-java to 3.21.9 to resolve conflicts,https://github.com/GoogleCloudPlatform/DataflowTemplates/pull/580
+stargate/stargate,"SGv2: exclude old validation api, update to latest DropWizard",https://github.com/stargate/stargate/pull/1493
+stargate/stargate,Remove use of unshaded guava (fix #1229),https://github.com/stargate/stargate/pull/1253
+confluentinc/ksql,fix: Upgrade netty to 4.1.89.Final,https://github.com/confluentinc/ksql/pull/10033
+confluentinc/ksql,Upgrade netty to 4.1.87.Final,https://github.com/confluentinc/ksql/pull/9904
+confluentinc/ksql,chore: bump protobuf version to 3.17.0,https://github.com/confluentinc/ksql/pull/7711
+googleapis/java-spanner-jdbc,deps: update dependency org.postgresql:postgresql to v42.7.3,https://github.com/googleapis/java-spanner-jdbc/pull/1532
+googleapis/java-spanner-jdbc,deps: update dependency org.postgresql:postgresql to v42.7.1,https://github.com/googleapis/java-spanner-jdbc/pull/1441
+googleapis/java-spanner-jdbc,deps: update dependency org.springframework.boot:spring-boot-starter-parent to v3.2.2,https://github.com/googleapis/java-spanner-jdbc/pull/1425
+googleapis/java-spanner-jdbc,deps: update dependency org.springframework.boot:spring-boot-starter-data-jdbc to v3.2.2,https://github.com/googleapis/java-spanner-jdbc/pull/1424
+googleapis/java-spanner-jdbc,deps: update spanner.version to v1.52.0,https://github.com/googleapis/java-spanner-jdbc/pull/95
+apache/camel-quarkus,"Fix XSLT extension NoSuchMethodError: TransformerFactory.newInstance(String,ClassLoader)",https://github.com/apache/camel-quarkus/pull/736
+prestosql/presto,Move FailureRecovery tests to plugin modules,https://github.com/trinodb/trino/pull/15497
+prestosql/presto,Introduce IcebergFileWriter and collect file stats directly from ORC writers,https://github.com/trinodb/trino/pull/4055
+googleapis/java-storage,build: switch to using junit 5 bom,https://github.com/googleapis/java-storage/pull/2680
+apache/beam,[BEAM-3668] Quick workaround fix for netty conflict waiting better fix by BEAM-3519,https://github.com/apache/beam/pull/4653
+quarkusio/quarkus,"Bump kotlin to 1.5.30, coroutines to 1.5.1, dokka to 1.5.0",https://github.com/quarkusio/quarkus/pull/19632
+quarkusio/quarkus,Added org.bouncycastle:bcpkix-jdk15on to bom,https://github.com/quarkusio/quarkus/pull/14025
+quarkusio/quarkus,fix: version conflict for http-nio.,https://github.com/quarkusio/quarkus/pull/7393
+apache/shardingsphere,Fix netty multi version conflict problem,https://github.com/apache/shardingsphere/pull/7299
+bastian/bstats-metrics,Make Bukkit getOnlinePlayer method calls return type-safe,https://github.com/Bastian/bstats-metrics/pull/3
+aws-greengrass/aws-greengrass-nucleus,fix: Catch NoSuchMethodError in ALPN implementation for old JDK8 versions,https://github.com/aws-greengrass/aws-greengrass-nucleus/pull/815
+ververica/flink-cdc-connectors,[FLINK-36858][pipeline-connector][kafka] Fix compatibility with Flink 1.20 JsonRowDataSerializationSchema,https://github.com/apache/flink-cdc/pull/3784
+ververica/flink-cdc-connectors,[oceanbase] shade apache commons package,https://github.com/apache/flink-cdc/pull/1532
+streamnative/aop,Exclude grpc-related packages from pulsar-broker,https://github.com/streamnative/aop/pull/520
+apache/datasketches-java,Fix compiler release setting,https://github.com/apache/datasketches-java/pull/409
+games647/changeskin,Added latest Guava and SLF4J versions compatibility,https://github.com/TuxCoding/ChangeSkin/pull/238
+cqfn/eo,fix(#2668): fix test with child parameters,https://github.com/objectionary/eo/pull/2677
+googlecloudplatform/fda-mystudies,[v2.0.6] Fixed issue [Mobile] Studies are not displaying in Study list screen in mobile #3609,https://github.com/GoogleCloudPlatform/fda-mystudies/pull/3610
+googlecloudplatform/google-cloud-spanner-hibernate,chore(deps): update spring boot to v3.2.5,https://github.com/GoogleCloudPlatform/google-cloud-spanner-hibernate/pull/1065
+trinodb/trino,Move FailureRecovery tests to plugin modules,https://github.com/trinodb/trino/pull/15497
+trinodb/trino,Introduce IcebergFileWriter and collect file stats directly from ORC writers,https://github.com/trinodb/trino/pull/4055
+apache/incubator-doris,[Fix](ranger)Resolving JSR 311 conflicts (#37575),https://github.com/apache/doris/pull/38109
+apache/incubator-doris,[Fix](ranger)Resolving JSR 311 conflicts,https://github.com/apache/doris/pull/37575
+apache/incubator-doris,[bug](compile) fix fe compile error,https://github.com/apache/doris/pull/19946
+apache/incubator-doris,[Bug](web) fix web of frontend meet error,https://github.com/apache/doris/pull/19279
+apache/incubator-doris,[Fix](fe)Upgrade hive-catalog-shade version to 1.0.3,https://github.com/apache/doris/pull/18690
+apache/incubator-doris,[fix][chore](insert)(fe) Fix analysis error of insert stmt and modify grpc-netty dependency,https://github.com/apache/doris/pull/8265
+openrewrite/rewrite-maven-plugin,Add `rewrite-bom` BOM dependency,https://github.com/openrewrite/rewrite-maven-plugin/pull/592
+googlecloudplatform/google-cloud-eclipse,Change Java 8 support to use separate App Engine Standard facet versions,https://github.com/GoogleCloudPlatform/google-cloud-eclipse/pull/2079
+pinterest/teletraan,Teletraan dependency clean up,https://github.com/pinterest/teletraan/pull/1526
+pinterest/teletraan,fix the jackson library conflict,https://github.com/pinterest/teletraan/pull/621
+awslabs/emr-dynamodb-connector,Remove shading and relocation for AWS SDKv2 dependencies,https://github.com/awslabs/emr-dynamodb-connector/pull/218
+awslabs/emr-dynamodb-connector,Remove shading and relocation for AWS SDKv2 dependencies,https://github.com/awslabs/emr-dynamodb-connector/pull/217
+awslabs/emr-dynamodb-connector,Remove shading and relocation for AWS SDKv2 dependencies,https://github.com/awslabs/emr-dynamodb-connector/pull/216
+awslabs/emr-dynamodb-connector,Remove shading and relocation for AWS SDKv2 dependencies,https://github.com/awslabs/emr-dynamodb-connector/pull/214
+awslabs/emr-dynamodb-connector,Remove shading and relocation for AWS SDKv2 dependencies,https://github.com/awslabs/emr-dynamodb-connector/pull/213
+awslabs/emr-dynamodb-connector,Remove relocation for AWS SDKv2 dependencies,https://github.com/awslabs/emr-dynamodb-connector/pull/212
+quarkiverse/quarkus-logging-manager,Attempting to Resolve NoSuchMethodError in Quarkus 3.1.0.Final,https://github.com/quarkiverse/quarkus-logging-manager/pull/199
+jenkinsci/opentelemetry-plugin,Use the Jenkins okhttp-api plugin as a dependency to pull OKHTTP preventing version conflicts,https://github.com/jenkinsci/opentelemetry-plugin/pull/293
+webankfintech/linkis,Dispose of sqoop engine startup failure due to dependency library conflict,https://github.com/apache/linkis/pull/2356
+webankfintech/linkis,use spring-boot-starter-jetty,https://github.com/apache/linkis/pull/1660
+sap/olingo-jpa-processor-v4,chore(deps): Update dependencies,https://github.com/SAP/olingo-jpa-processor-v4/pull/243
+jenkinsci/pipeline-graph-view-plugin,Use ionicons-api version provided by bom,https://github.com/jenkinsci/pipeline-graph-view-plugin/pull/193
+apache/incubator-inlong,[INLONG-10318][Agent] Add PostgreSQL data source for Agent,https://github.com/apache/inlong/pull/10320
+apache/dolphinscheduler,[Fix-14512][BOM] kubernetes-client version conflict,https://github.com/apache/dolphinscheduler/pull/14561
+googlecloudplatform/cloud-build-samples,fix(deps): update spring boot to v3.0.5,https://github.com/GoogleCloudPlatform/cloud-build-samples/pull/203
+googlecloudplatform/cloud-build-samples,Update spring boot to v2.6.6,https://github.com/GoogleCloudPlatform/cloud-build-samples/pull/81
+tencent/spring-cloud-tencent,fix not load application.yml bug & fix guava version conflict bug,https://github.com/Tencent/spring-cloud-tencent/pull/289
+tencent/spring-cloud-tencent,fix not load application.yml bug & fix guava version conflict bug,https://github.com/Tencent/spring-cloud-tencent/pull/287
+tencent/spring-cloud-tencent,fix not load application.yml bug & fix guava version conflict bug,https://github.com/Tencent/spring-cloud-tencent/pull/286
+tencent/spring-cloud-tencent,fix not load application.yml bug & fix guava version conflict bug,https://github.com/Tencent/spring-cloud-tencent/pull/284
+tencent/spring-cloud-tencent,fix guava version conflict bug & fix router strong dependency on Load…,https://github.com/Tencent/spring-cloud-tencent/pull/236
+expediagroup/circus-train,"Guava version conflicts, managed dependencies for Google Cloud",https://github.com/ExpediaGroup/circus-train/pull/39
+slackhq/kaldb,Bump Armeria version,https://github.com/slackhq/astra/pull/333
+slackhq/kaldb,Bump error prone version,https://github.com/slackhq/astra/pull/228
+openshift/jenkins-plugin,workaround okhttp3 version conflicts between plugins,https://github.com/openshift/jenkins-plugin/pull/148
+confluentinc/examples,DEVX-2580: Bump Avro version from 1.9.1 to 1.10.1; extend timeout to …,https://github.com/confluentinc/examples/pull/999
+eclipse/windowbuilder,Use Require-Bundle header for Draw2D/GEF to specifiy lower bounds,https://github.com/eclipse-windowbuilder/windowbuilder/pull/762
+openmessaging/benchmark,Issue 391: Update Pravega library versions and deployment script,https://github.com/openmessaging/benchmark/pull/392
+openmessaging/benchmark,[ISSUE #265]Fix com/fasterxml/jackson/annotation/JsonKey: NoClassDefoundError,https://github.com/openmessaging/benchmark/pull/266
+apache/incubator-linkis,Dispose of sqoop engine startup failure due to dependency library conflict,https://github.com/apache/linkis/pull/2356
+apache/incubator-linkis,use spring-boot-starter-jetty,https://github.com/apache/linkis/pull/1660
+interestinglab/earth-fleet,[hotfix][flink-1.13] fix flink example NPE & NoSuchMethodError,https://github.com/apache/seatunnel/pull/2589
+interestinglab/earth-fleet,Feature: add spark sink hbase plugin,https://github.com/apache/seatunnel/pull/592
+interestinglab/seatunnel,[hotfix][flink-1.13] fix flink example NPE & NoSuchMethodError,https://github.com/apache/seatunnel/pull/2589
+interestinglab/seatunnel,Feature: add spark sink hbase plugin,https://github.com/apache/seatunnel/pull/592
+mytourbook/mytourbook,20.8 Misc changes,https://github.com/mytourbook/mytourbook/pull/208
+googlecloudplatform/appengine-java-standard,Update all non-major dependencies,https://github.com/GoogleCloudPlatform/appengine-java-standard/pull/349
+googlecloudplatform/appengine-java-standard,Update spring boot to v2.7.18,https://github.com/GoogleCloudPlatform/appengine-java-standard/pull/147
+potatocraft-studio/quickshop-reremake,Merge back to master,https://github.com/PotatoCraft-Studio/QuickShop-Reremake/pull/136
+apache/hop,included stax2 in lib/core to fix NoSuchMethodError in StAX transform…,https://github.com/apache/hop/pull/4606
+vaadin/hilla,chore: upgrade flow to fix atmosphere runtime convergence,https://github.com/vaadin/hilla/pull/2640
+apache/incubator-seatunnel,[hotfix][flink-1.13] fix flink example NPE & NoSuchMethodError,https://github.com/apache/seatunnel/pull/2589
+apache/incubator-seatunnel,Feature: add spark sink hbase plugin,https://github.com/apache/seatunnel/pull/592
+dtstack/chunjun,add oceanbasecdc connector,https://github.com/DTStack/chunjun/pull/1167
+googlecloudplatform/pgadapter,deps: update dependency org.springframework.boot:spring-boot-starter-parent to v3.2.5,https://github.com/GoogleCloudPlatform/pgadapter/pull/1841
+googlecloudplatform/pgadapter,deps: update dependency org.postgresql:postgresql to v42.7.3,https://github.com/GoogleCloudPlatform/pgadapter/pull/1839
+googlecloudplatform/pgadapter,deps: update spring-boot.version to v3 (major),https://github.com/GoogleCloudPlatform/pgadapter/pull/1711
+googlecloudplatform/pgadapter,deps: update spring-boot.version to v2.7.18,https://github.com/GoogleCloudPlatform/pgadapter/pull/1654
+googlecloudplatform/pgadapter,deps: update dependency org.postgresql:postgresql to v42.7.3,https://github.com/GoogleCloudPlatform/pgadapter/pull/1648
+googlecloudplatform/pgadapter,deps: update spring-boot.version to v2.7.16,https://github.com/GoogleCloudPlatform/pgadapter/pull/1098
+apache/rocketmq-mqtt,Delete logback1.2.3 version conflict,https://github.com/apache/rocketmq-mqtt/pull/227
+apache/incubator-hugegraph,fix(pd): log4j version conflict & follower NPE,https://github.com/apache/incubator-hugegraph/pull/2339
+starrocks/starrocks-connector-for-apache-flink,Fix shade jackson,https://github.com/StarRocks/starrocks-connector-for-apache-flink/pull/163
+objectionary/eo,fix(#2668): fix test with child parameters,https://github.com/objectionary/eo/pull/2677
+apache/incubator-uniffle,[#1567] fix(spark): Let Spark use its own NettyUtils,https://github.com/apache/uniffle/pull/1565
+paladincloud/ce,chore:Upgraded aws-java-sdk version in commons,https://github.com/PaladinCloud/CE/pull/341
+arextest/arex-agent-java,fix: range version conflict,https://github.com/arextest/arex-agent-java/pull/442
+netease/arctic,[AMORO-2560]Filformat ORC support roll new file for mixed_format,https://github.com/apache/amoro/pull/2561
+netease/arctic,"[optimizer]For flinkcontainer optimizer, When making a connection via ams in high availability mode, NoSuchMethodError is encountered",https://github.com/apache/amoro/pull/1612
+apache/inlong,[INLONG-10318][Agent] Add PostgreSQL data source for Agent,https://github.com/apache/inlong/pull/10320
+picnicsupermarket/error-prone-support,Upgrade Micrometer 1.13.6 -> 1.14.0,https://github.com/PicnicSupermarket/error-prone-support/pull/1415
+picnicsupermarket/error-prone-support,Upgrade Spring Boot 2.7.17 -> 2.7.18,https://github.com/PicnicSupermarket/error-prone-support/pull/895
+picnicsupermarket/error-prone-support,Upgrade Spring Boot 2.7.13 -> 2.7.14,https://github.com/PicnicSupermarket/error-prone-support/pull/726
+picnicsupermarket/error-prone-support,Upgrade Spring Boot 2.7.18 -> 3.2.2,https://github.com/PicnicSupermarket/error-prone-support/pull/680
+picnicsupermarket/error-prone-support,Upgrade Spring Boot 2.7.9 -> 2.7.10,https://github.com/PicnicSupermarket/error-prone-support/pull/549
+picnicsupermarket/error-prone-support,Upgrade Spring Boot 2.5.6 -> 2.5.14,https://github.com/PicnicSupermarket/error-prone-support/pull/134
+picnicsupermarket/error-prone-support,Upgrade Spring Boot 2.5.14 -> 2.7.1,https://github.com/PicnicSupermarket/error-prone-support/pull/81
+apache/doris,[Fix](ranger)Resolving JSR 311 conflicts (#37575),https://github.com/apache/doris/pull/38109
+apache/doris,[Fix](ranger)Resolving JSR 311 conflicts,https://github.com/apache/doris/pull/37575
+apache/doris,[bug](compile) fix fe compile error,https://github.com/apache/doris/pull/19946
+apache/doris,[Bug](web) fix web of frontend meet error,https://github.com/apache/doris/pull/19279
+apache/doris,[Fix](fe)Upgrade hive-catalog-shade version to 1.0.3,https://github.com/apache/doris/pull/18690
+apache/doris,[fix][chore](insert)(fe) Fix analysis error of insert stmt and modify grpc-netty dependency,https://github.com/apache/doris/pull/8265
+open-feature/java-sdk,fix(deps): Spot bug scope change,https://github.com/open-feature/java-sdk/pull/173
+alldatacenter/alldata,修复 #587 问题 版本,https://github.com/alldatacenter/alldata/pull/595
+googlecloudplatform/cloud-code-samples,fix(deps): update dependency org.springframework.boot:spring-boot-starter-parent to v2.7.18,https://github.com/GoogleCloudPlatform/cloud-code-samples/pull/1314
+googlecloudplatform/cloud-code-samples,fix(deps): update dependency org.springframework.boot:spring-boot-starter-parent to v2.7.15,https://github.com/GoogleCloudPlatform/cloud-code-samples/pull/1272
+googlecloudplatform/cloud-code-samples,fix(deps): update dependency org.springframework.boot:spring-boot-starter-parent to v2.6.6,https://github.com/GoogleCloudPlatform/cloud-code-samples/pull/993
+googlecloudplatform/cloud-code-samples,chore(deps): update dependency org.springframework.boot:spring-boot-starter-parent to v2.5.2,https://github.com/GoogleCloudPlatform/cloud-code-samples/pull/748
+googlecloudplatform/cloud-code-samples,Update dependency org.springframework.boot:spring-boot-starter-parent to v2.3.1.RELEASE,https://github.com/GoogleCloudPlatform/cloud-code-samples/pull/349
+googlecloudplatform/cloud-code-samples,Update dependency org.springframework.boot:spring-boot-starter-parent to v2.3.0.RELEASE,https://github.com/GoogleCloudPlatform/cloud-code-samples/pull/323
+sap/cloud-security-services-integration-library,Update json troubleshooting,https://github.com/SAP/cloud-security-services-integration-library/pull/302
+eclipse-sw360/sw360,fix(licenseinfo): Exclude old commons-lang3 dependencies,https://github.com/eclipse-sw360/sw360/pull/459
+apache/linkis,Dispose of sqoop engine startup failure due to dependency library conflict,https://github.com/apache/linkis/pull/2356
+apache/linkis,use spring-boot-starter-jetty,https://github.com/apache/linkis/pull/1660
+eclipse-windowbuilder/windowbuilder,Use Require-Bundle header for Draw2D/GEF to specifiy lower bounds,https://github.com/eclipse-windowbuilder/windowbuilder/pull/762
+langchain4j/langchain4j,refactor-poms,https://github.com/langchain4j/langchain4j/pull/2723
+langchain4j/langchain4j,re #1506 Enable Maven enforcer plugin and fix dependency conflict introduced by `okhttp` dependency in 19 modules.,https://github.com/langchain4j/langchain4j/pull/1645
+langchain4j/langchain4j,re #1506 Enabling Maven (version) enforcer plugin in `LangChain4j :: Integration :: OpenAI` module.,https://github.com/langchain4j/langchain4j/pull/1508
+langchain4j/langchain4j,re #1506 Enabling Maven (version) enforcer plugin in modules with no version conflicts,https://github.com/langchain4j/langchain4j/pull/1507
+NetEase/amoro,[AMORO-2560]Filformat ORC support roll new file for mixed_format,https://github.com/apache/amoro/pull/2561
+NetEase/amoro,"[optimizer]For flinkcontainer optimizer, When making a connection via ams in high availability mode, NoSuchMethodError is encountered",https://github.com/apache/amoro/pull/1612
+apache/incubator-paimon,[test] Exclude orc dependency to avoid test fails in IDEA,https://github.com/apache/paimon/pull/3588
+apache/seatunnel,[hotfix][flink-1.13] fix flink example NPE & NoSuchMethodError,https://github.com/apache/seatunnel/pull/2589
+apache/seatunnel,Feature: add spark sink hbase plugin,https://github.com/apache/seatunnel/pull/592
+StarRocks/starrocks,[BugFix] downgrade jetty to 9.x for hadoop-azure,https://github.com/StarRocks/starrocks/pull/57898
+StarRocks/starrocks,[Enhancement] Support Iceberg rest catalog with vended credential disabled,https://github.com/StarRocks/starrocks/pull/49141
+apache/incubator-kie-kogito-apps,KOGITO-5258 Share OUIA tools across kogito-apps ui-packages,https://github.com/apache/incubator-kie-kogito-apps/pull/865
+apache/incubator-seata-samples,fix: fix seata-spring-boot-starter conflict in pom.xml,https://github.com/apache/incubator-seata-samples/pull/680
+apache/incubator-seata-samples, fix java.lang.NoSuchMethodError: org.springframework.http.MediaType,https://github.com/apache/incubator-seata-samples/pull/173
+apache/incubator-seata-samples, fix java.lang.NoSuchMethodError: org.springframework.http.MediaType,https://github.com/apache/incubator-seata-samples/pull/171
+slackhq/astra,Bump Armeria version,https://github.com/slackhq/astra/pull/333
+slackhq/astra,Bump error prone version,https://github.com/slackhq/astra/pull/228
+apache/flink-cdc,[FLINK-36858][pipeline-connector][kafka] Fix compatibility with Flink 1.20 JsonRowDataSerializationSchema,https://github.com/apache/flink-cdc/pull/3784
+apache/flink-cdc,[oceanbase] shade apache commons package,https://github.com/apache/flink-cdc/pull/1532
+apache/incubator-amoro,[AMORO-2560]Filformat ORC support roll new file for mixed_format,https://github.com/apache/amoro/pull/2561
+apache/incubator-amoro,"[optimizer]For flinkcontainer optimizer, When making a connection via ams in high availability mode, NoSuchMethodError is encountered",https://github.com/apache/amoro/pull/1612
+apache/amoro,[AMORO-2560]Filformat ORC support roll new file for mixed_format,https://github.com/apache/amoro/pull/2561
+apache/amoro,"[optimizer]For flinkcontainer optimizer, When making a connection via ams in high availability mode, NoSuchMethodError is encountered",https://github.com/apache/amoro/pull/1612
+apache/paimon,[test] Exclude orc dependency to avoid test fails in IDEA,https://github.com/apache/paimon/pull/3588
+eclipse-hawkbit/hawkbit,use vaadin-version placeholder in case of hard-coded vaadin version,https://github.com/eclipse-hawkbit/hawkbit/pull/158
+apache/uniffle,[#1567] fix(spark): Let Spark use its own NettyUtils,https://github.com/apache/uniffle/pull/1565
+TuxCoding/FastLogin,Added latest Guava and SLF4J compatibility,https://github.com/TuxCoding/FastLogin/pull/659
+hiero-ledger/hiero-mirror-node,Fix NoSuchMethodError during hcs-perf-subscribe-test ,https://github.com/hiero-ledger/hiero-mirror-node/pull/1252
+hiero-ledger/hiero-mirror-node,Fix NoSuchMethodError parsing HCS transactions,https://github.com/hiero-ledger/hiero-mirror-node/pull/460
