@@ -1,12 +1,17 @@
 import os
+import time
+
+import numpy as np
 import pandas as pd
 import requests
 from datetime import datetime
 
+from tqdm import tqdm
+
 # In the run configuration, you need to set the GITHUB_TOKEN environment variable to your GitHub Personal Access Token
 GITHUB_TOKEN = os.getenv('GITHUB_TOKEN')
 INPUT_CSV = 'rq1_repositories_with_version_conflict_pulls.csv'
-OUTPUT_CSV = 'new_rq1_repositories_with_version_conflict_pulls.csv'
+OUTPUT_CSV = 'result_rq1_repositories_with_version_conflict_pulls.csv'
 
 HEADERS = {
     'Authorization': f'Bearer {GITHUB_TOKEN}',
@@ -26,11 +31,14 @@ def get_pr_data(repo_full_name, pr_number):
     return response.json()
 
 
-def get_pr_reviews_count(repo_full_name, pr_number):
+def get_pr_reviews_count(repo_full_name, pr_number, headers=None):
     """Fetch the number of non-empty reviews for a pull request."""
 
+    if headers is None:
+        headers = HEADERS
+
     url = f"https://api.github.com/repos/{repo_full_name}/pulls/{pr_number}/reviews"
-    response = requests.get(url, headers=HEADERS)
+    response = requests.get(url, headers)
     if response.status_code != 200:
         print(f"Failed to fetch PR data for {repo_full_name}#{pr_number}: {response.status_code} - {response.text}")
         return None
@@ -57,25 +65,16 @@ def get_issue_date(issue_html_url):
         print(f"Failed to fetch issue data for {repo_full_name}#{issue_number}: {response.status_code} - {response.text}")
         return None
 
-    issue_data = response.json()
-    return issue_data.get('created_at')
+    return response.json().get('created_at')
 
 
 def main():
     df = pd.read_csv(INPUT_CSV)
 
-    for index, row in df.iterrows():
+    for index, row in tqdm(df.iterrows()):
         pr_url = row['pr_url']
         pr_number = pr_url.split("/")[-1]
         repo_full_name = row['repository']
-
-        # merged_at = row['resolved_at']
-        # detected_at = row['detected_at']
-        #
-        # if pd.notna(detected_at):
-        #     merged_at_dt = datetime.strptime(merged_at, "%Y-%m-%dT%H:%M:%SZ")
-        #     detected_at_dt = datetime.strptime(detected_at, "%Y-%m-%dT%H:%M:%SZ")
-        #     df.at[index, 'time_from_detection_to_resolution2'] = (merged_at_dt - detected_at_dt).total_seconds() / 3600  # in hours
 
         try:
             pr_data = get_pr_data(repo_full_name, pr_number)
@@ -93,12 +92,19 @@ def main():
                     created_at = datetime.strptime(pr_data['created_at'], "%Y-%m-%dT%H:%M:%SZ")
                     df.at[index, 'time_to_merge'] = (resolved_at_dt - created_at).total_seconds() / 3600  # in hours
 
+                    detected_at = pd.NA
                     if pd.notna(row['linked_issue']):
+                        # Detected_at is the date of the linked issue
                         detected_at = get_issue_date(row['linked_issue'])
                         df.at[index, 'detected_at'] = detected_at
+                    elif pd.notna(row['detected_at']):
+                        # Detected_at was added manually
+                        detected_at = row['detected_at']
 
+                    if pd.notna(detected_at):
                         detected_at_dt = datetime.strptime(detected_at, "%Y-%m-%dT%H:%M:%SZ")
-                        df.at[index, 'time_from_detection_to_resolution'] = (resolved_at_dt - detected_at_dt).total_seconds() / 3600  # in hours
+                        df.at[index, 'time_from_detection_to_resolution2'] = (resolved_at_dt - detected_at_dt).total_seconds() / 3600  # in hours
+
 
         except Exception as e:
             print(f"Error processing {pr_url}: {e}")
