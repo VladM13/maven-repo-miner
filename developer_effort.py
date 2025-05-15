@@ -1,0 +1,110 @@
+import os
+import pandas as pd
+import requests
+from datetime import datetime
+
+# In the run configuration, you need to set the GITHUB_TOKEN environment variable to your GitHub Personal Access Token
+GITHUB_TOKEN = os.getenv('GITHUB_TOKEN')
+INPUT_CSV = 'rq1_repositories_with_version_conflict_pulls.csv'
+OUTPUT_CSV = 'new_rq1_repositories_with_version_conflict_pulls.csv'
+
+HEADERS = {
+    'Authorization': f'Bearer {GITHUB_TOKEN}',
+    'Accept': 'application/vnd.github+json'
+}
+
+
+def get_pr_data(repo_full_name, pr_number):
+    """Fetch pull request data from GitHub API."""
+
+    url = f"https://api.github.com/repos/{repo_full_name}/pulls/{pr_number}"
+    response = requests.get(url, headers=HEADERS)
+    if response.status_code != 200:
+        print(f"Failed to fetch PR data for {repo_full_name}#{pr_number}: {response.status_code} - {response.text}")
+        return None
+
+    return response.json()
+
+
+def get_pr_reviews_count(repo_full_name, pr_number):
+    """Fetch the number of non-empty reviews for a pull request."""
+
+    url = f"https://api.github.com/repos/{repo_full_name}/pulls/{pr_number}/reviews"
+    response = requests.get(url, headers=HEADERS)
+    if response.status_code != 200:
+        print(f"Failed to fetch PR data for {repo_full_name}#{pr_number}: {response.status_code} - {response.text}")
+        return None
+
+    reviews = response.json()
+    nonempty_reviews = [review for review in reviews if review.get('body')]
+
+    return len(nonempty_reviews)
+
+
+def get_issue_date(issue_html_url):
+    """Fetch the creation date of an issue from its HTML URL."""
+
+    if not issue_html_url.startswith("https://github.com"):
+        print(f"Invalid GitHub issue URL: {issue_html_url}")
+        return None
+
+    repo_full_name = issue_html_url.split("/")[3] + "/" + issue_html_url.split("/")[4]
+    issue_number = issue_html_url.split("/")[-1]
+
+    url = f"https://api.github.com/repos/{repo_full_name}/issues/{issue_number}"
+    response = requests.get(url, headers=HEADERS)
+    if response.status_code != 200:
+        print(f"Failed to fetch issue data for {repo_full_name}#{issue_number}: {response.status_code} - {response.text}")
+        return None
+
+    issue_data = response.json()
+    return issue_data.get('created_at')
+
+
+def main():
+    df = pd.read_csv(INPUT_CSV)
+
+    for index, row in df.iterrows():
+        pr_url = row['pr_url']
+        pr_number = pr_url.split("/")[-1]
+        repo_full_name = row['repository']
+
+        # merged_at = row['resolved_at']
+        # detected_at = row['detected_at']
+        #
+        # if pd.notna(detected_at):
+        #     merged_at_dt = datetime.strptime(merged_at, "%Y-%m-%dT%H:%M:%SZ")
+        #     detected_at_dt = datetime.strptime(detected_at, "%Y-%m-%dT%H:%M:%SZ")
+        #     df.at[index, 'time_from_detection_to_resolution2'] = (merged_at_dt - detected_at_dt).total_seconds() / 3600  # in hours
+
+        try:
+            pr_data = get_pr_data(repo_full_name, pr_number)
+            if pr_data:
+                total_comments = pr_data['comments'] + pr_data['review_comments']
+                reviews = get_pr_reviews_count(repo_full_name, pr_number)
+                df.at[index, 'no_of_comments'] = total_comments + reviews
+
+                resolved_at = pr_data.get('merged_at')
+
+                if resolved_at:
+                    df.at[index, 'resolved_at'] = resolved_at
+
+                    resolved_at_dt = datetime.strptime(resolved_at, "%Y-%m-%dT%H:%M:%SZ")
+                    created_at = datetime.strptime(pr_data['created_at'], "%Y-%m-%dT%H:%M:%SZ")
+                    df.at[index, 'time_to_merge'] = (resolved_at_dt - created_at).total_seconds() / 3600  # in hours
+
+                    if pd.notna(row['linked_issue']):
+                        detected_at = get_issue_date(row['linked_issue'])
+                        df.at[index, 'detected_at'] = detected_at
+
+                        detected_at_dt = datetime.strptime(detected_at, "%Y-%m-%dT%H:%M:%SZ")
+                        df.at[index, 'time_from_detection_to_resolution'] = (resolved_at_dt - detected_at_dt).total_seconds() / 3600  # in hours
+
+        except Exception as e:
+            print(f"Error processing {pr_url}: {e}")
+
+    df.to_csv(OUTPUT_CSV, index=False)
+
+
+if __name__ == "__main__":
+    main()

@@ -1,5 +1,4 @@
 import datetime
-
 import pandas as pd
 import requests
 import time
@@ -7,18 +6,18 @@ import os
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from collections import deque
 
+# In the run configuration, you need to set the GITHUB_TOKEN environment variable to your GitHub Personal Access Token
 GITHUB_TOKEN = os.getenv('GITHUB_TOKEN')
-HEADERS = {
-    'Authorization': f'Bearer {GITHUB_TOKEN}',
-    'Accept': 'application/vnd.github+json'
-}
-
 INPUT_CSV = 'java_repos_from_April_2015_min_50_stars_min_50_issues.csv'
 OUTPUT_CSV = 'repositories_with_version_conflict_pulls.csv'
 RATE_LIMIT_SLEEP = 10  # seconds
 MAX_WORKERS = 10      # number of parallel threads
-
 KEYWORDS = ['version conflict', 'library conflict', 'nosuchmethoderror']
+
+HEADERS = {
+    'Authorization': f'Bearer {GITHUB_TOKEN}',
+    'Accept': 'application/vnd.github+json'
+}
 
 
 def discusses_version_conflict(issue):
@@ -80,7 +79,7 @@ def search_issues_for_repo(repo_full_name):
                 if (pr_merged_date is None or
                         '[bot]' in issue.get('user').get('login') or
                         not pr_modifies_pom(repo_full_name, pr_number)):
-                    # Ignore PRs that are not merged, created by dependabot or do not modify the pom.xml
+                    # Ignore PRs that are not merged, created by bots or do not modify the pom.xml
                     continue
 
                 matches.append({
@@ -91,7 +90,7 @@ def search_issues_for_repo(repo_full_name):
                 print(f"Found match: {repo_full_name} - {issue.get('html_url')}")
 
         # Check if there's another page
-        # https://docs.github.com/en/rest/using-the-rest-api/using-pagination-in-the-rest-api?apiVersion=2022-11-28
+        # Docs: https://docs.github.com/en/rest/using-the-rest-api/using-pagination-in-the-rest-api?apiVersion=2022-11-28
         if 'link' in response.headers:
             link_header = response.headers['link']
 
@@ -111,18 +110,10 @@ def search_issues_for_repo(repo_full_name):
 
 
 def main():
-    #### Check rate limit ####
-    response = requests.get('https://api.github.com/rate_limit', headers=HEADERS)
-    if response.status_code == 200:
-        print(response.text)
-        print(datetime.datetime.fromtimestamp(response.json().get('resources').get('core').get('reset')))
-        print(datetime.datetime.fromtimestamp(response.json().get('resources').get('graphql').get('reset')))
-
-    return
-    ##########################
+    # Uncomment to check rate limit ####
+    # check_rate_limit()
 
     df = pd.read_csv(INPUT_CSV)
-
 
     START_INDEX = 6200
     END_INDEX = 6200
@@ -149,9 +140,17 @@ def main():
         # Append to the CSV output file
         results_df.to_csv(OUTPUT_CSV, mode='a', index=False, header=not os.path.exists(OUTPUT_CSV))
 
-        print(f"✅ Done! Saved results to {OUTPUT_CSV}")
+        print(f"Done! Saved results to {OUTPUT_CSV}")
     else:
-        print("❌ No matching issues found.")
+        print("No matching issues found.")
+
+
+def check_rate_limit():
+    response = requests.get('https://api.github.com/rate_limit', headers=HEADERS)
+    if response.status_code == 200:
+        print(response.text)
+        print(datetime.datetime.fromtimestamp(response.json().get('resources').get('core').get('reset')))
+        print(datetime.datetime.fromtimestamp(response.json().get('resources').get('graphql').get('reset')))
 
 
 if __name__ == "__main__":
