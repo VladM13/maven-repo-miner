@@ -5,9 +5,7 @@ import numpy as np
 import pandas as pd
 import requests
 from datetime import datetime
-from concurrent.futures import ThreadPoolExecutor
-
-from rq1.developer_effort_basic_metrics import get_pr_reviews_count
+from concurrent.futures import ThreadPoolExecutor, as_completed
 
 # In the run configuration, set the GITHUB_TOKEN environment variable
 GITHUB_TOKEN = os.getenv('GITHUB_TOKEN')
@@ -18,8 +16,6 @@ HEADERS = {
     'Authorization': f'Bearer {GITHUB_TOKEN}',
     'Accept': 'application/vnd.github+json'
 }
-
-RATE_LIMIT_SLEEP = 60
 
 
 def safe_get(url, headers, max_retries=5):
@@ -38,6 +34,26 @@ def safe_get(url, headers, max_retries=5):
             break
 
     return None
+
+
+def try_load_cache(cache_file, unique_repos):
+    """Load the cache from a file if it exists, otherwise create an empty cache."""
+
+    repo_mean = {}
+    repo_std = {}
+
+    # Load cache if it exists
+    if os.path.exists(cache_file):
+        with open(cache_file) as f:
+            cache = json.load(f)
+
+        for repo in unique_repos:
+            if repo in cache:
+                repo_mean[repo] = cache[repo]['mean']
+                repo_std[repo] = cache[repo]['std']
+    else:
+        cache = {}
+    return cache, repo_mean, repo_std
 
 
 def concurrent_get_normalized_time_to_merge(df, unique_repos, cache_file):
@@ -92,21 +108,7 @@ def concurrent_get_normalized_time_to_merge(df, unique_repos, cache_file):
             print(f"Failed for {repo_full_name}: {e}")
         return repo_full_name, None, None
 
-    repo_pr_avg_merge_time = {}
-    repo_pr_stdev_merge_time = {}
-
-    # Load cache if it exists
-    if os.path.exists(cache_file):
-        with open(cache_file) as f:
-            cache = json.load(f)
-
-        # Fill in from cache first
-        for repo in unique_repos:
-            if repo in cache:
-                repo_pr_avg_merge_time[repo] = cache[repo]['mean']
-                repo_pr_stdev_merge_time[repo] = cache[repo]['std']
-    else:
-        cache = {}
+    cache, repo_pr_avg_merge_time, repo_pr_stdev_merge_time = try_load_cache(cache_file, unique_repos)
 
     # Fetch missing repositories
     to_fetch = [repo for repo in unique_repos if repo not in cache]
@@ -123,7 +125,7 @@ def concurrent_get_normalized_time_to_merge(df, unique_repos, cache_file):
 
         # Save updated cache
         with open(cache_file, 'w') as f:
-            json.dump(cache, f)
+            json.dump(cache, f, indent=2)
 
         # Update normalized time_to_merge column
         for index, row in df.iterrows():
@@ -141,17 +143,75 @@ def concurrent_get_normalized_time_to_merge(df, unique_repos, cache_file):
                 print(f"Error processing {row['pr_url']}: {e}")
 
 
-def get_no_of_comments(repo_full_name, pr):
-    return len(safe_get(pr["comments_url"], HEADERS).json()) + \
-        len(safe_get(pr["review_comments_url"], HEADERS).json()) + \
-        get_pr_reviews_count(repo_full_name, pr["number"], HEADERS)
+
 
 
 def concurrent_get_normalized_no_of_comments(df, unique_repos, cache_file):
     """Fetch and normalize the number of comments for merged pull requests in all repositories."""
 
+    def get_pr_reviews_count_graphql(repo_full_name, pr_number):
+        """Fetch the number of non-empty reviews for a pull request using GraphQL."""
+        owner, repo = repo_full_name.split("/")
+        non_empty_reviews = 0
+        has_next_page = True
+        after_cursor = "null"  # first page has no cursor
+
+        def build_query(after_cursor):
+            cursor_part = f', after: "{after_cursor}"' if after_cursor != "null" else ""
+            return f"""
+            {{
+              repository(owner: "{owner}", name: "{repo}") {{
+                pullRequest(number: {pr_number}) {{
+                  reviews(first: 100{cursor_part}) {{
+                    nodes {{
+                      body
+                    }}
+                    pageInfo {{
+                      hasNextPage
+                      endCursor
+                    }}
+                  }}
+                }}
+              }}
+            }}
+            """
+
+        url = "https://api.github.com/graphql"
+
+        while has_next_page:
+            query = build_query(after_cursor)
+            response = requests.post(url, json={"query": query}, headers=HEADERS)
+
+            if response.status_code != 200:
+                print(f"GraphQL query failed: {response.status_code} - {response.text}")
+                return None
+
+            pr_data = response.json()["data"]["repository"]["pullRequest"]
+
+            reviews_data = pr_data["reviews"]
+            non_empty_reviews += sum(1 for r in reviews_data["nodes"] if r["body"])
+
+            has_next_page = reviews_data["pageInfo"]["hasNextPage"]
+            after_cursor = reviews_data["pageInfo"]["endCursor"]
+
+        return non_empty_reviews
+
+    def get_no_of_comments(repo_full_name, pr):
+        """Fetch the total number of comments for a pull request."""
+
+        pr_data = safe_get(pr['url'], HEADERS)
+        if not pr_data:
+            return None
+
+        pr_data = pr_data.json()
+        total_comments = pr_data['comments'] + pr_data['review_comments']
+        reviews = get_pr_reviews_count_graphql(repo_full_name, pr['number'])
+
+        return total_comments + reviews
+
     def get_repo_pr_comments(repo_full_name):
         """Fetch the number of comments on all merged PRs for a given repository."""
+
         url = f"https://api.github.com/repos/{repo_full_name}/pulls?state=closed&per_page=100"
         pr_comments = []
 
@@ -161,11 +221,19 @@ def concurrent_get_normalized_no_of_comments(df, unique_repos, cache_file):
                 return None
 
             prs = response.json()
-            for pr in prs:
-                if pr.get("merged_at"):
-                    # 'review_comments_url' and 'comments_url'
-                    num_comments = get_no_of_comments(repo_full_name, pr)
+            merged_prs = [pr for pr in prs if pr.get("merged_at")]
+
+            with ThreadPoolExecutor(max_workers=8) as executor:
+                futures = [executor.submit(get_no_of_comments, repo_full_name, pr) for pr in merged_prs]
+
+                for future in as_completed(futures):
+                    num_comments = future.result()
                     pr_comments.append(num_comments)
+
+            print(f"Finished {len(merged_prs)} PRs: So far found {len(pr_comments)} comments for {repo_full_name}")
+            if len(pr_comments) > 200:
+                print(f"Found {len(pr_comments)} comments for {repo_full_name}, stopping early.")
+                return np.random.choice(pr_comments, 200, replace=False)
 
             # Pagination
             next_link = None
@@ -193,54 +261,45 @@ def concurrent_get_normalized_no_of_comments(df, unique_repos, cache_file):
             print(f"Failed for {repo_full_name}: {e}")
         return repo_full_name, None, None
 
-    repo_comment_mean = {}
-    repo_comment_std = {}
-
-    # Load cache if exists
-    if os.path.exists(cache_file):
-        with open(cache_file) as f:
-            cache = json.load(f)
-
-        for repo in unique_repos:
-            if repo in cache:
-                repo_comment_mean[repo] = cache[repo]['mean']
-                repo_comment_std[repo] = cache[repo]['std']
-    else:
-        cache = {}
-
+    cache, repo_comment_mean, repo_comment_std = try_load_cache(cache_file, unique_repos)
     to_fetch = [repo for repo in unique_repos if repo not in cache]
 
-    if len(to_fetch) > 0:
-        with ThreadPoolExecutor(max_workers=8) as executor:
-            results = list(executor.map(fetch_comment_stats, to_fetch))
+    if len(to_fetch) == 0:
+        return
 
-        for repo, mean, std in results:
-            if mean is not None:
-                repo_comment_mean[repo] = mean
-                repo_comment_std[repo] = std
-                cache[repo] = {'mean': mean, 'std': std}
+    with ThreadPoolExecutor(max_workers=8) as executor:
+        results = list(executor.map(fetch_comment_stats, to_fetch))
 
-        # Save updated cache
-        with open(cache_file, 'w') as f:
-            json.dump(cache, f)
+    for repo, mean, std in results:
+        if mean is not None:
+            repo_comment_mean[repo] = mean
+            repo_comment_std[repo] = std
+            cache[repo] = {'mean': mean, 'std': std}
 
-        for index, row in df.iterrows():
-            try:
-                repo = row['repository']
-                comments = row['no_of_comments']
+    # Save updated cache
+    with open(cache_file, 'w') as f:
+        json.dump(cache, f, indent=2)
 
-                mean = repo_comment_mean.get(repo)
-                std = repo_comment_std.get(repo)
+    for index, row in df.iterrows():
+        try:
+            repo = row['repository']
+            comments = row['no_of_comments']
 
-                if mean and std and std != 0:
-                    df.at[index, 'no_of_comments_normalized'] = (comments - mean) / std
+            mean = repo_comment_mean.get(repo)
+            std = repo_comment_std.get(repo)
 
-            except Exception as e:
-                print(f"Error processing {row['pr_url']}: {e}")
+            if mean and std and std != 0:
+                df.at[index, 'no_of_comments_normalized'] = (comments - mean) / std
+
+        except Exception as e:
+            print(f"Error processing {row['pr_url']}: {e}")
 
 
 def main():
     df = pd.read_csv(INPUT_CSV)
+
+    df = df.iloc[:3]
+    print(df)
 
     unique_repos = df['repository'].unique()
 

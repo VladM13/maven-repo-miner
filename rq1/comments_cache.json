@@ -1,0 +1,10 @@
+{
+  "stargate/stargate": {
+    "mean": 6.180962921970116,
+    "std": 11.762871651422277
+  },
+  "jenkinsci/github-checks-plugin": {
+    "mean": 2.3156028368794326,
+    "std": 4.62835515546272
+  }
+}
