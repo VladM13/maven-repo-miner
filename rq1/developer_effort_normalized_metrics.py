@@ -143,9 +143,6 @@ def concurrent_get_normalized_time_to_merge(df, unique_repos, cache_file):
                 print(f"Error processing {row['pr_url']}: {e}")
 
 
-
-
-
 def concurrent_get_normalized_no_of_comments(df, unique_repos, cache_file):
     """Fetch and normalize the number of comments for merged pull requests in all repositories."""
 
@@ -233,7 +230,7 @@ def concurrent_get_normalized_no_of_comments(df, unique_repos, cache_file):
             print(f"Finished {len(merged_prs)} PRs: So far found {len(pr_comments)} comments for {repo_full_name}")
             if len(pr_comments) > 200:
                 print(f"Found {len(pr_comments)} comments for {repo_full_name}, stopping early.")
-                return np.random.choice(pr_comments, 200, replace=False)
+                return np.random.choice(pr_comments, 200, replace=False).tolist()
 
             # Pagination
             next_link = None
