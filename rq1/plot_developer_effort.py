@@ -4,7 +4,7 @@ import matplotlib
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-INPUT_CSV = 'rq1_repositories_with_version_conflict_pulls.csv'
+INPUT_CSV = '../data/final_version_conflict_prs.csv'
 
 
 def create_boxplots(df, columns, labels, output_path='boxplots.pgf'):

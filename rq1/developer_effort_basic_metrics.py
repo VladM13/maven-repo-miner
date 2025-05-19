@@ -8,8 +8,8 @@ from tqdm import tqdm
 
 # In the run configuration, you need to set the GITHUB_TOKEN environment variable to your GitHub Personal Access Token
 GITHUB_TOKEN = os.getenv('GITHUB_TOKEN')
-INPUT_CSV = 'rq1_repositories_with_version_conflict_pulls.csv'
-OUTPUT_CSV = 'result_rq1_repositories_with_version_conflict_pulls.csv'
+INPUT_CSV = '../data/final_version_conflict_prs.csv'
+OUTPUT_CSV = 'result_rq1_version_conflict_prs.csv'
 
 HEADERS = {
     'Authorization': f'Bearer {GITHUB_TOKEN}',
