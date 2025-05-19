@@ -10,7 +10,7 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 # In the run configuration, set the GITHUB_TOKEN environment variable
 GITHUB_TOKEN = os.getenv('GITHUB_TOKEN')
 INPUT_CSV = 'rq1_repositories_with_version_conflict_pulls.csv'
-OUTPUT_CSV = 'new_rq1_repositories_with_version_conflict_pulls.csv'
+OUTPUT_CSV = 'result_rq1_repositories_with_version_conflict_pulls.csv'
 
 HEADERS = {
     'Authorization': f'Bearer {GITHUB_TOKEN}',
@@ -294,9 +294,6 @@ def concurrent_get_normalized_no_of_comments(df, unique_repos, cache_file):
 
 def main():
     df = pd.read_csv(INPUT_CSV)
-
-    df = df.iloc[:3]
-    print(df)
 
     unique_repos = df['repository'].unique()
 

@@ -362,5 +362,17 @@
   "confluentinc/examples": {
     "mean": 90.4432798825745,
     "std": 426.0181933349834
+  },
+  "jenkinsci/aws-secrets-manager-credentials-provider-plugin": {
+    "mean": 801.9363657407406,
+    "std": 2088.2219047046246
+  },
+  "apollographql/federation-jvm": {
+    "mean": 278.77999437696803,
+    "std": 759.7845136528292
+  },
+  "paladincloud/ce": {
+    "mean": 57.00746907388834,
+    "std": 137.55630244672145
   }
 }

@@ -100,7 +100,7 @@ def count_java_code_changes(repo_full_name, pr_number, diff_url):
 def main():
     df = pd.read_csv(INPUT_CSV)
 
-    less_than_2_lines = 0
+    less_than_5_lines = 0
     for index, row in tqdm(df.iterrows(), total=len(df)):
         pr_url = row['pr_url']
         pr_number = pr_url.split("/")[-1]
@@ -110,8 +110,8 @@ def main():
             pr_data = get_pr_data(repo_full_name, pr_number)
 
             if pr_data:
-                # if pr_data['additions'] + pr_data['deletions'] <= 2:
-                #     less_than_2_lines += 1
+                if pr_data['additions'] + pr_data['deletions'] <= 5:
+                    less_than_5_lines += 1
 
                 # if pr_data['diff_url']:
                 #     total_java_code_changes = count_java_code_changes(repo_full_name, pr_number, pr_data['diff_url'])
@@ -151,7 +151,7 @@ def main():
             print(f"Error processing {pr_url}: {e}")
 
     # df.to_csv(OUTPUT_CSV, index=False)
-    print(f'{less_than_2_lines / len(df) * 100:.2f}% of PRs have less than 2 lines of code changes')
+    print(f'{less_than_5_lines} PRs ({less_than_5_lines / len(df) * 100:.2f}%) have at most 5 lines of changes')
 
 
 if __name__ == "__main__":

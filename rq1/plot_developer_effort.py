@@ -42,7 +42,7 @@ def main():
     df = pd.read_csv(INPUT_CSV)
 
     columns = ['no_of_comments', 'time_to_merge', 'java_code_changes', 'time_from_detection_to_resolution']
-    labels = ['Number of Comments', 'Time to Merge (h)', ' Code Changes', 'Detection to Resolution\n Time (31 PRs)']
+    labels = ['Number of Comments', 'Time to Merge (h)', 'Java Code Line Changes', 'Detection to Resolution\n Time (n=31)']
 
     # Enable LaTeX via PGF
     # matplotlib.use("pgf")
@@ -59,7 +59,8 @@ def main():
     create_boxplots(df, columns, labels)
 
     # create_histograms(df)
-    print(f"{np.count_nonzero(df['time_to_merge_normalized'] < 0) / len(df) * 100}% of PRs are below the mean merge time")
+    less_than_average_merge_time = np.count_nonzero(df['time_to_merge_normalized'] < 0)
+    print(f"{less_than_average_merge_time} PRs ({less_than_average_merge_time / len(df) * 100:.2f}%) are below the mean merge time")
 
 def create_histograms(df):
     data = df['time_to_merge_normalized'].dropna().values

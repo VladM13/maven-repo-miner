@@ -8,7 +8,7 @@ ALL_REPOS_CSV = '../java_repos_from_April_2015_min_50_stars_min_50_issues.csv'
 def print_statistics(df, columns):
     stats = df[columns].describe().T
     stats['median'] = df[columns].median()
-    print(stats[['min', 'max', 'mean', 'median']].round(2))
+    print(stats[['min', 'max', 'median', 'mean']].round(2))
 
 
 def main():
