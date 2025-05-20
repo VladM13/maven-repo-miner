@@ -4,7 +4,255 @@
     "std": 11.762871651422277
   },
   "jenkinsci/github-checks-plugin": {
-    "mean": 2.3156028368794326,
-    "std": 4.62835515546272
+    "mean": 2.2992957746478875,
+    "std": 4.616092434432134
+  },
+  "lucko/bungeeguard": {
+    "mean": 3.1818181818181817,
+    "std": 2.2489667048823603
+  },
+  "vanroy/spring-data-jest": {
+    "mean": 1.25,
+    "std": 1.4215601757693317
+  },
+  "games647/changeskin": {
+    "mean": 0.39285714285714285,
+    "std": 0.9761178834797464
+  },
+  "pgbulkinsert/pgbulkinsert": {
+    "mean": 1.4333333333333333,
+    "std": 2.0685475312133605
+  },
+  "openshift/jenkins-plugin": {
+    "mean": 7.439024390243903,
+    "std": 8.511251607503704
+  },
+  "wesjd/anvilgui": {
+    "mean": 2.6363636363636362,
+    "std": 4.0737011822560145
+  },
+  "uscdatascience/sparkler": {
+    "mean": 3.896103896103896,
+    "std": 6.282493539997848
+  },
+  "awslabs/emr-dynamodb-connector": {
+    "mean": 1.7126436781609196,
+    "std": 4.258616811700345
+  },
+  "apache/rocketmq-mqtt": {
+    "mean": 2.5128205128205128,
+    "std": 6.424599338487346
+  },
+  "weiye-jing/datax-web": {
+    "mean": 0.9204545454545454,
+    "std": 1.5827306015316673
+  },
+  "skuzzle/restrict-imports-enforcer-rule": {
+    "mean": 1.0,
+    "std": 1.788066860772144
+  },
+  "openzipkin/zipkin-gcp": {
+    "mean": 4.205128205128205,
+    "std": 7.612168016185691
+  },
+  "google/caliper": {
+    "mean": 0.1322314049586777,
+    "std": 0.5291838212754421
+  },
+  "expediagroup/circus-train": {
+    "mean": 10.28169014084507,
+    "std": 15.670177200065483
+  },
+  "googlecloudplatform/pubsub": {
+    "mean": 5.221052631578948,
+    "std": 16.367926883723367
+  },
+  "citrusframework/yaks": {
+    "mean": 0.4797047970479705,
+    "std": 1.5194172222082514
+  },
+  "jenkinsci/aws-secrets-manager-credentials-provider-plugin": {
+    "mean": 2.5681818181818183,
+    "std": 7.962214917419938
+  },
+  "starrocks/starrocks-connector-for-apache-flink": {
+    "mean": 1.0476190476190477,
+    "std": 4.2647636062014085
+  },
+  "openmessaging/benchmark": {
+    "mean": 0.983739837398374,
+    "std": 2.296988979368384
+  },
+  "quarkiverse/quarkus-logging-manager": {
+    "mean": 0.7842105263157895,
+    "std": 2.5835029581221765
+  },
+  "TuxCoding/FastLogin": {
+    "mean": 2.280821917808219,
+    "std": 7.403019701062137
+  },
+  "opentracing-contrib/java-specialagent": {
+    "mean": 0.5562913907284768,
+    "std": 4.121717255420912
+  },
+  "apollographql/federation-jvm": {
+    "mean": 1.854251012145749,
+    "std": 6.616368194314906
+  },
+  "apache/incubator-seata-samples": {
+    "mean": 0.8933823529411765,
+    "std": 1.2513347112937374
+  },
+  "sofastack/sofa-jraft": {
+    "mean": 5.765586034912718,
+    "std": 15.947385833762137
+  },
+  "alldatacenter/alldata": {
+    "mean": 0.08676789587852494,
+    "std": 0.29650635357642996
+  },
+  "openidentityplatform/openam": {
+    "mean": 0.16310679611650486,
+    "std": 0.7429918907764997
+  },
+  "googlecloudplatform/cloud-spanner-r2dbc": {
+    "mean": 3.3534971644612477,
+    "std": 7.727506662916396
+  },
+  "jenkinsci/bitbucket-branch-source-plugin": {
+    "mean": 5.852226720647773,
+    "std": 14.431901554927123
+  },
+  "jenkinsci/opentelemetry-plugin": {
+    "mean": 1.4538310412573674,
+    "std": 4.142872078152102
+  },
+  "hortonworks/streamline": {
+    "mean": 7.37315875613748,
+    "std": 14.975644154609853
+  },
+  "apache/dubbo-samples": {
+    "mean": 0.8741258741258742,
+    "std": 2.0072147242362166
+  },
+  "spring-cloud/spring-cloud-stream": {
+    "mean": 1.9605263157894737,
+    "std": 4.004079464067944
+  },
+  "apache/camel-k-runtime": {
+    "mean": 0.6424759871931697,
+    "std": 2.098744213564342
+  },
+  "apache/incubator-hugegraph": {
+    "mean": 8.414163090128755,
+    "std": 17.699813687072883
+  },
+  "confluentinc/examples": {
+    "mean": 3.7611940298507465,
+    "std": 8.738926842318067
+  },
+  "consensys/tessera": {
+    "mean": 0.9763779527559056,
+    "std": 1.5790935650153772
+  },
+  "tencent/spring-cloud-tencent": {
+    "mean": 1.8054101221640488,
+    "std": 3.78105021298662
+  },
+  "open-feature/java-sdk": {
+    "mean": 2.73855702094647,
+    "std": 5.083087285371477
+  },
+  "langchain4j/langchain4j": {
+    "mean": 8.138336347197107,
+    "std": 18.327733570932537
+  },
+  "streamnative/aop": {
+    "mean": 2.5596330275229358,
+    "std": 9.510912315668799
+  },
+  "apache/uniffle": {
+    "mean": 10.475383373688459,
+    "std": 14.840203427401681
+  },
+  "nosqlbench/nosqlbench": {
+    "mean": 1.1708363116511795,
+    "std": 3.977615181419895
+  },
+  "streamnative/mop": {
+    "mean": 1.673913043478261,
+    "std": 2.9363120008527033
+  },
+  "streamnative/kop": {
+    "mean": 4.0636132315521625,
+    "std": 8.38200691187775
+  },
+  "eclipse-sw360/sw360": {
+    "mean": 5.313725490196078,
+    "std": 8.80862688628239
+  },
+  "census-instrumentation/opencensus-java": {
+    "mean": 6.476,
+    "std": 10.604405876804226
+  },
+  "geysermc/geyser": {
+    "mean": 3.5614545454545454,
+    "std": 12.566464957204996
+  },
+  "pinterest/teletraan": {
+    "mean": 2.070815450643777,
+    "std": 4.577577158253183
+  },
+  "apache/flink-cdc": {
+    "mean": 6.276381909547739,
+    "std": 9.410550138599579
+  },
+  "apache/amoro": {
+    "mean": 5.249403341288783,
+    "std": 7.97002698821807
+  },
+  "eclipse-hawkbit/hawkbit": {
+    "mean": 3.7127417519908987,
+    "std": 12.614074127305853
+  },
+  "googlecloudplatform/dataflowtemplates": {
+    "mean": 6.7229977957384275,
+    "std": 15.410488383507417
+  },
+  "vaadin/hilla": {
+    "mean": 3.707982151710461,
+    "std": 4.2162069840502046
+  },
+  "paladincloud/ce": {
+    "mean": 1.9674022066198595,
+    "std": 6.115852477479654
+  },
+  "googleapis/java-bigtable": {
+    "mean": 2.7626598465473147,
+    "std": 15.276779332932351
+  },
+  "spring-cloud/spring-cloud-dataflow": {
+    "mean": 2.1167247386759582,
+    "std": 5.0752489927948705
+  },
+  "googlecloudplatform/fda-mystudies": {
+    "mean": 3.707395498392283,
+    "std": 13.915794586282342
+  },
+  "apache/linkis": {
+    "mean": 2.360905957656327,
+    "std": 5.140969717586677
+  },
+  "googleapis/java-storage": {
+    "mean": 2.075168918918919,
+    "std": 4.9345642115543376
+  },
+  "janusgraph/janusgraph": {
+    "mean": 6.270625566636446,
+    "std": 17.266213772836327
+  },
+  "powsybl/powsybl-core": {
+    "mean": 6.7840585603904024,
+    "std": 13.910016038662166
   }
 }

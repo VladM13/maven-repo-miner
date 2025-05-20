@@ -179,7 +179,7 @@ def concurrent_get_normalized_no_of_comments(df, unique_repos, cache_file):
             query = build_query(after_cursor)
             response = requests.post(url, json={"query": query}, headers=HEADERS)
 
-            if response.status_code != 200:
+            if response.status_code != 200 or response.json().get("errors"):
                 print(f"GraphQL query failed: {response.status_code} - {response.text}")
                 return None
 
@@ -227,10 +227,7 @@ def concurrent_get_normalized_no_of_comments(df, unique_repos, cache_file):
                     num_comments = future.result()
                     pr_comments.append(num_comments)
 
-            print(f"Finished {len(merged_prs)} PRs: So far found {len(pr_comments)} comments for {repo_full_name}")
-            if len(pr_comments) > 200:
-                print(f"Found {len(pr_comments)} comments for {repo_full_name}, stopping early.")
-                return np.random.choice(pr_comments, 200, replace=False).tolist()
+            print(f"So far collected data from {len(pr_comments)} PRs for {repo_full_name}")
 
             # Pagination
             next_link = None
@@ -264,6 +261,7 @@ def concurrent_get_normalized_no_of_comments(df, unique_repos, cache_file):
     if len(to_fetch) == 0:
         return
 
+    print(f"Fetching comment data from {len(to_fetch)} repositories...")
     with ThreadPoolExecutor(max_workers=8) as executor:
         results = list(executor.map(fetch_comment_stats, to_fetch))
 
@@ -297,8 +295,14 @@ def main():
 
     unique_repos = df['repository'].unique()
 
+    repo_df = pd.read_csv("../data/java_repos_from_April_2015_min_50_stars_min_50_issues.csv")
+    repo_df = repo_df[repo_df['name'].isin(unique_repos)]
+    repo_df = repo_df.sort_values(by=["totalPullRequests", "openPullRequests"], ascending=True)
+
+    unique_repos = repo_df['name'].iloc[:64].unique()
+
     # concurrent_get_normalized_time_to_merge(df, unique_repos, cache_file='merge_times_cache.json')
-    # concurrent_get_normalized_no_of_comments(df, unique_repos, cache_file='comments_cache.json')
+    concurrent_get_normalized_no_of_comments(df, unique_repos, cache_file='comments_cache.json')
 
     df.to_csv(OUTPUT_CSV, index=False)
 
