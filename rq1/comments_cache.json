@@ -254,5 +254,49 @@
   "powsybl/powsybl-core": {
     "mean": 6.7840585603904024,
     "std": 13.910016038662166
+  },
+  "elastic/apm-agent-java": {
+    "mean": 4.7733711048158645,
+    "std": 9.45557864707767
+  },
+  "googlecloudplatform/spring-cloud-gcp": {
+    "mean": 2.767739273927393,
+    "std": 6.658459383203032
+  },
+  "googleapis/java-spanner": {
+    "mean": 2.954155795751025,
+    "std": 8.164799065526593
+  },
+  "apache/hop": {
+    "mean": 0.3026536781995297,
+    "std": 1.0148889969669936
+  },
+  "prebid/prebid-server-java": {
+    "mean": 3.563462196373589,
+    "std": 10.103179261401664
+  },
+  "alfresco/alfresco-community-repo": {
+    "mean": 2.52,
+    "std": 10.046102124766328
+  },
+  "matsim-org/matsim-libs": {
+    "mean": 0.8399094437257438,
+    "std": 2.7597735985429726
+  },
+  "finos/legend-engine": {
+    "mean": 2.1398274622573688,
+    "std": 5.603948974708509
+  },
+  "linagora/james-project": {
+    "mean": 11.800285306704708,
+    "std": 19.280793217080006
+  },
+  "apache/paimon": {
+    "mean": 3.857183418512209,
+    "std": 5.883430453972617
+  },
+  "alibaba/nacos": {
+    "mean": 2.0029411764705882,
+    "std": 4.843868623828046
   }
 }

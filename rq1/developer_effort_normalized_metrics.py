@@ -225,7 +225,10 @@ def concurrent_get_normalized_no_of_comments(df, unique_repos, cache_file):
 
                 for future in as_completed(futures):
                     num_comments = future.result()
-                    pr_comments.append(num_comments)
+                    if num_comments is not None:
+                        pr_comments.append(num_comments)
+                    else:
+                        print(f"Excluded one PR due to error")
 
             print(f"So far collected data from {len(pr_comments)} PRs for {repo_full_name}")
 
@@ -299,7 +302,7 @@ def main():
     repo_df = repo_df[repo_df['name'].isin(unique_repos)]
     repo_df = repo_df.sort_values(by=["totalPullRequests", "openPullRequests"], ascending=True)
 
-    unique_repos = repo_df['name'].iloc[:64].unique()
+    unique_repos = repo_df['name'].iloc[:75].unique()
 
     # concurrent_get_normalized_time_to_merge(df, unique_repos, cache_file='merge_times_cache.json')
     concurrent_get_normalized_no_of_comments(df, unique_repos, cache_file='comments_cache.json')

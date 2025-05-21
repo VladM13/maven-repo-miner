@@ -4,7 +4,7 @@ import matplotlib
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-INPUT_CSV = '../data/final_version_conflict_prs.csv'
+INPUT_CSV = 'result_rq1_version_conflict_prs.csv'
 
 
 def create_boxplots(df, columns, labels, output_path='boxplots.pgf'):
@@ -56,25 +56,29 @@ def main():
     #     'axes.titlesize': 'medium',
     # })
 
-    create_boxplots(df, columns, labels)
+    # create_boxplots(df, columns, labels)
 
-    # create_histograms(df)
-    less_than_average_merge_time = np.count_nonzero(df['time_to_merge_normalized'] < 0)
-    print(f"{less_than_average_merge_time} PRs ({less_than_average_merge_time / len(df) * 100:.2f}%) are below the mean merge time")
+    create_histograms(df, 'time_to_merge_normalized', "Distribution of Normalized Merge Times", "Normalized Merge Time (z-score)")
+    create_histograms(df, 'no_of_comments_normalized', "Distribution of Normalized Comments", "Normalized Comments (z-score)")
 
-def create_histograms(df):
-    data = df['time_to_merge_normalized'].dropna().values
+
+def create_histograms(df, col, plot_title, x_axis_label):
+    data = df[col].dropna().values
 
     # Create a histogram for the normalized merge times
     sns.histplot(data, bins=30)
-    plt.title("Distribution of Normalized Merge Times", fontsize=15)
-    plt.xlabel("Normalized Merge Time (z-score)", fontsize=12)
+    plt.title(plot_title, fontsize=15)
+    plt.xlabel(x_axis_label, fontsize=12)
     plt.ylabel("Pull Requests", fontsize=12)
     plt.axvline(x=0, color='gray', linestyle='--', label='Mean')
     plt.legend(fontsize=12)
     plt.tight_layout()
     # plt.savefig("histogram_time_to_merge_normalized.pgf")
     plt.show()
+
+    less_than_average = np.count_nonzero(df[col] < 0)
+    print(
+        f"{less_than_average}/{len(data)} PRs ({less_than_average / len(data) * 100:.2f}%) are below the mean of {col}")
 
 
 if __name__ == "__main__":
