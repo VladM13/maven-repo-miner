@@ -3,13 +3,23 @@ import os
 import subprocess
 import re
 import shutil
+import time
 from collections import defaultdict
 from pathlib import Path
 
-REPO_URL = "https://github.com/stargate/stargate.git"
-PR_COMMIT_SHA = "5c3695f"
+import pandas as pd
+import requests
 
+from rq2.compute_semantic_difference import compute_semver_differences
+
+# In the run configuration, you need to set the GITHUB_TOKEN environment variable to your GitHub Personal Access Token
+GITHUB_TOKEN = os.getenv('GITHUB_TOKEN')
+HEADERS = {
+    'Authorization': f'Bearer {GITHUB_TOKEN}',
+    'Accept': 'application/vnd.github+json'
+}
 MAVEN_CMD = r"C:\Program Files\apache-maven-3.9.4\bin\mvn.cmd"
+INPUT_CSV = '../data/final_version_conflict_prs.csv'
 TEMP_DIR = "temp_repo"
 
 
@@ -24,31 +34,34 @@ def clone_repo(repo_url: str, repo_dir: str):
 def checkout_commit(repo_dir: str, commit_sha: str, before_commit: bool = False):
     if before_commit:
         print(f"Checking out the commit before {commit_sha}...")
-        subprocess.run(["git", "checkout", f'{commit_sha}~1'], cwd=repo_dir, check=True)
+        subprocess.run(["git", "-c", "advice.detachedHead=false", "checkout", f'{commit_sha}~1'], cwd=repo_dir, check=True)
     else:
         print(f"Checking out commit {commit_sha}...")
-        subprocess.run(["git", "checkout", commit_sha], cwd=repo_dir, check=True)
+        subprocess.run(["git", "-c", "advice.detachedHead=false", "checkout", commit_sha], cwd=repo_dir, check=True)
 
 
 def run_maven_dependency_tree(repo_dir: str, output_file: str):
     print("Running mvn dependency:tree...")
-    result = subprocess.run(
-        [MAVEN_CMD, "dependency:tree", "-Dverbose", f"-DoutputFile={output_file}"],
-        cwd=repo_dir,
-        stdout=subprocess.DEVNULL,
-        text=True
-    )
+    with open(output_file, 'w') as f:
+        result = subprocess.run(
+            [MAVEN_CMD, "dependency:tree", "-Dverbose", "--fail-never"],
+            cwd=repo_dir,
+            stdout=f,
+            stderr=subprocess.STDOUT,
+            text=True
+        )
 
-    if result.returncode != 0:
-        print("Maven failed. Error output:")
-        print(result.stderr)
-    return result.returncode == 0
+        if result.returncode != 0:
+            print("Maven failed. Error output:")
+            print(result.stderr)
+        return result.returncode == 0
 
 
 def parse_conflicts_from_dependency_tree(file_path: str):
     # Structure: {"groupId:artifactId:used_version": {"omitted_version": count, ...}, ...}
     conflict_summary = defaultdict(lambda: defaultdict(int))
     total_conflicts = 0
+    num_modules = 0
 
     pattern = re.compile(
         r'([a-zA-Z0-9_.\-]+):([a-zA-Z0-9_.\-]+):.*?:([\w.\-]+):.*? - omitted for conflict with ([\w.\-]+)'
@@ -66,30 +79,74 @@ def parse_conflicts_from_dependency_tree(file_path: str):
                 key = f"{group_id}:{artifact_id}:{used_version}"
                 conflict_summary[key][omitted_version] += 1
                 total_conflicts += 1
+            else:
+                match = re.search(r"\[INFO\] .+?\.* SUCCESS \[\s*\d+\.\d+ s\]", line)
+                if match:
+                    num_modules += 1
 
-    return total_conflicts, conflict_summary
+    if num_modules == 0:
+        # The project has a single module
+        num_modules = 1
+
+    return total_conflicts, num_modules, conflict_summary
 
 
-def detect_conflicting_versions(repo_url, commit_sha, before_commit, json_output_file):
+def detect_conflicting_versions(pr_url, repo_url, commit_sha, before_commit, json_output_file):
     repo_path = Path(TEMP_DIR).resolve()
     clone_repo(repo_url, str(repo_path))
 
     checkout_commit(str(repo_path), commit_sha, before_commit)
 
-    output_file = repo_path / "dep_tree.txt"
+    output_file = "dep_tree.txt"
+    total_conflicts = 0
     if run_maven_dependency_tree(str(repo_path), str(output_file)):
-        total_conflicts, conflicts = parse_conflicts_from_dependency_tree(str(output_file))
+        total_conflicts, num_modules, conflicts = parse_conflicts_from_dependency_tree(str(output_file))
+
+        with open(json_output_file, "w") as f:
+            json.dump({
+                "pr_url": pr_url,
+                "total_conflicts": total_conflicts,
+                "num_modules": num_modules,
+                "conflicts": conflicts},
+                f, indent=4)
 
         if conflicts:
-            with open(json_output_file, "w") as f:
-                json.dump({"total_conflicts": total_conflicts, "conflicts": conflicts}, f, indent=4)
-
-            print(f"{total_conflicts} conflicts saved to {json_output_file}")
+            print(f"{total_conflicts} conflicts in {num_modules} modules saved to {json_output_file}")
         else:
             print("No conflicting versions found.")
 
-    # # Optional: clean up
-    # shutil.rmtree(repo_path)
+    # Optional: clean up
+    subprocess.run(["rmdir", "/S", "/Q", repo_path], shell=True)
+
+    return total_conflicts
+
+
+def process_pr(pr_url):
+    parts = pr_url.strip("/").split("/")
+    owner, repo, pr_number = parts[-4], parts[-3], parts[-1]
+    api_url = f"https://api.github.com/repos/{owner}/{repo}/pulls/{pr_number}"
+
+    response = requests.get(api_url, headers=HEADERS)
+    if response.status_code != 200:
+        print(f"Failed to fetch PR data: {response.status_code} - {response.text}")
+        exit(1)
+
+    pr_commit_sha = response.json().get("merge_commit_sha")
+    pr_base_sha = response.json().get("base").get("sha")
+    repo_url = response.json().get("base").get("repo").get("clone_url")
+    json_output_file = f"cache/conflicts_before_{owner}_{repo}_{pr_number}.json"
+
+    if not os.path.exists(json_output_file):
+        total_conflicts = detect_conflicting_versions(pr_url, repo_url, pr_base_sha, before_commit=False,
+                                json_output_file=json_output_file)
+        return total_conflicts, json_output_file
+    else:
+        # Use cached data
+        return -1, json_output_file
+
+    # print("--------------------------------")
+    # detect_conflicting_versions(pr_url, repo_url, pr_commit_sha, before_commit=False,
+    #                             json_output_file="conflicts_after.json")
 
 
 # Example usage:
@@ -100,9 +157,14 @@ if __name__ == "__main__":
         print("Maven command not found. Please check your Maven installation.")
         exit(1)
 
-    detect_conflicting_versions(REPO_URL, PR_COMMIT_SHA, before_commit=True, json_output_file="conflicts_before.json")
+    df = pd.read_csv(INPUT_CSV)
+    # issues with: 4 (trinodb)
+    df = df.iloc[8:9]
 
-    print("--------------------------------")
+    for index, row in df.iterrows():
+        pr_url = row['pr_url']
+        print(f"\n------------------------------\nProcessing PR: {pr_url}")
+        total_conflicts, json_output = process_pr(pr_url)
 
-    detect_conflicting_versions(REPO_URL, PR_COMMIT_SHA, before_commit=False, json_output_file="conflicts_after.json")
-
+        # if total_conflicts > 0:
+        compute_semver_differences(json_output)
