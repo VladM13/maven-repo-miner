@@ -281,13 +281,13 @@ def concurrent_get_normalized_no_of_comments(df, unique_repos, cache_file):
     for index, row in df.iterrows():
         try:
             repo = row['repository']
-            comments = row['no_of_comments']
+            comments = row['comments']
 
             mean = repo_comment_mean.get(repo)
             std = repo_comment_std.get(repo)
 
             if mean and std and std != 0:
-                df.at[index, 'no_of_comments_normalized'] = (comments - mean) / std
+                df.at[index, 'comments_normalized'] = (comments - mean) / std
 
         except Exception as e:
             print(f"Error processing {row['pr_url']}: {e}")

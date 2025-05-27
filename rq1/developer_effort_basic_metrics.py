@@ -1,5 +1,5 @@
 import os
-
+import time
 import pandas as pd
 import requests
 from datetime import datetime
@@ -17,34 +17,56 @@ HEADERS = {
 }
 
 
-def get_pr_data(repo_full_name, pr_number):
-    """Fetch pull request data from GitHub API."""
+def safe_get(url, headers, max_retries=5):
+    """Make a GET request to the GitHub API with rate limit handling."""
 
-    url = f"https://api.github.com/repos/{repo_full_name}/pulls/{pr_number}"
-    response = requests.get(url, headers=HEADERS)
-    if response.status_code != 200:
-        print(f"Failed to fetch PR data for {repo_full_name}#{pr_number}: {response.status_code} - {response.text}")
-        return None
+    for i in range(max_retries):
+        response = requests.get(url, headers=headers)
+        if response.status_code == 200:
+            return response
+        elif response.status_code == 403:
+            wait = 2 ** i
+            print(f"Rate limited. Waiting {wait}s...")
+            time.sleep(wait)
+        else:
+            print(f"Request failed: {response.status_code} - {response.text}")
+            break
 
-    return response.json()
+    return None
 
 
-def get_pr_reviews_count(repo_full_name, pr_number, headers=None):
+def get_pr_reviews_count(repo_full_name, pr_number):
     """Fetch the number of non-empty reviews for a pull request."""
 
-    if headers is None:
-        headers = HEADERS
-
-    url = f"https://api.github.com/repos/{repo_full_name}/pulls/{pr_number}/reviews"
-    response = requests.get(url, headers)
-    if response.status_code != 200:
-        print(f"Failed to fetch PR data for {repo_full_name}#{pr_number}: {response.status_code} - {response.text}")
+    response = safe_get(f"https://api.github.com/repos/{repo_full_name}/pulls/{pr_number}/reviews", HEADERS)
+    if response is None:
         return None
 
     reviews = response.json()
     nonempty_reviews = [review for review in reviews if review.get('body')]
 
     return len(nonempty_reviews)
+
+
+def get_pr_invalid_comments_count(comments_url, review_comments_url):
+    """Count the number of invalid comments in a pull request."""
+
+    invalid_comments = 0
+
+    for url in [comments_url, review_comments_url]:
+        response = safe_get(url, HEADERS)
+        if response is None:
+            return None
+
+        comments = response.json()
+        for comment in comments:
+            if (not comment.get('body') or
+                    '[bot]' in comment.get('user').get('login') or
+                    comment.get('body').lower().startswith('run') or
+                    comment.get('body').lower().startswith('rerun')):
+                invalid_comments += 1
+
+    return invalid_comments
 
 
 def get_issue_date(issue_html_url):
@@ -57,10 +79,8 @@ def get_issue_date(issue_html_url):
     repo_full_name = issue_html_url.split("/")[3] + "/" + issue_html_url.split("/")[4]
     issue_number = issue_html_url.split("/")[-1]
 
-    url = f"https://api.github.com/repos/{repo_full_name}/issues/{issue_number}"
-    response = requests.get(url, headers=HEADERS)
-    if response.status_code != 200:
-        print(f"Failed to fetch issue data for {repo_full_name}#{issue_number}: {response.status_code} - {response.text}")
+    response = safe_get(f"https://api.github.com/repos/{repo_full_name}/issues/{issue_number}", HEADERS)
+    if response is None:
         return None
 
     return response.json().get('created_at')
@@ -69,9 +89,8 @@ def get_issue_date(issue_html_url):
 def count_java_code_changes(repo_full_name, pr_number, diff_url):
     """ Count the number of added and removed lines in Java files from a diff url."""
 
-    response = requests.get(diff_url, headers=HEADERS)
-    if response.status_code != 200:
-        print(f"Failed to fetch diff for {repo_full_name}#{pr_number}: {response.status_code} - {response.text}")
+    response = safe_get(diff_url, HEADERS)
+    if response is None:
         return None
 
     diff_body = response.text.splitlines()
@@ -107,12 +126,15 @@ def main():
         repo_full_name = row['repository']
 
         try:
-            pr_data = get_pr_data(repo_full_name, pr_number)
+            response = safe_get(f"https://api.github.com/repos/{repo_full_name}/pulls/{pr_number}", HEADERS)
+            if response:
+                pr_data = response.json()
 
-            if pr_data:
+                # <------ Calculate total changes ------>
                 if pr_data['additions'] + pr_data['deletions'] <= 5:
                     less_than_5_lines += 1
 
+                # <------ Calculate java code changes ------>
                 # if pr_data['diff_url']:
                 #     total_java_code_changes = count_java_code_changes(repo_full_name, pr_number, pr_data['diff_url'])
                 #     if total_java_code_changes is not None:
@@ -120,10 +142,14 @@ def main():
                 # else:
                 #     print(f"No diff URL for PR {pr_number} in {repo_full_name}")
 
+                # <------ Calculate comments count ------>
                 # total_comments = pr_data['comments'] + pr_data['review_comments']
                 # reviews = get_pr_reviews_count(repo_full_name, pr_number)
-                # df.at[index, 'no_of_comments'] = total_comments + reviews
-                #
+                # df.at[index, 'comments'] = total_comments + reviews
+                # df.at[index, 'pure_comments'] = total_comments + reviews - get_pr_invalid_comments_count(
+                #     pr_data['comments_url'], pr_data['review_comments_url'])
+
+                # <------ Calculate time to merge and detection to resolution ------>
                 # resolved_at = pr_data.get('merged_at')
                 #
                 # if resolved_at:
@@ -146,11 +172,10 @@ def main():
                 #         detected_at_dt = datetime.strptime(detected_at, "%Y-%m-%dT%H:%M:%SZ")
                 #         df.at[index, 'time_from_detection_to_resolution2'] = (resolved_at_dt - detected_at_dt).total_seconds() / 3600  # in hours
 
-
         except Exception as e:
             print(f"Error processing {pr_url}: {e}")
 
-    # df.to_csv(OUTPUT_CSV, index=False)
+    df.to_csv(OUTPUT_CSV, index=False)
     print(f'{less_than_5_lines} PRs ({less_than_5_lines / len(df) * 100:.2f}%) have at most 5 lines of changes')
 
 

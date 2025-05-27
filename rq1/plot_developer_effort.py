@@ -7,7 +7,7 @@ import seaborn as sns
 INPUT_CSV = '../data/final_version_conflict_prs.csv'
 
 
-def create_boxplots(df, columns, labels):
+def create_boxplots(df, columns, labels, figname):
     fig, axes = plt.subplots(nrows=1, ncols=len(columns), figsize=(5.5, 2.5), sharey=False)
 
     if len(columns) == 1:
@@ -33,20 +33,19 @@ def create_boxplots(df, columns, labels):
                 item.set(color='black', linewidth=0.6)
 
         ax.set_title(label, fontsize=8)
-        ax.set_xlabel(f"$\\mu$ = {data.mean():.1f}, $\\tilde{{x}}$ = {np.median(data):.1f}", fontsize=8)
+        ax.set_xlabel(f"$\\tilde{{x}}$ = {np.median(data):.1f}", fontsize=8)
         ax.tick_params(axis='y', labelsize=7, pad=-3)
         ax.set_xticks([])
 
-        # Remove spines for cleaner academic look
         ax.spines['right'].set_visible(False)
         ax.spines['top'].set_visible(False)
 
     # plt.suptitle("Developer Effort Metrics", fontsize=8)
     plt.tight_layout()
-    plt.savefig("figures/boxplots.pgf")
+    plt.savefig(f"figures/{figname}.pgf")
 
 
-def create_histograms(df, col, plot_title, x_axis_label, bins):
+def create_histograms(df, col, x_axis_label, bins):
     data = df[col].dropna().values
 
     fig, ax = plt.subplots(figsize=(4.2, 3.0))
@@ -83,12 +82,20 @@ def main():
 
     df = pd.read_csv(INPUT_CSV)
 
-    columns = ['no_of_comments', 'time_to_merge', 'java_code_changes', 'time_from_detection_to_resolution']
-    labels = ['(a) Comments', '(b) Merge Time (hours)', '(c) Java Code Line\n Changes', '(d) Detection to\n Resolution Time (hours)']
+    create_boxplots(df,
+                    columns=['comments', 'pure_comments'],
+                    labels=['(a) Comments', '(b) Pure Comments'],
+                    figname="developer_effort_metrics_1")
+    print(f"{df['pure_comments'].sum()}/{df['comments'].sum()} comments ({df['pure_comments'].sum() / df['comments'].sum() * 100:.2f}%) are pure (excluding comments for running bot commands and comments created by bots)")
 
-    create_boxplots(df, columns, labels)
-    create_histograms(df, 'time_to_merge_normalized', "Distribution of Normalized Merge Times", "Normalized Merge Time (z-score)", 30)
-    create_histograms(df, 'no_of_comments_normalized', "Distribution of Normalized Comments", "Normalized Comments (z-score)", 45)
+    create_boxplots(df,
+                    columns=['time_to_merge', 'java_code_changes', 'time_from_detection_to_resolution'],
+                    labels=['(c) Merge Time (hours)', '(d) Java Code Line\n Changes', '(e) Detection to\n Resolution Time (hours)'],
+                    figname="developer_effort_metrics_2")
+
+
+    create_histograms(df, 'time_to_merge_normalized', "Normalized Merge Time (z-score)", 30)
+    create_histograms(df, 'comments_normalized', "Normalized Comments (z-score)", 45)
 
 
 if __name__ == "__main__":

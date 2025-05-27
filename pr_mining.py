@@ -8,7 +8,7 @@ from collections import deque
 
 # In the run configuration, you need to set the GITHUB_TOKEN environment variable to your GitHub Personal Access Token
 GITHUB_TOKEN = os.getenv('GITHUB_TOKEN')
-INPUT_CSV = 'java_repos_from_April_2015_min_50_stars_min_50_issues.csv'
+INPUT_CSV = 'data/java_repos_from_April_2015_min_50_stars_min_50_issues.csv'
 OUTPUT_CSV = 'repositories_with_version_conflict_pulls.csv'
 RATE_LIMIT_SLEEP = 10  # seconds
 MAX_WORKERS = 10      # number of parallel threads
@@ -111,7 +111,7 @@ def search_issues_for_repo(repo_full_name):
 
 def main():
     # Uncomment to check rate limit ####
-    # check_rate_limit()
+    check_rate_limit()
 
     df = pd.read_csv(INPUT_CSV)
 
