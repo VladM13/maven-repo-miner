@@ -1,6 +1,7 @@
 /rq1/figures/
 /rq2/temp_repo/
 /rq2/cache/
+/rq2/figures/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

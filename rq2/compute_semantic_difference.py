@@ -30,7 +30,7 @@ def semantic_difference(v1, v2):
 def parse_diff_counts_from_json(input_json):
     diff_counts = {"MAJOR": 0, "MINOR": 0, "PATCH": 0, "OTHER": 0, "INVALID": 0}
 
-    # Structure: {module_name: {MAJOR: <int>, MINOR: <int>, PATCH: <int>, OTHER: <int>}}
+    # Structure: {module_name: {MAJOR: <int>, MINOR: <int>, PATCH: <int>, OTHER: <int>, INVALID: <int>}}
     diff_counts_per_module = {}
 
     with open(input_json, "r") as f:
@@ -114,7 +114,14 @@ def print_and_write_per_module_to_json(data, diff_counts_per_module):
             "INVALID_SEMVER": diff_counts["INVALID"],
             "TOTAL": total_conflicts_in_module
         }
-
+    # Structure:
+    # {pr_url:
+    #   [
+    #       {
+    #           module_name: {MAJOR: <int>, MINOR: <int>, PATCH: <int>, OTHER: <int>, INVALID_SEMVER: <int>, TOTAL: <int>}
+    #       }
+    #   ]
+    # }
     output_data[data['pr_url']] = pr_data
 
     # Write updated result back

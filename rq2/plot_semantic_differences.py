@@ -1,82 +1,143 @@
+import json
+import os
+
+import matplotlib
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
-import os
 
 
-def create_total_category_histogram(df, categories):
-    totals = {cat: df[cat].sum() for cat in categories}
+def plot_total_category_pie(df, categories):
+    category_total_conflicts = {cat: df[cat].sum() for cat in categories}
+    total_conflicts_sum = sum(category_total_conflicts.values())
 
-    fig, ax = plt.subplots(figsize=(6, 3.0))
-    sns.barplot(x=list(totals.keys()), y=list(totals.values()), palette='Set2', edgecolor='black')
+    # Create labels with percentages included
+    labels = [
+        f"{cat}\n{(count / total_conflicts_sum) * 100:.1f}\%"
+        for cat, count in zip(["Major", "Minor", "Patch", "Other", "Invalid SemVer"], category_total_conflicts.values())
+    ]
 
-    ax.set_xlabel("SemVer Difference", fontsize=11)
-    ax.set_ylabel("Version Conflicts", fontsize=11)
+    fig, ax = plt.subplots(figsize=(6, 4))
+    wedges, texts = ax.pie(
+        category_total_conflicts.values(),
+        labels=labels,
+        labeldistance=1.15,
+        startangle=42.5,
+        colors=plt.cm.Set2.colors,
+        wedgeprops={'edgecolor': 'black'}
+    )
+
+    # Set font size for labels
+    for text in texts:
+        text.set_fontsize(16)
+
+    # ax.set_title(f"Semantic Differences in {total_conflicts_sum} Version Conflicts", fontsize=12)
+    plt.tight_layout()
+    # plt.show()
+    plt.savefig("figures/pie_total_by_category.pgf")
+    # plt.close()
+
+
+def print_module_conflicts_summary_table(module_conflicts):
+    module_conflicts_per_category = {
+        "MAJOR": [],
+        "MINOR": [],
+        "PATCH": [],
+        "OTHER": [],
+        "INVALID_SEMVER": [],
+        "TOTAL": []
+    }
+
+    for pr_url, modules in module_conflicts.items():
+        for module, stats in modules.items():
+            for category in module_conflicts_per_category.keys():
+                count = stats.get(category, 0)
+                module_conflicts_per_category[category].append(count)
+
+    summary_data = []
+    for category, counts in module_conflicts_per_category.items():
+        summary_data.append({
+            "Semantic Difference": category,
+            "Min": min(counts),
+            "Max": max(counts),
+            "Median": np.median(counts),
+            "Average": np.mean(counts),
+            "Std Dev": np.std(counts),
+            "Total": sum(counts)
+        })
+
+    # Create DataFrame
+    summary_df = pd.DataFrame(summary_data)
+    summary_df[["Median", "Average", "Std Dev"]] = summary_df[["Median", "Average", "Std Dev"]].round(2)
+
+    # print summary_df without index
+    print(summary_df.to_string(index=False))
+
+
+def plot_category_conflicts_per_module_histogram(module_conflicts, category, bins):
+    module_totals = []
+
+    for pr_url, modules in module_conflicts.items():
+        for module, stats in modules.items():
+            module_totals.append(stats.get(category, 0))
+
+    # Convert to DataFrame for convenience
+    df = pd.DataFrame(module_totals, columns=["conflicts"])
+
+    # Plotting
+    data = df["conflicts"].dropna().values
+
+    fig, ax = plt.subplots(figsize=(4.2, 3.0))
+    sns.histplot(data, bins=bins, ax=ax, color='#7fc173', alpha=0.5,
+                 edgecolor='black', linewidth=0.4)
+
+    # Styling
+    ax.set_xlabel(f"{category} Version Conflicts per Module", fontsize=11)
+    ax.set_ylabel("Pull Requests", fontsize=11)
     ax.tick_params(axis='both', labelsize=10)
+
+    # Vertical line for median
+    median = np.median(data)
+    ax.axvline(x=median, color='black', linestyle=(0, (5, 8)),
+               linewidth=1, label=f"$\\tilde{{x}}$ = {median:.1f}")
+    ax.legend(fontsize=11, loc='upper right')
+
+    # Remove top and right borders
     ax.spines['right'].set_visible(False)
     ax.spines['top'].set_visible(False)
 
     plt.tight_layout()
-    plt.grid(axis='y', linestyle='--', alpha=0.7)
     plt.show()
-    # plt.savefig("figures/histogram_total_by_category.pgf")
-    plt.close()
-
-
-def create_average_diff_per_module_boxplots(df, columns, labels, figname):
-    fig, axes = plt.subplots(nrows=1, ncols=len(columns), figsize=(5.5, 2.5), sharey=True)
-
-    if len(columns) == 1:
-        axes = [axes]
-
-    for ax, col, label in zip(axes, columns, labels):
-        data = df[col].dropna().values
-        data = data / df["num_modules"]  # Normalize by number of modules
-
-        # Violin plot
-        parts = ax.violinplot([data], showmeans=False, showmedians=False, showextrema=False)
-        for pc in parts['bodies']:
-            pc.set_facecolor('#c1ece6')
-            pc.set_edgecolor('black')
-            pc.set_alpha(0.5)
-
-        # Boxplot
-        box = ax.boxplot([data], showfliers=False, widths=0.3, patch_artist=True)
-        for patch in box['boxes']:
-            patch.set(facecolor='white', edgecolor='black', linewidth=0.6)
-        box['medians'][0].set(color='#dd2424', linewidth=0.6)
-        for element in ['whiskers', 'caps']:
-            for item in box[element]:
-                item.set(color='black', linewidth=0.6)
-
-        ax.set_title(label, fontsize=8)
-        ax.set_xlabel(f"$\\tilde{{x}}$ = {np.median(data):.1f}", fontsize=8)
-        ax.tick_params(axis='y', labelsize=7, pad=0)
-        ax.set_xticks([])
-
-        ax.spines['right'].set_visible(False)
-        ax.spines['top'].set_visible(False)
-
-    axes[0].set_ylabel("Avg SemVer Difference per Module", fontsize=8)
-    plt.tight_layout()
-    plt.show()
-    plt.close()
-    # plt.savefig(f"figures/{figname}.pgf")
 
 
 if __name__ == "__main__":
     # Make sure output folder exists
     os.makedirs("figures", exist_ok=True)
 
+    matplotlib.use("pgf")
+    matplotlib.rcParams.update({
+        "pgf.texsystem": "pdflatex",
+        "text.usetex": True,
+        "pgf.rcfonts": False,
+        "font.size": 5,
+    })
+    # sns.set_theme(style="whitegrid", font_scale=0.2, rc={"grid.linewidth": 0.3})
+
     # Load your DataFrame
     df = pd.read_csv("semantic_differences.csv")  # Replace with your actual DataFrame if loaded differently
+    module_conflicts = json.load(open("semantic_differences_per_module.json", "r"))
 
-    print(df[['num_modules', 'total', 'major', 'minor', 'patch', 'other', 'invalid_semver']].sum())
+    print(df[['affected_modules']].sum())
+    print('\n')
 
     # Define your categories
     categories = ['major', 'minor', 'patch', 'other', 'invalid_semver']
 
-    # Call the plotting functions
-    create_total_category_histogram(df, categories)
-    create_average_diff_per_module_boxplots(df, categories, ["Major", "Minor", "Patch", "Other", "Invalid SemVer"], "average_diff_per_module")
+    plot_total_category_pie(df, categories)
+    print_module_conflicts_summary_table(module_conflicts)
+
+    # plot_category_conflicts_per_module_histogram(module_conflicts, category="TOTAL", bins=80)
+    # plot_category_conflicts_per_module_histogram(module_conflicts, category="MAJOR", bins=50)
+    # plot_category_conflicts_per_module_histogram(module_conflicts, category="MINOR", bins=50)
+    # plot_category_conflicts_per_module_histogram(module_conflicts, category="PATCH", bins=50)
