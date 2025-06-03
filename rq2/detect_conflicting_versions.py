@@ -29,13 +29,9 @@ def clone_repo(repo_url: str, repo_dir: str):
         print(f"Repository already cloned at {repo_dir}")
 
 
-def checkout_commit(repo_dir: str, commit_sha: str, before_commit: bool = False):
-    if before_commit:
-        print(f"Checking out the commit before {commit_sha}...")
-        subprocess.run(["git", "-c", "advice.detachedHead=false", "checkout", f'{commit_sha}~1'], cwd=repo_dir, check=True)
-    else:
-        print(f"Checking out commit {commit_sha}...")
-        subprocess.run(["git", "-c", "advice.detachedHead=false", "checkout", commit_sha], cwd=repo_dir, check=True)
+def checkout_commit(repo_dir: str, commit_sha: str):
+    print(f"Checking out commit {commit_sha}...")
+    subprocess.run(["git", "-c", "advice.detachedHead=false", "checkout", commit_sha], cwd=repo_dir, check=True)
 
 
 def run_maven_dependency_tree(repo_dir: str, output_file: str):
@@ -90,11 +86,11 @@ def parse_conflicts_by_module_from_dependency_tree(file_path: str):
     return total_conflicts, affected_modules, dict(module_conflicts)
 
 
-def detect_conflicting_versions(pr_url, repo_url, commit_sha, before_commit, json_output_file):
+def detect_conflicting_versions(pr_url, repo_url, commit_sha, json_output_file):
     repo_path = Path(TEMP_DIR).resolve()
     clone_repo(repo_url, str(repo_path))
 
-    checkout_commit(str(repo_path), commit_sha, before_commit)
+    checkout_commit(str(repo_path), commit_sha)
 
     output_file = "dep_tree.txt"
     total_conflicts = 0
@@ -136,16 +132,14 @@ def process_pr(pr_url, force=False):
     json_output_file = f"cache/conflicts_before_{owner}_{repo}_{pr_number}.json"
 
     if not os.path.exists(json_output_file) or force:
-        total_conflicts = detect_conflicting_versions(pr_url, repo_url, pr_base_sha, before_commit=False,
-                                json_output_file=json_output_file)
+        total_conflicts = detect_conflicting_versions(pr_url, repo_url, pr_base_sha, json_output_file=json_output_file)
         return total_conflicts, json_output_file
     else:
         # Use cached data
         return -1, json_output_file
 
     # print("--------------------------------")
-    # detect_conflicting_versions(pr_url, repo_url, pr_commit_sha, before_commit=False,
-    #                             json_output_file="conflicts_after.json")
+    # detect_conflicting_versions(pr_url, repo_url, pr_commit_sha, json_output_file="conflicts_after.json")
 
 
 # Example usage:

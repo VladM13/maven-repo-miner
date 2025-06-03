@@ -90,7 +90,7 @@ def main():
 
     create_boxplots(df,
                     columns=['time_to_merge', 'java_code_changes', 'time_from_detection_to_resolution'],
-                    labels=['(c) Merge Time (hours)', '(d) Java Code Line\n Changes', '(e) Detection to\n Resolution Time (hours)'],
+                    labels=['(c) Merge Time (hours)', '(d) Java Line Changes', '(e) Detection to\n Resolution Time (hours)'],
                     figname="developer_effort_metrics_2")
 
 
