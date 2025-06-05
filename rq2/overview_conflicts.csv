@@ -1,103 +1,67 @@
-repository,pr_title,pr_url,error,problematic_dependency,semantic_difference,comments,resolution_strategy,script_worked,comments2
+repository,pr_title,pr_url,error,root_cause_dependency,semantic_difference,comments,resolution_strategy,script_worked,comments2
 alfresco/alfresco-community-repo,"Revert ""Bump dependency.log4j.version from 2.23.1 to 2.24.2""",https://github.com/Alfresco/alfresco-community-repo/pull/3063,NoSuchMethodError,org.apache.logging.log4j:log4j-api,MINOR,"other dependencies required log4j-api 2.31.1, but 2.24.2 was loaded",downgrade in own dependencyManagement,1,
 alibaba/nacos,"[ISSUE #7698] refactor: remove httpasyncclient version dependency management,  avoid version conflicts",https://github.com/alibaba/nacos/pull/10170,NoSuchMethodError,org.apache.httpcomponents:httpasyncclient,PATCH,"springboot required httpasyncclient 4.1.5, but 4.1.3 was loaded","remove from own dependencyManagement, use dependencyManagement from springboot",1,
-alldatacenter/alldata,修复 #587 问题 版本,https://github.com/alldatacenter/alldata/pull/595,NoSuchMethodError,net.java.dev.jna:jna,MAJOR,"some modules loaded jna 5.8, while it was managed to 4.1 ",upgrade in own dependencyManagement,1,
-apache/amoro,"[optimizer]For flinkcontainer optimizer, When making a connection via ams in high availability mode, NoSuchMethodError is encountered",https://github.com/apache/amoro/pull/1612,NoSuchMethodError,org.apache.zookeeper:zookeeper,MINOR,"zookeeper 3.7.1 as direct dependency, but another dependency requires 3.4.6",use shade plugin to relocate zookeeper in uber jar,1,
+alldatacenter/alldata,修复 #587 问题 版本,https://github.com/alldatacenter/alldata/pull/595,NoSuchMethodError,net.java.dev.jna:jna,MAJOR,"some modules loaded jna 5.8, while it was managed to 4.1 in others",upgrade in own dependencyManagement,1,
 apache/amoro,[AMORO-2560]Filformat ORC support roll new file for mixed_format,https://github.com/apache/amoro/pull/2561,NoSuchMethodError,org.apache.orc:orc-core,MINOR,"another dependency required orc-core 1.9.1, but 1.7.2 was loaded",upgrade in own dependencyManagement,1,
 apache/beam,[BEAM-3668] Quick workaround fix for netty conflict waiting better fix by BEAM-3519,https://github.com/apache/beam/pull/4653,,,,,,1,
 apache/camel-k-runtime,"Revert ""build(deps): bump logstash-logback-encoder from 7.3 to 7.4""",https://github.com/apache/camel-k-runtime/pull/1053,NoSuchMethodError,ch.qos.logback:logback-classic,MINOR,"parent net.logstash.logback:logstash-logback-encoder required logback-classic >1.3.0, but 1.2.11 was loaded",downgrade parent dependency in own dependencyManagement,1,
 apache/camel-quarkus,"Fix XSLT extension NoSuchMethodError: TransformerFactory.newInstance(String,ClassLoader)",https://github.com/apache/camel-quarkus/pull/736,,,,,,1,
 apache/dolphinscheduler,[Fix-14512][BOM] kubernetes-client version conflict,https://github.com/apache/dolphinscheduler/pull/14561,,,,,,1,
 apache/doris,[Fix](ranger)Resolving JSR 311 conflicts,https://github.com/apache/doris/pull/37575,,,,,,0,no central POM
-apache/doris,[Bug](web) fix web of frontend meet error,https://github.com/apache/doris/pull/19279,,,,,,0,no central POM
-apache/doris,[bug](compile) fix fe compile error,https://github.com/apache/doris/pull/19946,,,,,,0,no central POM
-apache/doris,[Fix](fe)Upgrade hive-catalog-shade version to 1.0.3,https://github.com/apache/doris/pull/18690,,,,,,0,no central POM
-apache/doris,[fix][chore](insert)(fe) Fix analysis error of insert stmt and modify grpc-netty dependency,https://github.com/apache/doris/pull/8265,,,,,,0,no central POM
 apache/dubbo-samples,Bump dubbo-samples-springcloud to jdk17 and springboot3.2.3,https://github.com/apache/dubbo-samples/pull/1130,,,,,,0,Non-resolvable import POM: The following artifacts could not be resolved: org.apache.dubbo:dubbo-bom:pom:3.3.0-beta.2-SNAPSHOT (absent)
-apache/flink-cdc,[FLINK-36858][pipeline-connector][kafka] Fix compatibility with Flink 1.20 JsonRowDataSerializationSchema,https://github.com/apache/flink-cdc/pull/3784,-,,,the PR does not solve a version conflict between dependencies,,1,
+apache/flink-cdc,[FLINK-36858][pipeline-connector][kafka] Fix compatibility with Flink 1.20 JsonRowDataSerializationSchema,https://github.com/apache/flink-cdc/pull/3784,to-remove,,,,,1,
 apache/hop,included stax2 in lib/core to fix NoSuchMethodError in StAX transform…,https://github.com/apache/hop/pull/4606,,,,the dependency was missing before,,1,
 apache/incubator-hugegraph,fix(pd): log4j version conflict & follower NPE,https://github.com/apache/incubator-hugegraph/pull/2339,NoSuchMethodError,org.apache.logging.log4j:log4j-api,PATCH,"another parent dependency (org.apache.logging.log4j:log4j-slf4j-impl) loaded log4j-api 2.17.0, but 2.17.2 was required",exclude the parent dependency,1,
-apache/incubator-seata-samples,fix: fix seata-spring-boot-starter conflict in pom.xml,https://github.com/apache/incubator-seata-samples/pull/680,,,,,,0,"multi-module project, but central POM is empty"
-apache/incubator-seata-samples, fix java.lang.NoSuchMethodError: org.springframework.http.MediaType,https://github.com/apache/incubator-seata-samples/pull/173,to-remove,,,,,1,
-apache/incubator-seata-samples, fix java.lang.NoSuchMethodError: org.springframework.http.MediaType,https://github.com/apache/incubator-seata-samples/pull/171,NoSuchMethodError,org.springframework:spring-web,PATCH,"other dependencies required spring-web 5.1.3, but 5.1.5 was loaded",add the dependency explicitly as a direct dependency,1,conflicts are identical with pull 173
+apache/incubator-seata-samples, fix java.lang.NoSuchMethodError: org.springframework.http.MediaType,https://github.com/apache/incubator-seata-samples/pull/171,NoSuchMethodError,org.springframework:spring-web,PATCH,"other dependencies required spring-web 5.1.3, but 5.1.5 was loaded","add the dependency explicitly as a direct dependency, exclude the transitive dependencies",1,
 apache/inlong,[INLONG-10318][Agent] Add PostgreSQL data source for Agent,https://github.com/apache/inlong/pull/10320,to-remove,,,,,1,
-apache/iotdb,[IOTDB-5772] spark-iotdb-connnector: support scala 2.11 & 2.12 and resolve the Thrift version conflict with Spark's,https://github.com/apache/iotdb/pull/9788,-,,,shade the dependency,,1,
-apache/linkis,Dispose of sqoop engine startup failure due to dependency library conflict,https://github.com/apache/linkis/pull/2356,-,,,,,1,
-apache/linkis,use spring-boot-starter-jetty,https://github.com/apache/linkis/pull/1660,-,,,,,1,
-apache/paimon,[test] Exclude orc dependency to avoid test fails in IDEA,https://github.com/apache/paimon/pull/3588,-,,,,,1,
-apache/pulsar,Rollback protobuf version to 3.5.1,https://github.com/apache/pulsar/pull/8014,,,,,,0,401 - Unauthorized to retrieve a dependency
-apache/pulsar,[Build] Specify release in maven-compiler-plugin configuration on JDK11,https://github.com/apache/pulsar/pull/10343,to-remove,,,,,1,
-apache/pulsar,[tiered storage] Pulsar standalone hangs when s3 offloader is enabled,https://github.com/apache/pulsar/pull/2374,?,,,,exclude the transitive dependency,1,
-apache/pulsar,Include pulsar-client-admin-api in the shaded version of pulsar-client-admin,https://github.com/apache/pulsar/pull/9689,,,,,,1,"multi-module project, but only central POM is resolved"
-apache/pulsar,moving pulsar storm tests under tests,https://github.com/apache/pulsar/pull/3000,,,,,,1,
-apache/pulsar,"Revert ""Upgrade Rocksdb to 6.29.4.1 (#14886)""",https://github.com/apache/pulsar/pull/14962,,,,,,1,
-apache/pulsar,fix dependency issue with pulsar-io-common,https://github.com/apache/pulsar/pull/4398,,,,,,1,
-apache/pulsar,fix #6834:  add pulsar-client-messagecrypto-bc into pulsar-client dependency to avoid method not found,https://github.com/apache/pulsar/pull/7447,,,,,,1,
-apache/pulsar,[branch-2.7] Upgrade the BookKeeper version to 4.12.1,https://github.com/apache/pulsar/pull/16775,,,,,,1,"multi-module project, but only central POM is resolved"
-apache/pulsar,Fix grpc version conflicts in pulsar binary distribution,https://github.com/apache/pulsar/pull/1846,,,,,,1,
+apache/iotdb,[IOTDB-5772] spark-iotdb-connnector: support scala 2.11 & 2.12 and resolve the Thrift version conflict with Spark's,https://github.com/apache/iotdb/pull/9788,-,,,no runtime error reported,use shade plugin to relocate org.apache.thrift in uber jar,1,
+apache/linkis,Dispose of sqoop engine startup failure due to dependency library conflict,https://github.com/apache/linkis/pull/2356,-,,,not enough evidence of runtime error,exclude the transitive dependency,1,
+apache/paimon,[test] Exclude orc dependency to avoid test fails in IDEA,https://github.com/apache/paimon/pull/3588,-,,,not enough evidence of runtime error,undo the exclusion of the transitive dependency,1,
 apache/pulsar,[fix] Upgrade Vertx to match BK's version (otherwise BK does not work),https://github.com/apache/pulsar/pull/20070,,,,,,1,
-apache/pulsar,Fix: split-package conflict while server startup,https://github.com/apache/pulsar/pull/122,,,,,,1,
-apache/pulsar,[client] Make dependency from client side auth plugins to pulsar-client-original optional,https://github.com/apache/pulsar/pull/3957,,,,,,1,
-apache/pulsar,Update gson version to 2.8.6,https://github.com/apache/pulsar/pull/8601,,,,,,0,401 - Unauthorized to retrieve a dependency
-apache/rocketmq-mqtt,Delete logback1.2.3 version conflict,https://github.com/apache/rocketmq-mqtt/pull/227,-,,,"introduced the dependency twice as a direct dependency, but with different versions",remove one of the two direct dependencies,1,
-apache/seatunnel,[hotfix][flink-1.13] fix flink example NPE & NoSuchMethodError,https://github.com/apache/seatunnel/pull/2589,NoSuchMethodError,commons-io:commons-io,MAJOR,"another depedency required commons-io 1.3.2, but 2.11.0 was loaded",remove the direct dependency,1,
-apache/seatunnel,Feature: add spark sink hbase plugin,https://github.com/apache/seatunnel/pull/592,-,,,,upgrade the dependency version,1,
+apache/rocketmq-mqtt,Delete logback1.2.3 version conflict,https://github.com/apache/rocketmq-mqtt/pull/227,-,,,"no runtime error reported; introduced the dependency twice as a direct dependency, but with different versions",remove one of the two direct dependencies,1,
+apache/seatunnel,[hotfix][flink-1.13] fix flink example NPE & NoSuchMethodError,https://github.com/apache/seatunnel/pull/2589,NoSuchMethodError,commons-io:commons-io,MAJOR,"another depedency required commons-io 1.3.2, but 2.11.0 was loaded",remove the parent dependency,1,
 apache/shardingsphere,Fix netty multi version conflict problem,https://github.com/apache/shardingsphere/pull/7299,NoSuchMethodError,io.netty:netty-buffer,PATCH,"another dependency required netty-buffer 4.1.45, but 4.1.42 was loaded",upgrade in own dependencyManagement,1,
 apache/skywalking,Add an agent plugin to support elasticsearch7 ,https://github.com/apache/skywalking/pull/6759,to-remove,,,,,1,
 apache/uniffle,[#1567] fix(spark): Let Spark use its own NettyUtils,https://github.com/apache/uniffle/pull/1565,to-remove,,,,,1,
-apollographql/federation-jvm,"**/pom.xml: Add Maven Enforcer and Dependency plugins, and tidy up build system",https://github.com/apollographql/federation-jvm/pull/123,-,,,discusses dependencyManagement in diff,use dependencyManagement,1,
-awslabs/emr-dynamodb-connector,Remove relocation for AWS SDKv2 dependencies,https://github.com/awslabs/emr-dynamodb-connector/pull/212,-,,,,remove relocation logic and set dependency scope to provided,1,
+apollographql/federation-jvm,"**/pom.xml: Add Maven Enforcer and Dependency plugins, and tidy up build system",https://github.com/apollographql/federation-jvm/pull/123,-,,,no runtime error reported,use dependencyManagement and dependencyConvergence,1,
+awslabs/emr-dynamodb-connector,Remove relocation for AWS SDKv2 dependencies,https://github.com/awslabs/emr-dynamodb-connector/pull/212,-,,,no runtime error reported; the reported ClassCastException is caused by shading,set dependency scope to provided (software.amazon.awssdk:dynamodb),1,
 census-instrumentation/opencensus-java,Example: Update dependency versions.,https://github.com/census-instrumentation/opencensus-java/pull/1527,,,,,,0,no central POM
 citrusframework/yaks,fix[ENTESB-12609]: Spring major version conflicts,https://github.com/citrusframework/yaks/pull/39,,,,,,0,no central POM
 confluentinc/examples,DEVX-2580: Bump Avro version from 1.9.1 to 1.10.1; extend timeout to …,https://github.com/confluentinc/examples/pull/999,,,,,,0,no central POM
 confluentinc/ksql,fix: Upgrade netty to 4.1.89.Final,https://github.com/confluentinc/ksql/pull/10033,NoSuchMethodError,io.netty:netty-handler,PATCH,"another dependency required netty-handler 4.1.87, but 4.1.86 was loaded",upgrade in own dependencyManagement,1,
-confluentinc/ksql,Upgrade netty to 4.1.87.Final,https://github.com/confluentinc/ksql/pull/9904,,,,,,0,Non-resolvable parent POM for io.confluent.ksql:ksqldb-parent:7.5.0-0: The following artifacts could not be resolved: io.confluent:common:pom:7.5.0-665 (absent)
-confluentinc/ksql,chore: bump protobuf version to 3.17.0,https://github.com/confluentinc/ksql/pull/7711,,,,,,0,Non-resolvable parent POM for io.confluent.ksql:ksqldb-parent:5.5.5-SNAPSHOT: The following artifacts could not be resolved: io.confluent:rest-utils-parent:pom:5.5.5-SNAPSHOT (absent)
 consensys/tessera,Bugfix bouncycastle version conflict,https://github.com/Consensys/tessera/pull/736,NoSuchFieldError,org.bouncycastle:bcprov-jdk15on,MINOR,"another dependency required bcprov-jdk15on 1.61, but 1.59 was loaded",upgrade in own dependencyManagement,1,
-eclipse-hawkbit/hawkbit,use vaadin-version placeholder in case of hard-coded vaadin version,https://github.com/eclipse-hawkbit/hawkbit/pull/158,NoSuchMethodError,com.vaadin:vaadin-shared,MINOR,"another dependency required vaadin-shared 7.6.5, but 7.6.3 was loaded",upgrade the dependency version,1,
-eclipse-sw360/sw360,fix(licenseinfo): Exclude old commons-lang3 dependencies,https://github.com/eclipse-sw360/sw360/pull/459,NoSuchMethodError,org.apache.commons:commons-lang3,MINOR,"a module loaded commons-lang3 3.1, while it was managed to 3.8.1",exclude the transitive dependencies,1,
-elastic/apm-agent-java,Attachment without tools.jar,https://github.com/elastic/apm-agent-java/pull/791,NoSuchMethodError,net.java.dev.jna:jna,MINOR,"another dependency required jna 5.3.1, but 5.2.0 was loaded",add the dependency explicitly as a direct dependency,1,
-elastic/apm-agent-java,Fix NoSuchMethodError in external-plugin-test,https://github.com/elastic/apm-agent-java/pull/1312,-,,,,replace with another dependency,1,
+eclipse-hawkbit/hawkbit,use vaadin-version placeholder in case of hard-coded vaadin version,https://github.com/eclipse-hawkbit/hawkbit/pull/158,NoSuchMethodError,com.vaadin:vaadin-shared,MINOR,"another dependency required vaadin-shared 7.6.5, but 7.6.3 was loaded",upgrade in own dependencyManagement,1,
+eclipse-sw360/sw360,fix(licenseinfo): Exclude old commons-lang3 dependencies,https://github.com/eclipse-sw360/sw360/pull/459,NoSuchMethodError,org.apache.commons:commons-lang3,MINOR,"a module loaded commons-lang3 3.1, while other modules managed it to 3.8.1",exclude the transitive dependencies,1,
+elastic/apm-agent-java,Fix NoSuchMethodError in external-plugin-test,https://github.com/elastic/apm-agent-java/pull/1312,NoSuchMethodError,,,the dependency was missing due to it being shaded at runtime,replace with another dependency,1,
 expediagroup/circus-train,"Guava version conflicts, managed dependencies for Google Cloud",https://github.com/ExpediaGroup/circus-train/pull/39,,,,,,0,Unrecognized VM option 'PermSize=256m'
-finos/legend-engine,Fix snakeyaml version,https://github.com/finos/legend-engine/pull/30,-,,,,add the dependency explicitly as a direct dependency,1,
-games647/changeskin,Added latest Guava and SLF4J versions compatibility,https://github.com/TuxCoding/ChangeSkin/pull/238,,,,,,1,
-geysermc/geyser,Relocate Google Common,https://github.com/GeyserMC/Geyser/pull/1242,,,,,,1,
-google/caliper,Moe Sync,https://github.com/google/caliper/pull/421,,,,,,1,
-googleapis/java-bigtable,deps: fix UpperBoundsDep check for checker-qual,https://github.com/googleapis/java-bigtable/pull/941,,,,,,1,
-googleapis/java-bigtable,chore: ensure that transitive deps have the latest version selected,https://github.com/googleapis/java-bigtable/pull/203,,,,,,1,no conflicts
-googleapis/java-spanner,fix: use grpc 1.27.2 to prevent version conflicts,https://github.com/googleapis/java-spanner/pull/105,,,,,,1,
-googleapis/java-storage,build: switch to using junit 5 bom,https://github.com/googleapis/java-storage/pull/2680,,,,,,1,
-googlecloudplatform/cloud-spanner-r2dbc,Revert spring-data-r2dbc to 1.4.4 (reverts #539),https://github.com/GoogleCloudPlatform/cloud-spanner-r2dbc/pull/541,,,,,,1,
-googlecloudplatform/dataflowtemplates,Fix a few dependency conflicts,https://github.com/GoogleCloudPlatform/DataflowTemplates/pull/1838,,,,,,1,
-googlecloudplatform/dataflowtemplates,updated proto-java to 3.21.9 to resolve conflicts,https://github.com/GoogleCloudPlatform/DataflowTemplates/pull/580,,,,,,1,
+finos/legend-engine,Fix snakeyaml version,https://github.com/finos/legend-engine/pull/30,-,,,no runtime error reported,add the dependency explicitly as a direct dependency,1,
+games647/changeskin,Added latest Guava and SLF4J versions compatibility,https://github.com/TuxCoding/ChangeSkin/pull/238,-,,,not enough evidence of runtime error,exclude guava from the shaded jar,1,
+geysermc/geyser,Relocate Google Common,https://github.com/GeyserMC/Geyser/pull/1242,-,,,not enough evidence of runtime error,use shade plugin to relocate google.common in uber jar,1,
+google/caliper,Moe Sync,https://github.com/google/caliper/pull/421,NoSuchMethodError,com.squareup:javapoet,MINOR,"another depedency required javapoet 1.11.1, but 1.9.0 was loaded",add the dependency explicitly as a direct dependency,1,
+googleapis/java-bigtable,deps: fix UpperBoundsDep check for checker-qual,https://github.com/googleapis/java-bigtable/pull/941,-,,,no runtime error reported; build error,exclude the transitive dependencies,1,
+googleapis/java-spanner,fix: use grpc 1.27.2 to prevent version conflicts,https://github.com/googleapis/java-spanner/pull/105,-,,,no runtime error reported; build error,downgrade in own dependencyManagement,1,
+googleapis/java-storage,build: switch to using junit 5 bom,https://github.com/googleapis/java-storage/pull/2680,NoSuchMethodError,org.junit.platform:junit-platform-commons,MINOR,"other dependencies required junit-platform-commons 1.11.0, but 1.10.3 was loaded",use BOM to align all versions,1,
+googlecloudplatform/cloud-spanner-r2dbc,Revert spring-data-r2dbc to 1.4.4 (reverts #539),https://github.com/GoogleCloudPlatform/cloud-spanner-r2dbc/pull/541,NoSuchMethodError,org.springframework.data:spring-data-commons,MINOR,"another dependency required spring-data-commons 2.7.0, but 2.6.4 was loaded",downgrade the parent dependency,1,
+googlecloudplatform/dataflowtemplates,Fix a few dependency conflicts,https://github.com/GoogleCloudPlatform/DataflowTemplates/pull/1838,NoSuchMethodError,ch.qos.logback:logback-core,PATCH,"another dependency required logback-core 1.2.13, but 1.2.10 was loaded",add the dependency explicitly as a direct dependency,1,
 googlecloudplatform/fda-mystudies,[v2.0.6] Fixed issue [Mobile] Studies are not displaying in Study list screen in mobile #3609,https://github.com/GoogleCloudPlatform/fda-mystudies/pull/3610,,,,,,0,no central POM
 googlecloudplatform/pubsub,Update Kafka version number to avoid NoSuchMethodError when running c…,https://github.com/GoogleCloudPlatform/pubsub/pull/42,,,,,,0,no central POM
-googlecloudplatform/spring-cloud-gcp,fix: noSuchMethodError in BigQuerySampleApplicationIntegrationTests #3140,https://github.com/GoogleCloudPlatform/spring-cloud-gcp/pull/3146,,,,,,1,
-hiero-ledger/hiero-mirror-node,Fix NoSuchMethodError during hcs-perf-subscribe-test ,https://github.com/hiero-ledger/hiero-mirror-node/pull/1252,,,,,,1,
-hiero-ledger/hiero-mirror-node,Fix NoSuchMethodError parsing HCS transactions,https://github.com/hiero-ledger/hiero-mirror-node/pull/460,,,,,,0,"Git: This commit does not belong to any branch on this repository, and may belong to a fork outside of the repository."
-hortonworks/streamline,PR on top of STREAMLINE-489 and satish registry api changes PR,https://github.com/hortonworks/streamline/pull/308,,,,,,1,
-hortonworks/streamline,STREAMLINE-521 Fix version conflict for Jersey in Storm runtime,https://github.com/hortonworks/streamline/pull/338,,,,,,1,
-janusgraph/janusgraph,Fix snakeyaml NoSuchMethodError in remote console,https://github.com/JanusGraph/janusgraph/pull/3764,,,,,,1,
-jenkinsci/aws-secrets-manager-credentials-provider-plugin,Bump bom-2.222.x to 16 and aws-java-sdk to 1.11.854,https://github.com/jenkinsci/aws-secrets-manager-credentials-provider-plugin/pull/56,,,,,,1,
-jenkinsci/bitbucket-branch-source-plugin,Fix binary compatibility for PullRequestSCMRevision.getPull,https://github.com/jenkinsci/bitbucket-branch-source-plugin/pull/817,,,,,,1,
-jenkinsci/github-checks-plugin,Add support for GitSCM sources,https://github.com/jenkinsci/github-checks-plugin/pull/26,,,,,,1,
-jenkinsci/opentelemetry-plugin,Use the Jenkins okhttp-api plugin as a dependency to pull OKHTTP preventing version conflicts,https://github.com/jenkinsci/opentelemetry-plugin/pull/293,,,,,,1,
-langchain4j/langchain4j,re #1506 Enable Maven enforcer plugin and fix dependency conflict introduced by `okhttp` dependency in 19 modules.,https://github.com/langchain4j/langchain4j/pull/1645,,,,,,1,
-langchain4j/langchain4j,re #1506 Enabling Maven (version) enforcer plugin in `LangChain4j :: Integration :: OpenAI` module.,https://github.com/langchain4j/langchain4j/pull/1508,,,,,,1,
+googlecloudplatform/spring-cloud-gcp,fix: noSuchMethodError in BigQuerySampleApplicationIntegrationTests #3140,https://github.com/GoogleCloudPlatform/spring-cloud-gcp/pull/3146,NoSuchMethodError,io.opentelemetry:opentelemetry-api,MINOR,"another dependency required opentelemetry-api 1.40.0, but 1.37.0 was loaded",downgrade in own dependencyManagement,1,
+hiero-ledger/hiero-mirror-node,Fix NoSuchMethodError during hcs-perf-subscribe-test ,https://github.com/hiero-ledger/hiero-mirror-node/pull/1252,NoSuchMethodError,io.grpc:grpc-netty-shaded,MINOR,"another dependency required grpc-netty-shaded 1.31.1, but 1.30.2 was loaded",use BOM to align all versions,1,
+hortonworks/streamline,STREAMLINE-521 Fix version conflict for Jersey in Storm runtime,https://github.com/hortonworks/streamline/pull/338,-,,,no runtime error reported,exclude the transitive dependencies,1,
+janusgraph/janusgraph,Fix snakeyaml NoSuchMethodError in remote console,https://github.com/JanusGraph/janusgraph/pull/3764,NoSuchMethodError,org.yaml:snakeyaml,MAJOR,"another dependency required snakeyaml 1.32, but 2.0 was loaded",downgrade the dependency version,1,
+jenkinsci/aws-secrets-manager-credentials-provider-plugin,Bump bom-2.222.x to 16 and aws-java-sdk to 1.11.854,https://github.com/jenkinsci/aws-secrets-manager-credentials-provider-plugin/pull/56,to-remove,,,,,1,
+jenkinsci/bitbucket-branch-source-plugin,Fix binary compatibility for PullRequestSCMRevision.getPull,https://github.com/jenkinsci/bitbucket-branch-source-plugin/pull/817,to-remove,,,,,1,
+jenkinsci/github-checks-plugin,Add support for GitSCM sources,https://github.com/jenkinsci/github-checks-plugin/pull/26,NoClassDefFoundError,com.google.guava:guava,MAJOR,"another dependency required guava 29.0-jre, but 11.0.1 was loaded",add the dependency explicitly as a direct dependency,1,
+jenkinsci/opentelemetry-plugin,Use the Jenkins okhttp-api plugin as a dependency to pull OKHTTP preventing version conflicts,https://github.com/jenkinsci/opentelemetry-plugin/pull/293,-,,,no runtime error reported,"add a new direct dependency that brings in the correct version of the conflicting dependency, exclude the transitive dependencies",1,
+langchain4j/langchain4j,re #1506 Enable Maven enforcer plugin and fix dependency conflict introduced by `okhttp` dependency in 19 modules.,https://github.com/langchain4j/langchain4j/pull/1645,-,,,no runtime error reported,"add the dependency explicitly as a direct dependency, use dependencyConvergence",1,
 linagora/james-project,"Revert ""JAMES-2855 Upgrade junit 5 dependencies""",https://github.com/linagora/james-project/pull/2612,,,,,,1,
-lucko/bungeeguard,Support new BungeeCord API,https://github.com/lucko/BungeeGuard/pull/75,,,,,,1,
+lucko/bungeeguard,Support new BungeeCord API,https://github.com/lucko/BungeeGuard/pull/75,NoSuchMethodError,,,could not generate dependency tree for affected module,upgrade the dependency version,1,
 matsim-org/matsim-libs,Contrib dependency management,https://github.com/matsim-org/matsim-libs/pull/1291,,,,,,1,
-nosqlbench/nosqlbench,Update NBS4J version to 4.0.1 ,https://github.com/nosqlbench/nosqlbench/pull/1353,,,,,,1,
 nosqlbench/nosqlbench,Update and align dependencies,https://github.com/nosqlbench/nosqlbench/pull/2082,,,,,,1,
-nosqlbench/nosqlbench,"Multiple enhancements and minor fixes for NB Pulsar, NB Kafka (S4K), and NB S4J adapters",https://github.com/nosqlbench/nosqlbench/pull/1271,,,,,,1,
-nosqlbench/nosqlbench,"Revert ""[Snyk] Upgrade org.apache.pulsar:pulsar-client from 2.10.4 to 2.11.1""",https://github.com/nosqlbench/nosqlbench/pull/1284,,,,,,1,
-openapitools/openapi-generator,[Java][RESTEasy] Fix version incompatibility,https://github.com/OpenAPITools/openapi-generator/pull/594,,,,,,1,
 openapitools/openapi-generator,[online] Fix for version conflicts with springfox/boot,https://github.com/OpenAPITools/openapi-generator/pull/7102,,,,,,1,
-openapitools/openapi-generator,[CLI] Fix help command,https://github.com/OpenAPITools/openapi-generator/pull/1279,,,,,,1,
 open-feature/java-sdk,fix(deps): Spot bug scope change,https://github.com/open-feature/java-sdk/pull/173,,,,,,1,
 openidentityplatform/openam,FIX cargo-maven3-plugin uberwar: java.lang.NoSuchMethodError: void org.codehaus.plexus.util.xml.Xpp3Dom.<init>,https://github.com/OpenIdentityPlatform/OpenAM/pull/633,,,,,,1,
 openmessaging/benchmark,Issue 391: Update Pravega library versions and deployment script,https://github.com/openmessaging/benchmark/pull/392,,,,,,1,
-openmessaging/benchmark,[ISSUE #265]Fix com/fasterxml/jackson/annotation/JsonKey: NoClassDefoundError,https://github.com/openmessaging/benchmark/pull/266,,,,,,1,
 openshift/jenkins-plugin,workaround okhttp3 version conflicts between plugins,https://github.com/openshift/jenkins-plugin/pull/148,,,,,,0,"Non-resolvable parent POM for com.openshift.jenkins:openshift-pipeline:1.0.49-SNAPSHOT: The following artifacts could not be resolved: org.jenkins-ci.plugins:plugin:pom:1.580.1 (present, but unavailable):"
 opentracing-contrib/java-specialagent,Do not instrument NoPluggabilityServletContext,https://github.com/opentracing-contrib/java-specialagent/pull/47,,,,,,1,
 openzipkin/zipkin-gcp,Packages new guava in the module as it is later than spring boot,https://github.com/openzipkin/zipkin-gcp/pull/72,,,,,,1,
@@ -105,27 +69,20 @@ paladincloud/ce,chore:Upgraded aws-java-sdk version in commons,https://github.co
 pgbulkinsert/pgbulkinsert,Remove explicit dependency on checkerframework.,https://github.com/PgBulkInsert/PgBulkInsert/pull/126,,,,,,0,no central POM
 pinterest/teletraan,fix the jackson library conflict,https://github.com/pinterest/teletraan/pull/621,,,,,,0,no central POM
 powsybl/powsybl-core,Add logback-core explicit dependency in dependencyManagement,https://github.com/powsybl/powsybl-core/pull/1471,,,,,,1,
-prebid/prebid-server-java,Fix Jackson dependency in bundle submodule,https://github.com/prebid/prebid-server-java/pull/1459,,,,,,1,
-prebid/prebid-server-java,Fix httpclient dependency,https://github.com/prebid/prebid-server-java/pull/1476,,,,,,1,conflicts are identical with pull 1459
+prebid/prebid-server-java,Fix httpclient dependency,https://github.com/prebid/prebid-server-java/pull/1476,,,,,,1,
 quarkiverse/quarkus-logging-manager,Attempting to Resolve NoSuchMethodError in Quarkus 3.1.0.Final,https://github.com/quarkiverse/quarkus-logging-manager/pull/199,,,,,,1,no conflicts
 quarkusio/quarkus,"Bump kotlin to 1.5.30, coroutines to 1.5.1, dokka to 1.5.0",https://github.com/quarkusio/quarkus/pull/19632,,,,,,1,
-quarkusio/quarkus,fix: version conflict for http-nio.,https://github.com/quarkusio/quarkus/pull/7393,,,,,,1,
-quarkusio/quarkus,Added org.bouncycastle:bcpkix-jdk15on to bom,https://github.com/quarkusio/quarkus/pull/14025,,,,,,1,
 skuzzle/restrict-imports-enforcer-rule,Bump guava library to get the fix for java.lang.NoSuchMethodError,https://github.com/skuzzle/restrict-imports-enforcer-rule/pull/37,,,,,,1,
 sofastack/sofa-jraft,bugfix: hessian version conflict caused an issue where the serializer could not be customized,https://github.com/sofastack/sofa-jraft/pull/1073,,,,,,1,
 spring-cloud/spring-cloud-dataflow,Fix restdocs generation,https://github.com/spring-cloud/spring-cloud-dataflow/pull/3422,,,,,,0,Non-resolvable parent POM for org.springframework.cloud:spring-cloud-dataflow-parent:2.3.0.BUILD-SNAPSHOT: The following artifacts could not be resolved: org.springframework.cloud:spring-cloud-build:pom:2.2.0.BUILD-SNAPSHOT (absent)
 spring-cloud/spring-cloud-stream,Remove kafka scala dependency management,https://github.com/spring-cloud/spring-cloud-stream/pull/2489,,,,,,1,
-stargate/stargate,Remove use of unshaded guava (fix #1229),https://github.com/stargate/stargate/pull/1253,,,,,,1,
 stargate/stargate,"SGv2: exclude old validation api, update to latest DropWizard",https://github.com/stargate/stargate/pull/1493,,,,,,1,
 StarRocks/starrocks,[BugFix] downgrade jetty to 9.x for hadoop-azure,https://github.com/StarRocks/starrocks/pull/57898,,,,,,0,no central POM
-StarRocks/starrocks,[Enhancement] Support Iceberg rest catalog with vended credential disabled,https://github.com/StarRocks/starrocks/pull/49141,,,,,,0,no central POM
 starrocks/starrocks-connector-for-apache-flink,Fix shade jackson,https://github.com/StarRocks/starrocks-connector-for-apache-flink/pull/163,,,,,,1,
 streamnative/aop,Exclude grpc-related packages from pulsar-broker,https://github.com/streamnative/aop/pull/520,,,,,,1,
 streamnative/kop,Exclude grpc package from pulsar-broker,https://github.com/streamnative/kop/pull/1253,,,,,,1,
-streamnative/kop,upgrade pulsar dependency to 2.8.0-rc-202105251229,https://github.com/streamnative/kop/pull/528,,,,,,1,
 streamnative/mop,Add jackson dependency to avoid compile issue.,https://github.com/streamnative/mop/pull/1406,,,,,,1,
 syndesisio/syndesis,fix: revert `google-api-services-gmail` upgrade,https://github.com/syndesisio/syndesis/pull/7282,,,,,,0,no central POM
-tencent/spring-cloud-tencent,fix guava version conflict bug & fix router strong dependency on Load…,https://github.com/Tencent/spring-cloud-tencent/pull/236,,,,,,1,
 tencent/spring-cloud-tencent,fix not load application.yml bug & fix guava version conflict bug,https://github.com/Tencent/spring-cloud-tencent/pull/284,,,,,,1,
 thingsboard/thingsboard,[3.3.1] Mqtt transport handler test with cleanup old netty versions,https://github.com/thingsboard/thingsboard/pull/5027,,,,,,1,
 trinodb/trino,Introduce IcebergFileWriter and collect file stats directly from ORC writers,https://github.com/trinodb/trino/pull/4055,,,,,,0,"Caused by: java.lang.reflect.InaccessibleObjectException: Unable to make field private final java.util.Comparator java.util.TreeMap.comparator accessible: module java.base does not ""opens java.util"" to unnamed module @7d21852b"
@@ -136,4 +93,3 @@ vaadin/hilla,chore: upgrade flow to fix atmosphere runtime convergence,https://g
 vanroy/spring-data-jest,Upgrade to latest Jest version 5.3.3,https://github.com/VanRoy/spring-data-jest/pull/56,,,,,,1,
 weiye-jing/datax-web,fix: servlet conflict with tomcat,https://github.com/WeiYe-Jing/datax-web/pull/287,,,,,,1,no conflicts
 wesjd/anvilgui,Fix NoSuchMethodError on latest Spigot builds for Minecraft 1.21,https://github.com/WesJD/AnvilGUI/pull/343,,,,,,1,
-wesjd/anvilgui,Fix: NoSuchMethodError on 1.19.1,https://github.com/WesJD/AnvilGUI/pull/222,,,,,,1,
