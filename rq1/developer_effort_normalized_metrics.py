@@ -302,7 +302,7 @@ def main():
     repo_df = repo_df[repo_df['name'].isin(unique_repos)]
     repo_df = repo_df.sort_values(by=["totalPullRequests", "openPullRequests"], ascending=True)
 
-    unique_repos = repo_df['name'].iloc[:75].unique()
+    unique_repos = repo_df['name'].iloc[:72].unique()
 
     # concurrent_get_normalized_time_to_merge(df, unique_repos, cache_file='merge_times_cache.json')
     concurrent_get_normalized_no_of_comments(df, unique_repos, cache_file='comments_cache.json')

@@ -135,42 +135,42 @@ def main():
                     less_than_5_lines += 1
 
                 # <------ Calculate java code changes ------>
-                # if pr_data['diff_url']:
-                #     total_java_code_changes = count_java_code_changes(repo_full_name, pr_number, pr_data['diff_url'])
-                #     if total_java_code_changes is not None:
-                #         df.at[index, 'java_code_changes'] = total_java_code_changes
-                # else:
-                #     print(f"No diff URL for PR {pr_number} in {repo_full_name}")
+                if pr_data['diff_url']:
+                    total_java_code_changes = count_java_code_changes(repo_full_name, pr_number, pr_data['diff_url'])
+                    if total_java_code_changes is not None:
+                        df.at[index, 'java_code_changes'] = total_java_code_changes
+                else:
+                    print(f"No diff URL for PR {pr_number} in {repo_full_name}")
 
                 # <------ Calculate comments count ------>
-                # total_comments = pr_data['comments'] + pr_data['review_comments']
-                # reviews = get_pr_reviews_count(repo_full_name, pr_number)
-                # df.at[index, 'comments'] = total_comments + reviews
-                # df.at[index, 'pure_comments'] = total_comments + reviews - get_pr_invalid_comments_count(
-                #     pr_data['comments_url'], pr_data['review_comments_url'])
+                total_comments = pr_data['comments'] + pr_data['review_comments']
+                reviews = get_pr_reviews_count(repo_full_name, pr_number)
+                df.at[index, 'comments'] = total_comments + reviews
+                df.at[index, 'pure_comments'] = total_comments + reviews - get_pr_invalid_comments_count(
+                    pr_data['comments_url'], pr_data['review_comments_url'])
 
                 # <------ Calculate time to merge and detection to resolution ------>
-                # resolved_at = pr_data.get('merged_at')
-                #
-                # if resolved_at:
-                #     df.at[index, 'resolved_at'] = resolved_at
-                #
-                #     resolved_at_dt = datetime.strptime(resolved_at, "%Y-%m-%dT%H:%M:%SZ")
-                #     created_at = datetime.strptime(pr_data['created_at'], "%Y-%m-%dT%H:%M:%SZ")
-                #     df.at[index, 'time_to_merge'] = (resolved_at_dt - created_at).total_seconds() / 3600  # in hours
-                #
-                #     detected_at = pd.NA
-                #     if pd.notna(row['linked_issue']):
-                #         # Detected_at is the date of the linked issue
-                #         detected_at = get_issue_date(row['linked_issue'])
-                #         df.at[index, 'detected_at'] = detected_at
-                #     elif pd.notna(row['detected_at']):
-                #         # Detected_at was added manually
-                #         detected_at = row['detected_at']
-                #
-                #     if pd.notna(detected_at):
-                #         detected_at_dt = datetime.strptime(detected_at, "%Y-%m-%dT%H:%M:%SZ")
-                #         df.at[index, 'time_from_detection_to_resolution2'] = (resolved_at_dt - detected_at_dt).total_seconds() / 3600  # in hours
+                resolved_at = pr_data.get('merged_at')
+
+                if resolved_at:
+                    df.at[index, 'resolved_at'] = resolved_at
+
+                    resolved_at_dt = datetime.strptime(resolved_at, "%Y-%m-%dT%H:%M:%SZ")
+                    created_at = datetime.strptime(pr_data['created_at'], "%Y-%m-%dT%H:%M:%SZ")
+                    df.at[index, 'time_to_merge'] = (resolved_at_dt - created_at).total_seconds() / 3600  # in hours
+
+                    detected_at = pd.NA
+                    if pd.notna(row['linked_issue']):
+                        # Detected_at is the date of the linked issue
+                        detected_at = get_issue_date(row['linked_issue'])
+                        df.at[index, 'detected_at'] = detected_at
+                    elif pd.notna(row['detected_at']):
+                        # Detected_at was added manually
+                        detected_at = row['detected_at']
+
+                    if pd.notna(detected_at):
+                        detected_at_dt = datetime.strptime(detected_at, "%Y-%m-%dT%H:%M:%SZ")
+                        df.at[index, 'time_from_detection_to_resolution'] = (resolved_at_dt - detected_at_dt).total_seconds() / 3600  # in hours
 
         except Exception as e:
             print(f"Error processing {pr_url}: {e}")
