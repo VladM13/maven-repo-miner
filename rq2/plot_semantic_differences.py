@@ -63,13 +63,12 @@ def print_module_conflicts_summary_table(module_conflicts):
             "Max": max(counts),
             "Median": np.median(counts),
             "Average": np.mean(counts),
-            "Std Dev": np.std(counts),
             "Total": sum(counts)
         })
 
     # Create DataFrame
     summary_df = pd.DataFrame(summary_data)
-    summary_df[["Median", "Average", "Std Dev"]] = summary_df[["Median", "Average", "Std Dev"]].round(2)
+    summary_df[["Median", "Average"]] = summary_df[["Median", "Average"]].round(2)
 
     # print summary_df without index
     print(summary_df.to_string(index=False))
@@ -128,6 +127,17 @@ if __name__ == "__main__":
     df = pd.read_csv("semantic_differences.csv")  # Replace with your actual DataFrame if loaded differently
     module_conflicts = json.load(open("semantic_differences_per_module.json", "r"))
 
+    # Make sure the json file contains only PRs that are in the dataframe
+    # keys_to_delete = [pr for pr in module_conflicts if pr not in df['pr_url'].values]
+    #
+    # # Then, delete them
+    # for pr in keys_to_delete:
+    #     print(pr)
+    #     del module_conflicts[pr]
+    #
+    # json.dump(module_conflicts, open("semantic_differences_per_module.json", "w"), indent=4)
+
+    print(f"{len(df)} PRs with semantic differences found")
     print(df[['affected_modules']].sum())
     print('\n')
 

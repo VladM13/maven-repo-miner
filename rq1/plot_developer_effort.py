@@ -3,44 +3,44 @@ import pandas as pd
 import matplotlib
 import matplotlib.pyplot as plt
 import seaborn as sns
+from matplotlib.ticker import MaxNLocator
 
 INPUT_CSV = '../data/final_version_conflict_prs.csv'
 
 
-def create_boxplots(df, columns, labels, figname):
-    fig, axes = plt.subplots(nrows=1, ncols=len(columns), figsize=(5.5, 2.5), sharey=False)
+def create_boxplot(df, columns, figname):
+    fig, ax = plt.subplots(figsize=(1.5, 2))
 
-    if len(columns) == 1:
-        axes = [axes]
+    data = [df[col].dropna().values for col in columns]
 
-    for ax, col, label in zip(axes, columns, labels):
-        data = df[col].dropna().values
+    # Violin plot
+    parts = ax.violinplot(data, showmeans=False, showmedians=False, showextrema=False)
+    for i, pc in enumerate(parts['bodies']):
+        pc.set_facecolor('#c1ece6')
+        pc.set_edgecolor('black')
+        pc.set_alpha(0.5)
 
-        # Violin plot
-        parts = ax.violinplot([data], showmeans=False, showmedians=False, showextrema=False)
-        for pc in parts['bodies']:
-            pc.set_facecolor('#c1ece6')
-            pc.set_edgecolor('black')
-            pc.set_alpha(0.5)
+    # Boxplot
+    box = ax.boxplot(data, showfliers=False, widths=0.3, patch_artist=True)
+    for patch in box['boxes']:
+        patch.set(facecolor='white', edgecolor='black', linewidth=0.6)
+    for median in box['medians']:
+        median.set(color='#dd2424', linewidth=0.6)
+    for element in ['whiskers', 'caps']:
+        for item in box[element]:
+            item.set(color='black', linewidth=0.6)
 
-        # Boxplot
-        box = ax.boxplot([data], showfliers=False, widths=0.3, patch_artist=True)
-        for patch in box['boxes']:
-            patch.set(facecolor='white', edgecolor='black', linewidth=0.6)
-        box['medians'][0].set(color='#dd2424', linewidth=0.6)
-        for element in ['whiskers', 'caps']:
-            for item in box[element]:
-                item.set(color='black', linewidth=0.6)
+    ax.set_xticks([])
+    ax.tick_params(axis='y', labelsize=8, pad=-3)
 
-        ax.set_title(label, fontsize=8)
-        ax.set_xlabel(f"$\\tilde{{x}}$ = {np.median(data):.1f}", fontsize=8)
-        ax.tick_params(axis='y', labelsize=7, pad=-3)
-        ax.set_xticks([])
+    # Optionally: show medians as x-axis labels
+    medians = [np.median(d) for d in data]
+    ax.set_xlabel(" | ".join(f"$\\tilde{{x}}$ = {med:.1f}" for col, med in zip(columns, medians)),
+                  fontsize=9)
 
-        ax.spines['right'].set_visible(False)
-        ax.spines['top'].set_visible(False)
+    ax.spines['right'].set_visible(False)
+    ax.spines['top'].set_visible(False)
 
-    # plt.suptitle("Developer Effort Metrics", fontsize=8)
     plt.tight_layout()
     plt.savefig(f"figures/{figname}.pgf")
 
@@ -51,13 +51,12 @@ def create_histograms(df, col, x_axis_label, bins):
     fig, ax = plt.subplots(figsize=(4.2, 3.0))
     sns.histplot(data, bins=bins, ax=ax, color='#7fc173', alpha=0.5, edgecolor='black', linewidth=0.4)
 
-    # ax.set_title(plot_title, fontsize=8)
-    ax.set_xlabel(x_axis_label, fontsize=11)
-    ax.set_ylabel("Pull Requests", fontsize=11)
-    ax.tick_params(axis='both', labelsize=10)
+    ax.set_ylabel("PRs", fontsize=14)
+    ax.tick_params(axis='both', labelsize=14)
+    ax.xaxis.set_major_locator(MaxNLocator(integer=True))
 
-    ax.axvline(x=0, color='black', linestyle=(0,(5, 8)), linewidth=1, label='Mean')
-    ax.legend(fontsize=11, loc='upper right')
+    ax.axvline(x=0, color='black', linestyle=(0,(5, 8)), linewidth=1.5, label='Mean')
+    ax.legend(fontsize=14, loc='upper right')
 
     ax.spines['right'].set_visible(False)
     ax.spines['top'].set_visible(False)
@@ -82,21 +81,19 @@ def main():
 
     df = pd.read_csv(INPUT_CSV)
 
-    create_boxplots(df,
-                    columns=['comments', 'pure_comments'],
-                    labels=['(a) Comments', '(b) Pure Comments'],
-                    figname="developer_effort_metrics_1")
+    create_boxplot(df, columns=['comments'], figname='developer_effort_metrics_a')
+    create_boxplot(df, columns=['pure_comments'], figname='developer_effort_metrics_b')
     print(f"{df['pure_comments'].sum()}/{df['comments'].sum()} comments ({df['pure_comments'].sum() / df['comments'].sum() * 100:.2f}%) are pure (excluding comments for running bot commands and comments created by bots)")
 
-    create_boxplots(df,
-                    columns=['time_to_merge', 'java_code_changes', 'time_from_detection_to_resolution'],
-                    labels=['(c) Merge Time (hours)', '(d) Java Line Changes', '(e) Detection to\n Resolution Time (hours)'],
-                    figname="developer_effort_metrics_2")
+    create_boxplot(df, columns=['time_to_merge'], figname='developer_effort_metrics_c')
+    create_boxplot(df, columns=['java_code_changes'], figname='developer_effort_metrics_d')
+    create_boxplot(df, columns=['time_from_detection_to_resolution'], figname='developer_effort_metrics_e')
 
 
     create_histograms(df, 'time_to_merge_normalized', "Normalized Merge Time (z-score)", 30)
-    create_histograms(df, 'comments_normalized', "Normalized Comments (z-score)", 45)
+    create_histograms(df, 'comments_normalized', "Normalized Comments (z-score)", 35)
 
+    print(f"{len(df[df['comments_normalized'].notnull()]['repository'].unique())} repositories in the normalized comments dataset")
 
 if __name__ == "__main__":
     main()
