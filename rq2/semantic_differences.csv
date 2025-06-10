@@ -7,11 +7,9 @@ https://github.com/apache/beam/pull/4653,25,501,2,313,172,0,14
 https://github.com/apache/camel-k-runtime/pull/1053,3,3,0,3,0,0,0
 https://github.com/apache/camel-quarkus/pull/736,4,10,0,1,8,0,1
 https://github.com/apache/dolphinscheduler/pull/14561,111,659,346,153,60,0,100
-https://github.com/apache/flink-cdc/pull/3784,45,1233,138,509,359,0,227
 https://github.com/apache/hop/pull/4606,295,2775,140,1725,172,0,738
 https://github.com/apache/incubator-hugegraph/pull/2339,28,1089,129,589,314,0,57
 https://github.com/apache/incubator-seata-samples/pull/171,29,566,73,173,292,0,28
-https://github.com/apache/inlong/pull/10320,127,2382,279,986,307,27,783
 https://github.com/apache/iotdb/pull/9788,26,578,74,89,114,0,301
 https://github.com/apache/linkis/pull/2356,115,1589,47,1380,134,3,25
 https://github.com/apache/paimon/pull/3588,42,2510,278,1559,436,3,234
@@ -19,8 +17,6 @@ https://github.com/apache/pulsar/pull/20070,131,694,63,394,119,3,115
 https://github.com/apache/rocketmq-mqtt/pull/227,5,11,4,7,0,0,0
 https://github.com/apache/seatunnel/pull/2589,64,1240,205,735,196,0,104
 https://github.com/apache/shardingsphere/pull/7299,8,13,1,2,3,0,7
-https://github.com/apache/skywalking/pull/6759,222,2405,261,770,608,15,751
-https://github.com/apache/uniffle/pull/1565,6,103,2,45,56,0,0
 https://github.com/apollographql/federation-jvm/pull/123,1,18,0,15,3,0,0
 https://github.com/awslabs/emr-dynamodb-connector/pull/212,7,759,76,308,245,0,130
 https://github.com/confluentinc/ksql/pull/10033,23,360,12,236,67,0,45
@@ -40,8 +36,6 @@ https://github.com/GoogleCloudPlatform/spring-cloud-gcp/pull/3146,183,723,348,19
 https://github.com/hiero-ledger/hiero-mirror-node/pull/1252,5,57,9,45,0,1,2
 https://github.com/hortonworks/streamline/pull/338,17,703,100,504,97,0,2
 https://github.com/JanusGraph/janusgraph/pull/3764,1,1,0,0,0,0,1
-https://github.com/jenkinsci/aws-secrets-manager-credentials-provider-plugin/pull/56,1,53,10,21,10,2,10
-https://github.com/jenkinsci/bitbucket-branch-source-plugin/pull/817,1,5,1,0,4,0,0
 https://github.com/jenkinsci/github-checks-plugin/pull/26,1,115,19,42,16,2,36
 https://github.com/jenkinsci/opentelemetry-plugin/pull/293,1,43,15,15,8,0,5
 https://github.com/langchain4j/langchain4j/pull/1645,48,311,25,142,19,7,118
@@ -58,8 +52,7 @@ https://github.com/openzipkin/zipkin-gcp/pull/72,4,10,1,9,0,0,0
 https://github.com/PaladinCloud/CE/pull/341,15,562,151,274,108,0,29
 https://github.com/powsybl/powsybl-core/pull/1471,61,337,1,63,213,0,60
 https://github.com/prebid/prebid-server-java/pull/1476,1,60,3,26,5,0,26
-https://github.com/quarkiverse/quarkus-logging-manager/pull/199,0,0,0,0,0,0,0
-https://github.com/quarkusio/quarkus/pull/19632,8,34,7,12,12,0,3
+https://github.com/quarkusio/quarkus/pull/14025,9,37,3,1,30,0,3
 https://github.com/skuzzle/restrict-imports-enforcer-rule/pull/37,1,10,3,2,0,5,0
 https://github.com/sofastack/sofa-jraft/pull/1073,6,8,0,5,0,0,3
 https://github.com/spring-cloud/spring-cloud-stream/pull/2489,4,20,0,5,13,0,2
