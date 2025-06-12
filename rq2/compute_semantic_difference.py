@@ -126,7 +126,7 @@ def print_and_write_per_module_to_json(data, diff_counts_per_module):
 
     # Write updated result back
     with open(OUTPUT_JSON, "w") as f:
-        json.dump(output_data, f, indent=2)
+        json.dump(output_data, f, indent=4)
 
 
 def compute_semver_differences(input_json):
