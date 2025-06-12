@@ -52,10 +52,11 @@ def create_histograms(df, col, x_axis_label, bins):
     sns.histplot(data, bins=bins, ax=ax, color='#7fc173', alpha=0.5, edgecolor='black', linewidth=0.4)
 
     ax.set_ylabel("PRs", fontsize=14)
+    ax.set_xlabel(x_axis_label, fontsize=14)
     ax.tick_params(axis='both', labelsize=14)
     ax.xaxis.set_major_locator(MaxNLocator(integer=True))
 
-    ax.axvline(x=0, color='black', linestyle=(0,(5, 8)), linewidth=1.5, label='Mean')
+    ax.axvline(x=0, color='black', linestyle=(0,(5, 8)), linewidth=1.5, label='Z-score = 0')
     ax.legend(fontsize=14, loc='upper right')
 
     ax.spines['right'].set_visible(False)
@@ -90,8 +91,8 @@ def main():
     create_boxplot(df, columns=['time_from_detection_to_resolution'], figname='developer_effort_metrics_e')
 
 
-    create_histograms(df, 'time_to_merge_normalized', "Normalized Merge Time (z-score)", 30)
-    create_histograms(df, 'comments_normalized', "Normalized Comments (z-score)", 35)
+    create_histograms(df, 'time_to_merge_normalized', "Merge Time (z-score)", 30)
+    create_histograms(df, 'comments_normalized', "Comments (z-score)", 30)
 
     print(f"{len(df[df['comments_normalized'].notnull()]['repository'].unique())} repositories in the normalized comments dataset")
 
