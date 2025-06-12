@@ -1033,88 +1033,6 @@
             "TOTAL": 1
         }
     },
-    "https://github.com/WesJD/AnvilGUI/pull/343": {
-        "anvilgui-1_18_R1": {
-            "MAJOR": 4,
-            "MINOR": 16,
-            "PATCH": 3,
-            "OTHER": 0,
-            "INVALID_SEMVER": 0,
-            "TOTAL": 23
-        },
-        "anvilgui-1_18_R2": {
-            "MAJOR": 1,
-            "MINOR": 13,
-            "PATCH": 3,
-            "OTHER": 0,
-            "INVALID_SEMVER": 0,
-            "TOTAL": 17
-        },
-        "anvilgui-1_19_1_R1": {
-            "MAJOR": 1,
-            "MINOR": 13,
-            "PATCH": 3,
-            "OTHER": 0,
-            "INVALID_SEMVER": 0,
-            "TOTAL": 17
-        },
-        "anvilgui-1_19_R1": {
-            "MAJOR": 1,
-            "MINOR": 13,
-            "PATCH": 3,
-            "OTHER": 0,
-            "INVALID_SEMVER": 0,
-            "TOTAL": 17
-        },
-        "anvilgui-1_19_R2": {
-            "MAJOR": 8,
-            "MINOR": 13,
-            "PATCH": 3,
-            "OTHER": 0,
-            "INVALID_SEMVER": 0,
-            "TOTAL": 24
-        },
-        "anvilgui-1_19_R3": {
-            "MAJOR": 8,
-            "MINOR": 13,
-            "PATCH": 3,
-            "OTHER": 0,
-            "INVALID_SEMVER": 0,
-            "TOTAL": 24
-        },
-        "anvilgui-1_20_R1": {
-            "MAJOR": 9,
-            "MINOR": 4,
-            "PATCH": 3,
-            "OTHER": 0,
-            "INVALID_SEMVER": 0,
-            "TOTAL": 16
-        },
-        "anvilgui-1_20_R2": {
-            "MAJOR": 9,
-            "MINOR": 12,
-            "PATCH": 5,
-            "OTHER": 0,
-            "INVALID_SEMVER": 0,
-            "TOTAL": 26
-        },
-        "anvilgui-1_20_R3": {
-            "MAJOR": 9,
-            "MINOR": 12,
-            "PATCH": 5,
-            "OTHER": 0,
-            "INVALID_SEMVER": 0,
-            "TOTAL": 26
-        },
-        "anvilgui-1_20_R4": {
-            "MAJOR": 8,
-            "MINOR": 3,
-            "PATCH": 1,
-            "OTHER": 0,
-            "INVALID_SEMVER": 0,
-            "TOTAL": 12
-        }
-    },
     "https://github.com/jenkinsci/github-checks-plugin/pull/26": {
         "github-checks": {
             "MAJOR": 19,
@@ -17721,94 +17639,51 @@
             "TOTAL": 3
         }
     },
-    "https://github.com/VanRoy/spring-data-jest/pull/56": {
-        "spring-data-jest": {
-            "MAJOR": 0,
-            "MINOR": 2,
-            "PATCH": 6,
-            "OTHER": 0,
-            "INVALID_SEMVER": 0,
-            "TOTAL": 8
-        },
-        "spring-boot-starter-data-jest": {
+    "https://github.com/quarkusio/quarkus/pull/7393": {
+        "quarkus-bootstrap-core": {
             "MAJOR": 1,
-            "MINOR": 13,
-            "PATCH": 5,
+            "MINOR": 5,
+            "PATCH": 1,
             "OTHER": 0,
-            "INVALID_SEMVER": 4,
-            "TOTAL": 23
-        },
-        "spring-boot-sample-data-jest": {
-            "MAJOR": 0,
-            "MINOR": 0,
-            "PATCH": 0,
-            "OTHER": 6,
             "INVALID_SEMVER": 0,
-            "TOTAL": 6
+            "TOTAL": 7
         },
-        "spring-boot-sample-data-jest-aws": {
+        "quarkus-bootstrap-maven-plugin": {
             "MAJOR": 1,
-            "MINOR": 1,
-            "PATCH": 0,
-            "OTHER": 6,
-            "INVALID_SEMVER": 0,
-            "TOTAL": 8
-        }
-    },
-    "https://github.com/WeiYe-Jing/datax-web/pull/287": {},
-    "https://github.com/quarkusio/quarkus/pull/14025": {
-        "quarkus-devtools-common": {
-            "MAJOR": 0,
-            "MINOR": 0,
-            "PATCH": 6,
+            "MINOR": 5,
+            "PATCH": 1,
             "OTHER": 0,
             "INVALID_SEMVER": 0,
-            "TOTAL": 6
-        },
-        "quarkus-platform-descriptor-resolver-json": {
-            "MAJOR": 0,
-            "MINOR": 0,
-            "PATCH": 5,
-            "OTHER": 0,
-            "INVALID_SEMVER": 0,
-            "TOTAL": 5
-        },
-        "quarkus-enforcer-rules": {
-            "MAJOR": 3,
-            "MINOR": 0,
-            "PATCH": 0,
-            "OTHER": 0,
-            "INVALID_SEMVER": 0,
-            "TOTAL": 3
+            "TOTAL": 7
         },
         "arc-tests": {
-            "MAJOR": 0,
-            "MINOR": 1,
-            "PATCH": 7,
+            "MAJOR": 2,
+            "MINOR": 5,
+            "PATCH": 3,
             "OTHER": 0,
             "INVALID_SEMVER": 2,
-            "TOTAL": 10
+            "TOTAL": 12
         },
-        "quarkus-micrometer": {
-            "MAJOR": 0,
-            "MINOR": 0,
+        "quarkus-devtools-common": {
+            "MAJOR": 2,
+            "MINOR": 5,
             "PATCH": 1,
             "OTHER": 0,
             "INVALID_SEMVER": 0,
-            "TOTAL": 1
+            "TOTAL": 8
         },
-        "quarkus-hibernate-orm-panache": {
-            "MAJOR": 0,
-            "MINOR": 0,
+        "quarkus-platform-descriptor-resolver-json": {
+            "MAJOR": 2,
+            "MINOR": 5,
             "PATCH": 1,
             "OTHER": 0,
             "INVALID_SEMVER": 0,
-            "TOTAL": 1
+            "TOTAL": 8
         },
-        "quarkus-hibernate-reactive-panache": {
+        "quarkus-container-image-jib-deployment": {
             "MAJOR": 0,
-            "MINOR": 0,
-            "PATCH": 1,
+            "MINOR": 1,
+            "PATCH": 0,
             "OTHER": 0,
             "INVALID_SEMVER": 0,
             "TOTAL": 1
@@ -17818,16 +17693,42 @@
             "MINOR": 0,
             "PATCH": 8,
             "OTHER": 0,
-            "INVALID_SEMVER": 1,
-            "TOTAL": 9
+            "INVALID_SEMVER": 0,
+            "TOTAL": 8
         },
-        "quarkus-integration-test-main": {
+        "quarkus-integration-test-tika": {
             "MAJOR": 0,
             "MINOR": 0,
             "PATCH": 1,
             "OTHER": 0,
             "INVALID_SEMVER": 0,
             "TOTAL": 1
+        }
+    },
+    "https://github.com/WesJD/AnvilGUI/pull/222": {
+        "anvilgui-1_18_R1": {
+            "MAJOR": 4,
+            "MINOR": 16,
+            "PATCH": 3,
+            "OTHER": 0,
+            "INVALID_SEMVER": 0,
+            "TOTAL": 23
+        },
+        "anvilgui-1_18_R2": {
+            "MAJOR": 1,
+            "MINOR": 13,
+            "PATCH": 3,
+            "OTHER": 0,
+            "INVALID_SEMVER": 0,
+            "TOTAL": 17
+        },
+        "anvilgui-1_19_R1": {
+            "MAJOR": 1,
+            "MINOR": 13,
+            "PATCH": 3,
+            "OTHER": 0,
+            "INVALID_SEMVER": 0,
+            "TOTAL": 17
         }
     }
 }
