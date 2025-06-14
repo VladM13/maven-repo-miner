@@ -69,6 +69,29 @@ def create_histograms(df, col, x_axis_label, bins):
     print(f"{less_than_average}/{len(data)} PRs ({less_than_average / len(data) * 100:.2f}%) are below the mean of {col}")
 
 
+def analyze_correlations(df):
+    # print the Spearman correlation between comments, pure_comments, time_to_merge, java_code_changes
+    correlation_df = df[['comments', 'pure_comments', 'time_to_merge', 'java_code_changes']]
+    print(f"Spearman correlation for n = {len(correlation_df)}:")
+    print(correlation_df.corr(method='spearman').to_string())
+
+    # sns.lmplot(x='comments', y='time_to_merge', data=correlation_df)
+    # plt.title('Correlation between Comments and Merge Time')
+    # plt.tight_layout()
+    # plt.show()
+
+    # print the Spearman correlation for the subset that contains time_from_detection_to_resolution
+    subset_correlation_df = df[['time_from_detection_to_resolution', 'comments', 'pure_comments',
+                                'time_to_merge', 'java_code_changes']].dropna()
+    print(f"\nSpearman correlation for n = {len(subset_correlation_df)}:")
+    print(subset_correlation_df.corr(method='spearman').iloc[:1].to_string())
+
+    # sns.lmplot(x='time_from_detection_to_resolution', y='time_to_merge', data=subset_correlation_df)
+    # plt.title('Correlation between Time from Detection to Resolution and Merge Time', fontsize=8)
+    # plt.tight_layout()
+    # plt.show()
+
+
 def main():
     # Configure LaTeX rendering and theme
     matplotlib.use("pgf")
@@ -94,7 +117,10 @@ def main():
     create_histograms(df, 'time_to_merge_normalized', "Merge Time (z-score)", 30)
     create_histograms(df, 'comments_normalized', "Comments (z-score)", 30)
 
-    print(f"{len(df[df['comments_normalized'].notnull()]['repository'].unique())} repositories in the normalized comments dataset")
+    print(f"{len(df[df['comments_normalized'].notnull()]['repository'].unique())} repositories in the normalized comments dataset\n")
+
+    analyze_correlations(df)
+
 
 if __name__ == "__main__":
     main()
