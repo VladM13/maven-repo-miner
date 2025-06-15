@@ -4,7 +4,7 @@ import os
 from semver import Version
 import json
 
-OUTPUT_CSV = 'semantic_differences.csv'
+OUTPUT_CSV = '../data/rq2_semantic_differences.csv'
 OUTPUT_JSON = 'semantic_differences_per_module.json'
 
 

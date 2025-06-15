@@ -124,7 +124,7 @@ if __name__ == "__main__":
     # sns.set_theme(style="whitegrid", font_scale=0.2, rc={"grid.linewidth": 0.3})
 
     # Load your DataFrame
-    df = pd.read_csv("semantic_differences.csv")  # Replace with your actual DataFrame if loaded differently
+    df = pd.read_csv("../data/semantic_differences.csv")  # Replace with your actual DataFrame if loaded differently
     module_conflicts = json.load(open("semantic_differences_per_module.json", "r"))
 
     # Make sure the json file contains only PRs that are in the dataframe

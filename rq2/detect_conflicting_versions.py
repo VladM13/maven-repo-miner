@@ -17,7 +17,7 @@ HEADERS = {
     'Accept': 'application/vnd.github+json'
 }
 MAVEN_CMD = r"C:\Program Files\apache-maven-3.9.4\bin\mvn.cmd"
-INPUT_CSV = 'overview_conflicts.csv'
+INPUT_CSV = '../data/rq2_final_version_conflict_overview.csv'
 TEMP_DIR = "temp_repo"
 
 
