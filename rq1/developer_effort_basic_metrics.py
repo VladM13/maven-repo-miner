@@ -48,10 +48,10 @@ def get_pr_reviews_count(repo_full_name, pr_number):
     return len(nonempty_reviews)
 
 
-def get_pr_invalid_comments_count(comments_url, review_comments_url):
-    """Count the number of invalid comments in a pull request."""
+def count_impure_pr_comments(comments_url, review_comments_url):
+    """Count the number of impure comments in a pull request."""
 
-    invalid_comments = 0
+    impure_comments = 0
 
     for url in [comments_url, review_comments_url]:
         response = safe_get(url, HEADERS)
@@ -64,9 +64,9 @@ def get_pr_invalid_comments_count(comments_url, review_comments_url):
                     '[bot]' in comment.get('user').get('login') or
                     comment.get('body').lower().startswith('run') or
                     comment.get('body').lower().startswith('rerun')):
-                invalid_comments += 1
+                impure_comments += 1
 
-    return invalid_comments
+    return impure_comments
 
 
 def get_issue_date(issue_html_url):
@@ -146,8 +146,8 @@ def main():
                 total_comments = pr_data['comments'] + pr_data['review_comments']
                 reviews = get_pr_reviews_count(repo_full_name, pr_number)
                 df.at[index, 'comments'] = total_comments + reviews
-                df.at[index, 'pure_comments'] = total_comments + reviews - get_pr_invalid_comments_count(
-                    pr_data['comments_url'], pr_data['review_comments_url'])
+                df.at[index, 'impure_comments'] = count_impure_pr_comments(pr_data['comments_url'],
+                                                                           pr_data['review_comments_url'])
 
                 # <------ Calculate time to merge and detection to resolution ------>
                 resolved_at = pr_data.get('merged_at')

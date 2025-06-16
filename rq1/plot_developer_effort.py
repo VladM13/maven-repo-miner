@@ -21,7 +21,18 @@ def create_boxplot(df, columns, figname):
         pc.set_alpha(0.5)
 
     # Boxplot
-    box = ax.boxplot(data, showfliers=False, widths=0.3, patch_artist=True)
+    box = ax.boxplot(
+        data,
+        showfliers=True,
+        widths=0.3,
+        patch_artist=True,
+        flierprops=dict(
+            marker='x',
+            markeredgecolor='black',
+            markersize=5,
+            linestyle='none'
+        )
+    )
     for patch in box['boxes']:
         patch.set(facecolor='white', edgecolor='black', linewidth=0.6)
     for median in box['medians']:
@@ -29,6 +40,8 @@ def create_boxplot(df, columns, figname):
     for element in ['whiskers', 'caps']:
         for item in box[element]:
             item.set(color='black', linewidth=0.6)
+    for flier in box['fliers']:
+        flier.set_alpha(0.5)
 
     ax.set_xticks([])
     ax.tick_params(axis='y', labelsize=8, pad=-3)
@@ -71,7 +84,7 @@ def create_histograms(df, col, x_axis_label, bins):
 
 def analyze_correlations(df):
     # print the Spearman correlation between comments, pure_comments, time_to_merge, java_code_changes
-    correlation_df = df[['comments', 'pure_comments', 'time_to_merge', 'java_code_changes']]
+    correlation_df = df[['comments', 'time_to_merge', 'java_code_changes']]
     print(f"Spearman correlation for n = {len(correlation_df)}:")
     print(correlation_df.corr(method='spearman').to_string())
 
@@ -81,7 +94,7 @@ def analyze_correlations(df):
     # plt.show()
 
     # print the Spearman correlation for the subset that contains time_from_detection_to_resolution
-    subset_correlation_df = df[['time_from_detection_to_resolution', 'comments', 'pure_comments',
+    subset_correlation_df = df[['time_from_detection_to_resolution', 'comments',
                                 'time_to_merge', 'java_code_changes']].dropna()
     print(f"\nSpearman correlation for n = {len(subset_correlation_df)}:")
     print(subset_correlation_df.corr(method='spearman').iloc[:1].to_string())
@@ -106,8 +119,9 @@ def main():
     df = pd.read_csv(INPUT_CSV)
 
     create_boxplot(df, columns=['comments'], figname='developer_effort_metrics_a')
-    create_boxplot(df, columns=['pure_comments'], figname='developer_effort_metrics_b')
-    print(f"{df['pure_comments'].sum()}/{df['comments'].sum()} comments ({df['pure_comments'].sum() / df['comments'].sum() * 100:.2f}%) are pure (excluding comments for running bot commands and comments created by bots)")
+    at_most_5_comments = len(df[df['comments'] <= 5])
+    print(f"{at_most_5_comments}/{len(df)} PRs ({at_most_5_comments / len(df) * 100:.2f}%) have at most 5 comments")
+    print(f"{int(df['impure_comments'].sum())}/{df['comments'].sum()} comments ({df['impure_comments'].sum() / df['comments'].sum() * 100:.2f}%) are impure (comments for running bot commands and comments created by bots)")
 
     create_boxplot(df, columns=['time_to_merge'], figname='developer_effort_metrics_c')
     create_boxplot(df, columns=['java_code_changes'], figname='developer_effort_metrics_d')
