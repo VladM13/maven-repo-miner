@@ -1,7 +1,7 @@
 from collections import Counter
 import pandas as pd
 
-INPUT_CSV = '../data/final_version_conflict_prs_Copy.csv'
+INPUT_CSV = '../data/final_version_conflict_prs.csv'
 OUTPUT_CSV = 'rq3_resolution_strategies.csv'
 
 
