@@ -1,34 +1,34 @@
-resolution_strategy,frequency
-add the dependency explicitly as a direct dependency,17
-exclude the transitive dependency,14
-upgrade the dependency version,13
-upgrade in own dependencyManagement,13
-add the dependency explicitly in the dependencyManagement,12
-exclude the transitive dependencies,10
-upgrade the parent dependency,10
-downgrade in own dependencyManagement,6
-replace with another dependency,6
-use shade plugin to relocate dependency in uber jar,5
-use BOM to align all versions,4
-use dependencyConvergence from Maven Enforcer Plugin,4
-set dependency scope to provided,4
-downgrade the parent dependency,4
-undo the exclusion of the transitive dependency,3
-downgrade the dependency version,3
-use dependencyManagement from springboot,2
-remove the direct dependency,2
-remove the parent dependency,2
-remove from own dependencyManagement,2
-include the dependency in the shaded jar,2
-upgrade parent dependency in own dependencyManagement,2
-downgrade parent dependency in own dependencyManagement,1
-make the depedency optional,1
-use requireUpperBoundDeps rule from Maven Enforcer Plugin,1
-use the shade plugin to relocate parent dependency in uber jar,1
-add a new parent dependency,1
-override classloader behaviour with maven-hpi-plugin (pluginFirstClassLoader),1
-align all dependencies manually,1
-upgrade the BOM version,1
-remove the dependency altogether,1
-exclude the dependency from the shaded jar,1
-use reflection code to handle method incompatibility,1
+resolution_strategy,frequency,category
+add the dependency explicitly as a direct dependency,17,1
+exclude the transitive dependency,14,3
+upgrade the dependency version,13,1
+upgrade in own dependencyManagement,13,2
+add the dependency explicitly in the dependencyManagement,12,2
+exclude the transitive dependencies,10,3
+upgrade the parent dependency,10,1
+downgrade in own dependencyManagement,6,2
+replace with another dependency,6,4
+use shade plugin to relocate dependency in uber jar,5,5
+use BOM to align all versions,4,2
+use dependencyConvergence from Maven Enforcer Plugin,4,6
+set dependency scope to provided,4,6
+downgrade the parent dependency,4,1
+undo the exclusion of the transitive dependency,3,3
+downgrade the dependency version,3,1
+use dependencyManagement from springboot,2,2
+remove the direct dependency,2,4
+remove the parent dependency,2,4
+remove from own dependencyManagement,2,2
+include the dependency in the shaded jar,2,5
+upgrade parent dependency in own dependencyManagement,2,2
+downgrade parent dependency in own dependencyManagement,1,2
+make the depedency optional,1,6
+use requireUpperBoundDeps rule from Maven Enforcer Plugin,1,6
+use shade plugin to relocate parent dependency in uber jar,1,5
+add a new parent dependency,1,4
+override classloader behaviour with maven-hpi-plugin (pluginFirstClassLoader),1,6
+align all dependencies manually,1,2
+upgrade the BOM version,1,2
+remove the dependency altogether,1,4
+exclude the dependency from the shaded jar,1,5
+use reflection code to handle method incompatibility,1,6
