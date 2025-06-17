@@ -1,4 +1,4 @@
-,0
+resolution_strategy,frequency
 add the dependency explicitly as a direct dependency,17
 exclude the transitive dependency,14
 upgrade the dependency version,13
