@@ -31,7 +31,7 @@ def plot_category_barplot(category_df):
     sns.set_theme(style="whitegrid", font_scale=0.2, rc={"grid.linewidth": 0.3})
 
     # Plot horizontal bar chart
-    fig, ax = plt.subplots(figsize=(10, 6))
+    fig, ax = plt.subplots(figsize=(10, 5))
     order = category_df.sort_values(by='Category')['Category']
     sns.barplot(data=category_df, x="PRs", y="Category", palette="deep", ax=ax, order=order)
     ax.set_xlabel("PRs", fontsize=16)
