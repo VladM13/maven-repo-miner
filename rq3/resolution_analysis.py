@@ -45,6 +45,51 @@ def plot_category_barplot(category_df):
     plt.savefig(f"figures/resolution_categories.pgf")
 
 
+def plot_metric_boxplots_by_category(conflicts_per_category, categories):
+    metrics = ['comments', 'time_to_merge', 'java_code_changes']
+    metric_labels = {
+        'comments': 'Number of Comments',
+        'time_to_merge': 'Time to Merge (hours)',
+        'java_code_changes': 'Java Code Changes'
+    }
+
+    for metric in metrics:
+        data = [conflicts_per_category[cat_idx][metric] for cat_idx in sorted(categories.keys())]
+
+        fig, ax = plt.subplots(figsize=(8, 4))
+        box = ax.boxplot(data, patch_artist=True, showfliers=True,
+                         flierprops=dict(marker='o', markeredgecolor='black', markersize=4, alpha=0.5))
+
+        ax.set_title(f'{metric_labels[metric]} by Resolution Strategy Category')
+        ax.set_ylabel(metric_labels[metric])
+        ax.set_xticks(range(1, len(categories) + 1))
+        ax.set_xticklabels([categories[i] + f" ({len(conflicts_per_category[i][metric])} PRs)" for i in sorted(categories.keys())], rotation=30, ha='right')
+        ax.tick_params(axis='both', labelsize=9)
+        plt.tight_layout()
+        plt.savefig(f"figures/{metric}_by_category.png")
+
+
+def analyze_effort_per_resolution_category(categories, df, resolution_counts_df):
+    conflicts_per_category = {}
+
+    for category in categories.keys():
+        conflicts_per_category[category] = {'comments': [], 'time_to_merge': [], 'java_code_changes': []}
+
+    for index, row in df.iterrows():
+        strategies = [s.strip() for s in row['resolution_strategy'].split(',')]
+        for strategy in strategies:
+            if strategy in resolution_counts_df['resolution_strategy'].values:
+                strategy_category = \
+                resolution_counts_df.loc[resolution_counts_df['resolution_strategy'] == strategy].get('category',
+                                                                                                      None).values[0]
+                strategy_category = int(strategy_category)
+                conflicts_per_category[strategy_category]['comments'].append(row['comments'])
+                conflicts_per_category[strategy_category]['time_to_merge'].append(row['time_to_merge'])
+                conflicts_per_category[strategy_category]['java_code_changes'].append(row['java_code_changes'])
+
+    plot_metric_boxplots_by_category(conflicts_per_category, categories)
+
+
 def main():
     df = pd.read_csv(INPUT_CSV)
 
@@ -72,6 +117,8 @@ def main():
         5: "V. Shading dependencies",
         6: "VI. Other"
     }
+
+    # analyze_effort_per_resolution_category(categories, df, resolution_counts_df)
 
     # Count strategies per category
     category_counts = Counter()
