@@ -30,12 +30,16 @@ def plot_category_barplot(category_df):
     })
     sns.set_theme(style="whitegrid", font_scale=0.2, rc={"grid.linewidth": 0.3})
 
+    # drop the 'Other' category if it exists
+    if 'VI. Other' in category_df['Category'].values:
+        category_df = category_df[category_df['Category'] != 'VI. Other']
+
     # Plot horizontal bar chart
-    fig, ax = plt.subplots(figsize=(10, 5))
+    fig, ax = plt.subplots(figsize=(9, 4))
     order = category_df.sort_values(by='Category')['Category']
     sns.barplot(data=category_df, x="PRs", y="Category", palette="deep", ax=ax, order=order)
-    ax.set_xlabel("PRs", fontsize=16)
-    ax.set_ylabel("Resolution Category", fontsize=16)
+    ax.set_xlabel("PRs", fontsize=16, labelpad=5)
+    ax.set_ylabel("Resolution Category", fontsize=16, labelpad=10)
     ax.tick_params(axis='both', labelsize=16)
     ax.tick_params(axis='y', pad=15)
     ax.spines['right'].set_visible(False)
