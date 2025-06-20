@@ -1,0 +1,41 @@
+1. Controlling dependency versions locally - 47
+add the dependency explicitly as a direct dependency,17
+upgrade/downgrade the dependency version,16
+upgrade/downgrade the parent dependency,14
+
+
+2. Managing dependency versions centrally - 44
+add the dependency explicitly in the dependencyManagement,12
+upgrade/downgrade in own dependencyManagement,19
+upgrade/downgrade parent dependency in own dependencyManagement,3
+use dependencyManagement from springboot,2
+remove from own dependencyManagement,2
+use BOM to align all versions,4
+align all dependencies manually,1
+upgrade the BOM version,1
+
+
+3. Managing transitive dependencies - 27
+exclude the transitive dependency/dependencies,24
+undo the exclusion of the transitive dependency,3
+
+
+4. Removing or replacing dependencies - 12
+remove the direct/parent dependency,4
+replace with another dependency,6
+remove the dependency altogether,1
+add a new parent dependency,1
+
+
+5. Shading dependencies - 9
+use shade plugin to relocate dependency/parent dependency in uber jar,6
+include the dependency in the shaded jar,2
+exclude the dependency from the shaded jar,1
+
+
+6. Other - 12
+use dependencyConvergence/requireUpperBoundDeps rules from Maven Enforcer Plugin,5
+set dependency scope to provided,4
+make the depedency optional,1
+use reflection code to handle method incompatibility,1
+override classloader behaviour with maven-hpi-plugin (pluginFirstClassLoader),1
