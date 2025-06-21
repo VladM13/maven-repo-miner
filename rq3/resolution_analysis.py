@@ -35,13 +35,13 @@ def plot_category_barplot(category_df):
         category_df = category_df[category_df['Category'] != 'VI. Other']
 
     # Plot horizontal bar chart
-    fig, ax = plt.subplots(figsize=(9, 4))
+    fig, ax = plt.subplots(figsize=(9, 3.5))
     order = category_df.sort_values(by='Category')['Category']
     sns.barplot(data=category_df, x="PRs", y="Category", palette="deep", ax=ax, order=order)
-    ax.set_xlabel("PRs", fontsize=16, labelpad=5)
-    ax.set_ylabel("Resolution Category", fontsize=16, labelpad=10)
-    ax.tick_params(axis='both', labelsize=16)
-    ax.tick_params(axis='y', pad=15)
+    ax.set_xlabel("PRs", fontsize=17, labelpad=5)
+    ax.set_ylabel("Resolution Category", fontsize=17, labelpad=10)
+    ax.tick_params(axis='both', labelsize=17)
+    ax.tick_params(axis='y', pad=35)
     ax.spines['right'].set_visible(False)
     ax.spines['top'].set_visible(False)
 
