@@ -1,8 +1,8 @@
 import pandas as pd
 
 # In the run configuration, you need to set the GITHUB_TOKEN environment variable to your GitHub Personal Access Token
-INPUT_CSV = 'data/final_version_conflict_prs.csv'
-ALL_REPOS_CSV = 'data/java_repos_from_April_2015_min_50_stars_min_50_issues.csv'
+INPUT_CSV = '../data/final_version_conflict_prs.csv'
+ALL_REPOS_CSV = '../data/java_repos_from_April_2015_min_50_stars_min_50_issues.csv'
 
 
 def print_statistics(df, columns):
