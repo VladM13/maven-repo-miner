@@ -36,6 +36,10 @@ def plot_category_barplot(category_df):
 
     # Plot horizontal bar chart
     fig, ax = plt.subplots(figsize=(9, 3.5))
+
+    ax.set_facecolor("none")  # removes background inside plot area
+    fig.patch.set_facecolor("none")  # removes background around the plot
+
     order = category_df.sort_values(by='Category')['Category']
     sns.barplot(data=category_df, x="PRs", y="Category", palette="deep", ax=ax, order=order)
     ax.set_xlabel("PRs", fontsize=17, labelpad=5)
@@ -116,7 +120,7 @@ def main():
     categories = {
         1: "I. Controlling dependency versions locally",
         2: "II. Managing dependency versions centrally",
-        3: "III. Managing transitive dependencies",
+        3: "III. Excluding transitive dependencies",
         4: "IV. Removing or replacing dependencies",
         5: "V. Shading dependencies",
         6: "VI. Other"

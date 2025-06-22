@@ -18,19 +18,24 @@ def plot_total_category_pie(df, categories):
         for cat, count in zip(["Major", "Minor", "Patch", "Other", "Invalid SemVer"], category_total_conflicts.values())
     ]
 
-    fig, ax = plt.subplots(figsize=(6, 4))
+    fig, ax = plt.subplots(figsize=(5.6, 3.5))
+
+    ax.set_facecolor("none")  # removes background inside plot area
+    fig.patch.set_facecolor("none")  # removes background around the plot
+
     wedges, texts = ax.pie(
         category_total_conflicts.values(),
         labels=labels,
-        labeldistance=1.15,
-        startangle=42.5,
+        labeldistance=1.33,
+        startangle=36,
         colors=plt.cm.Set2.colors,
-        wedgeprops={'edgecolor': 'black'}
+        wedgeprops={'edgecolor': 'black'},
+        radius=0.75
     )
 
     # Set font size for labels
     for text in texts:
-        text.set_fontsize(16)
+        text.set_fontsize(17)
 
     # ax.set_title(f"Semantic Differences in {total_conflicts_sum} Version Conflicts", fontsize=12)
     plt.tight_layout()
@@ -124,7 +129,7 @@ if __name__ == "__main__":
     # sns.set_theme(style="whitegrid", font_scale=0.2, rc={"grid.linewidth": 0.3})
 
     # Load your DataFrame
-    df = pd.read_csv("../data/semantic_differences.csv")  # Replace with your actual DataFrame if loaded differently
+    df = pd.read_csv("../data/rq2_semantic_differences.csv")  # Replace with your actual DataFrame if loaded differently
     module_conflicts = json.load(open("semantic_differences_per_module.json", "r"))
 
     # Make sure the json file contains only PRs that are in the dataframe

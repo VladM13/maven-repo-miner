@@ -11,6 +11,9 @@ INPUT_CSV = '../data/final_version_conflict_prs.csv'
 def create_boxplot(df, columns, figname):
     fig, ax = plt.subplots(figsize=(1.5, 2))
 
+    ax.set_facecolor("none")  # removes background inside plot area
+    fig.patch.set_facecolor("none")  # removes background around the plot
+
     data = [df[col].dropna().values for col in columns]
 
     # # Violin plot

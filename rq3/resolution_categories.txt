@@ -15,7 +15,7 @@ align all dependencies manually,1
 upgrade the BOM version,1
 
 
-3. Managing transitive dependencies - 27
+3. Excluding transitive dependencies - 27
 exclude the transitive dependency/dependencies,24
 undo the exclusion of the transitive dependency,3
 
