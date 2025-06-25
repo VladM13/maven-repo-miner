@@ -5,6 +5,10 @@ This project was used to support an empirical study on version conflicts in Mave
 
 The paper is available [here](https://resolver.tudelft.nl/uuid:767614b7-ba68-4cba-a490-b42f5d226cea).
 
+<img src="https://github.com/user-attachments/assets/e565a101-2700-4bd1-a245-5718485aebbc" alt="Research Poster" width="800"/>
+
+
+
 ## Installation
 To run this project, you will need to have Python 3.10 or higher installed on your machine.
 
