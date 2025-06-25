@@ -1,9 +1,9 @@
 # Repository Miner for Maven Version Conflicts
 
 This project was used to support an empirical study on version conflicts in Maven-based Java projects, as part of the
-CSE3000: Research Project 2024/25 TU Delft course. It uses the GitHub API to mine repositories for Maven version conflicts. 
+[CSE3000: Research Project 2024/25](https://github.com/TU-Delft-CSE/Research-Project) course at TU Delft. It uses the GitHub API to mine Java repositories on GitHub for Maven version conflicts. 
 
-The paper is available _here_.
+The paper is available [here](https://resolver.tudelft.nl/uuid:767614b7-ba68-4cba-a490-b42f5d226cea).
 
 ## Installation
 To run this project, you will need to have Python 3.10 or higher installed on your machine.
